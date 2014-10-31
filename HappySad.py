@@ -37,6 +37,7 @@ def happySadClassifier(happySadScoredWords, taggedSamples):
                 if lm.stem(w) == s["stem"]:
                     s["useCount"] += 1
                     score += s["score"]
+        score = int(score / len(words))
         rating = 5 if score > 3 else 4 if score > 2 else 3 if score > 0 else 2 if score > -2 else 1
         sample.update({"auto-rating":rating})
     
