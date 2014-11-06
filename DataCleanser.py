@@ -1,4 +1,4 @@
-from BeautifulSoup import BeautifulSoup
+from bs4 import BeautifulSoup
 
 #This may work. I have not tested, since I cant get BS working
 def removeTags(html):

@@ -1,7 +1,8 @@
 
-def selectTag(multi_taggedData, tag, removePrefix=false):
+def selectTag(multi_taggedData, tag, removePrefix=False):
     '''Expects a dictionary of multi-tagged data {"text":data, "tags":[tags]}
-       Searches through a multi-tagged (tagged with a list of tags) data set and selects entries with a tag is prefixed by the given tag.
+       Searches through a multi-tagged (tagged with a list of tags) data set and selects entries
+       with a tag that is prefixed by the given tag.
        Returns a list of tuples (data,tag) where tag is only the tags whose prefix matches the passed tag
        If remove prefix is set to True, the prefix is removed from the returned tags'''
     selected = []
@@ -12,4 +13,25 @@ def selectTag(multi_taggedData, tag, removePrefix=false):
                     selected.append((entry["text"], t[len(tag):]))
                 else:
                     selected.append((entry["text"], t))
+                break
+    return selected
+
+def selectTags(multi_taggedData, tags, removePrefix=False):
+    '''Expects a dictionary of multi-tagged data {"text":data, "tags":[tags]}
+       Searches through a multi-tagged (tagged with a list of tags) data set and selects entries with tags that are
+       prefixed by the given tags.
+       Returns a list of tuples (data,tags) where tags are the tags whose prefix matches the passed tags
+       If remove prefix is set to True, the prefix is removed from the returned tags'''
+    selected = []
+    for entry in multi_taggedData:  
+        toAttach = []     
+        for t in entry["tags"]: 
+            for gt in tags:               
+                if t[:len(gt)] == gt:
+                    if removePrefix:
+                        toAttach.append(t[len(gt):])
+                    else:
+                        toAttach.append(t)
+        if len(toAttach) == len(tags):
+            selected.append((entry["text"], toAttach))
     return selected

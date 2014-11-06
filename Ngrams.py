@@ -1,14 +1,19 @@
 from nltk import FreqDist
 
 def getNgrams(tokens, n):
-    ngrams
-    for i in range(len(tokens)-(n-1)):
+    ngrams = []
+    for i in range(len(tokens)-(n)):
         gram = []
-        for j in range(i, i+n-1):
-            gram.append(token[j])
-        ngrams.append(gram)
+        for j in range(i, i+n):
+            gram.append(tokens[j])
+        ngrams.append(" ".join(gram))
+    #print(ngrams)
     return ngrams
 
-def getNgramFreqDist(tokens, n):
-    return FreqDist(getNgrams(tokens, n))
+def gramsAsLists(grams):    
+    return [g.split() for g in grams]
+
+def getNgramFreqDist(tokens, n):  
+    grams = getNgrams(tokens, n)
+    return FreqDist(grams)
 
