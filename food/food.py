@@ -37,9 +37,12 @@ def createReviewArray():
         txt = open(file, encoding='utf-8')
         lines = txt.readlines()
         
-        if '\n' in lines:
+        if '\n' in lines or '\xa0' in lines or '\xa0\n' in lines:
             lines = remove_values_from_list(lines, '\n')
-        
+            lines = remove_values_from_list(lines, '\xa0')
+            lines = remove_values_from_list(lines, '\xa0\n')
+        if len(lines) != 13:
+            print(len(lines), " ", lines)
         trainingReviews.append(lines)
     
 #     print("TRAINING")
@@ -57,9 +60,10 @@ def createReviewArray():
         txt = open(testFile, encoding='utf-8')
         lines = txt.readlines()
         
-        if '\n' in lines:
+        if '\n' in lines or '\xa0' in lines or '\xa0\n' in lines:
             lines = remove_values_from_list(lines, '\n')
-        
+            lines = remove_values_from_list(lines, '\xa0')
+            lines = remove_values_from_list(lines, '\xa0\n')
         testReviews.append(lines)
     return testReviews, trainingReviews
     
