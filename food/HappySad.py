@@ -1,13 +1,31 @@
 import nltk
 from nltk import LancasterStemmer
+import Tokenize
 
-def loadHSWords(filename="happyAndSadWords.txt"):
+def loadHSWords(filename="words/happyAndSadWords3.txt"):
     f = open(filename)
     happySadScoredWords = []
     for line in f.readlines():
         ws = line.split()
-        happySadScoredWords.append({"word":ws[0].strip(), "score":(int(ws[len(ws)-1].strip()))})
+        if len(ws) > 1:
+            happySadScoredWords.append({"word":ws[0].strip(), "score":(int(ws[len(ws)-1].strip()))})
     return happySadScoredWords
+
+def featureBinaryScore(sample):
+    words = Tokenize.byWord(sample)  
+    HSWords = loadHSWords()
+    sentimentWordCount = 0
+    score = 0
+    for w in words:
+        for s in HSWords:
+            if w == s["word"]:
+                score += s["score"]
+                sentimentWordCount +=1
+    #print("Raw score",score)
+    score = int(score / (sentimentWordCount if sentimentWordCount > 0 else 1))
+    rating = "+" if score > -1 else "-"
+    #print("Ours:", rating, "Score", score)
+    return {"HS rating" : rating}
 
 def happySadClassifier(happySadScoredWords, taggedSamples):
     '''Expects happySadScoredWords to be list of dict {"word":word, "score":score}
@@ -56,7 +74,7 @@ def happySadClassifier(happySadScoredWords, taggedSamples):
                     s["useCount"] += 1
                     score += s["score"]
                     sentimentWordCount +=1
-        score = int(score / sentimentWordCount if sentimentWordCount > 0 else 1)
+        score = int(score / (sentimentWordCount if sentimentWordCount > 0 else 1))
         rating = 5 if score > 3 else 4 if score > 2 else 3 if score > -1 else 2 if score > -3 else 1
         sample.update({"auto-rating":rating})
         print("Sample #", sCount, "Human:", sample["overAllRating"], "Ours:", rating, "Score", score)

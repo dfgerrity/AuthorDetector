@@ -2,7 +2,7 @@ import random
 
 
 def extractAll(taggedSamples, featureExtractors):
-    '''Expects taggedSamples to be [data, tag] or (data,tag)
+    '''Expects each taggedSample to be [data, tag] or (data,tag)
        Expects featureExtractors to be list of feature functions
        Automatically sends only the Data part of sample to feature extractors.
        Returns list of feature sets. A feature set is a tuple of 1) a dictionary
@@ -14,7 +14,7 @@ def extractAll(taggedSamples, featureExtractors):
     print("Running",len(featureExtractors),"Extractor(s) on",  len(taggedSamples), "samples")
     for ts in taggedSamples:
         i+=1
-        #print("Extractor features from Sample #", i)
+        print("Extracting features from Sample #", i)
         newFeatureVector = {}
         f=0
         for f in featureExtractors:    
@@ -40,4 +40,25 @@ def getTestandTraining(taggedSamples, featureExtractors, trainWeight=2, testWeig
     print("Divided in to ", trainWeight, "training samples for every", testWeight, "test sample(s)")
     test, training = featureSets[:cutoff], featureSets[cutoff:]
     return test, training
+
+def getNfolds(taggedSamples, featureExtractors, n=5):
+    '''Expects taggedSamples to be [data, tag] or (data,tag) Returns folds[] '''
+    if n < 2:
+        print("Cannot do cross-fold validation on 1 fold. Increasing to 2")
+        n = 2
+    featureSets = extractAll(taggedSamples, featureExtractors)
+    print("Shuffling featuresets")
+    random.shuffle(featureSets)
+    unit = int(len(featureSets) / n)
+    print("Divided in to", n, "folds")
+    folds = []
+    for i in range(n-1):
+        folds.append(featureSets[unit*i:unit*(i+1)])
+    folds.append(featureSets[unit*(n-1):])
+    return folds
+ 
+def unitTests():   
+    folds = getNfolds([(1,1), (2,2),(3,3),(4,4),(5,5),(6,6),(7,7),(8,8),(9,9),(10,10)], [lambda x:{"f":x}], 1)
+    for fold in folds:
+        print(fold)
      

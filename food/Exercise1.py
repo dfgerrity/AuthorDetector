@@ -1,30 +1,30 @@
+import sys 
+sys.path.append("..")
+#import os
+#os.chdir("C:/Users/Dan'l Boone/Documents/GitHub/AuthorDetector/food")
 import food
+import PreProcess
 import HappySad
+import Extractor
+import ClassifierRunner
 
 print("Loading Corpus...")
-testReviews, trainingReviews = food.createReviewArray()
+testParagraphs, trainingParagraphs = PreProcess.getRatedParagraphs()
+print(len(trainingParagraphs))
 
 print("Loading Happy/Sad Words...")
-happySadScoredWords = HappySad.loadHSWords("./words/happyAndSadWords2.txt")
+happySadScoredWords = HappySad.loadHSWords("./words/happyAndSadWords3.txt")
 
-#print(happySadScoredWords)
-#print(trainingReviews)
+print("PART I Just classify by positive or negative where \"+\" = {3,4,5} and \"-\" = {1,2}")
+print("Classify by straight HappySad score mapping:")
+#ourtagsAdded = HappySad.happySadClassifier(happySadScoredWords, trainingParagraphs)
 
-#Tagging every paragraph individually
-taggedParaGraphs = []
-for r in trainingReviews:
-    if len(r) < 13:
-        print("Warning!, Someone didn't have all four paragraphs")
-        #for l in r:
-            #print(l +"\n")
-    else:
-        try:
-            taggedParaGraphs.append({"overAllRating" : int(r[4].split(":")[1].strip()), "text": r[9]})
-            taggedParaGraphs.append({"overAllRating" : int(r[5].split(":")[1].strip()), "text": r[10]})
-            taggedParaGraphs.append({"overAllRating" : int(r[6].split(":")[1].strip()), "text": r[11]})
-            taggedParaGraphs.append({"overAllRating" : int(r[7].split(":")[1].strip()), "text": r[12]})
-        except:
-            print("Bad format")
+print("Classify by using HappySad score as features for:")
+print("Naive Bayes")
+binaryTagTraining = [(e["text"], "+") if e["overAllRating"] in [3,4,5] else (e["text"], "-") for e in trainingParagraphs] 
+binaryTagTesting = [(e["text"], "x") for e in testParagraphs]
+featureExtractors = []
+featureExtractors.append(HappySad.featureBinaryScore)
+trainedClassifiers = ClassifierRunner.runNfoldCrossValidation(ClassifierRunner.naiveBayes, binaryTagTraining, binaryTagTesting, featureExtractors, 4)
 
-#print(taggedParaGraphs)
-ourtagsAdded = HappySad.happySadClassifier(happySadScoredWords, taggedParaGraphs)
+print("PART II Predict lassify by numeric rating 1-5 ")
