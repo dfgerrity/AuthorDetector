@@ -1,18 +1,21 @@
 import nltk
 import Extractor
+import Evaluator
 
 def naiveBayes(training_set, test_set, MIF=5):
     print("Training a new Naive Bayes classifier")
     classifier = nltk.NaiveBayesClassifier.train(training_set)
     print("Running new Naive Bayes classifier")
     accuracy = nltk.classify.accuracy(classifier, test_set)
+    trueLabels = [l for d, l in training_set]
+    predictedLabels = classifier.classify_many([d for d,t in test_set])
     print("Accuracy:",accuracy)
     classifier.show_most_informative_features(MIF)
     def runTrained(tagglessTest_set, MIF=5):        
         print("Running pre-trained Naive Bayes classifier")
         predictions = classifier.classify_many(tagglessTest_set)
         return [e for e in zip(tagglessTest_set, predictions)]
-    return (runTrained, accuracy)
+    return (runTrained, accuracy, trueLabels, predictedLabels)
 
 def maxEnt(training_set, test_set, MIF=5):
     classifier = nltk.classify.ConditionalExponentialClassifier.train(training_set)
@@ -30,8 +33,13 @@ def runNfoldCrossValidation(classifier, trainingSamples, testingSamples, feature
          classifiers.append(classifier(training, folds[i]))
     test_set = Extractor.extractAll(testingSamples, featureExtractors)
     classifiers.sort(key=lambda x: x[1], reverse = True)
+    totalrms = 0
     for i in range(n):
         print("Accuracy for classifier", i+1, ":", classifiers[i][1])
+        rmsError = Evaluator.rmsBinaryDifference(classifiers[i][2], classifiers[i][3])
+        totalrms += rmsError
+        print("RMS Error:", rmsError)
+    print("Average RMS Error", totalrms / n)
     print("Running most accurate trained classifier on test set") 
     predictions = [{"data": e[0], "features" : e[1][0], "predicted_label" : e[1][1]} 
            for e in zip(testingSamples, classifiers[0][0]([data for data, tag in test_set]))] 
