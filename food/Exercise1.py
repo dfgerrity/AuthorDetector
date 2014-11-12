@@ -1,7 +1,7 @@
 import sys 
 sys.path.append("..")
-import os
-os.chdir("C:/Users/Dan'l Boone/Documents/GitHub/AuthorDetector/food")
+#import os
+#os.chdir("C:/Users/Dan'l Boone/Documents/GitHub/AuthorDetector/food")
 import food
 import PreProcess
 import HappySad
