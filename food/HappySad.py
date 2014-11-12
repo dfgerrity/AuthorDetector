@@ -23,7 +23,7 @@ def featureBinaryScore(sample):
                 sentimentWordCount +=1
     #print("Raw score",score)
     score = int(score / (sentimentWordCount if sentimentWordCount > 0 else 1))
-    rating = "+" if score > -1 else "-"
+    rating = "+" if score > 2 else "-"
     #print("Ours:", rating, "Score", score)
     return {"HS rating" : rating}
 
@@ -75,7 +75,7 @@ def happySadClassifier(happySadScoredWords, taggedSamples):
                     score += s["score"]
                     sentimentWordCount +=1
         score = int(score / (sentimentWordCount if sentimentWordCount > 0 else 1))
-        rating = 5 if score > 3 else 4 if score > 2 else 3 if score > -1 else 2 if score > -3 else 1
+        rating = 5 if score > 2 else 4 if score > -1 else 3 if score > -2 else 2 if score > -3 else 1
         sample.update({"auto-rating":rating})
         print("Sample #", sCount, "Human:", sample["overAllRating"], "Ours:", rating, "Score", score)
         if abs(sample["overAllRating"] - sample["auto-rating"]) > 2:
@@ -85,8 +85,8 @@ def happySadClassifier(happySadScoredWords, taggedSamples):
     print("Computing accuracy")
     correct = 0
     for s in taggedSamples:
-        if ((s["overAllRating"] in [3,4,5] and s["auto-rating"] in [3,4,5]) or
-        (s["overAllRating"] in [1,2] and s["auto-rating"] in [1,2])):
+        if ((s["overAllRating"] in [4,5] and s["auto-rating"] in [4,5]) or
+        (s["overAllRating"] in [1,2,3] and s["auto-rating"] in [1,2,3])):
             correct += 1        
 
     accuracy = correct / len(taggedSamples)
