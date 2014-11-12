@@ -11,9 +11,10 @@ def naiveBayes(training_set, test_set, MIF=5):
     predictedLabels = classifier.classify_many([d for d,t in test_set])
     print("Accuracy:",accuracy)
     classifier.show_most_informative_features(MIF)
-    def runTrained(tagglessTest_set, MIF=5):        
+    def runTrained(tagglessTest_set):        
         print("Running pre-trained Naive Bayes classifier")
         predictions = classifier.classify_many(tagglessTest_set)
+        print(predictions)
         return [e for e in zip(tagglessTest_set, predictions)]
     return (runTrained, accuracy, predictedLabels, trueLabels)
 

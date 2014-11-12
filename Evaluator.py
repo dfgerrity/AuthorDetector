@@ -11,8 +11,6 @@ def rmsDifference(prediction, truth):
 def rmsBinaryDifference(prediction, truth):
     '''prediction and truth vectors must be of same length'''
     sumOfSquares = 0
-    print(len(prediction))
-    print(len(truth))
     for i in range(len(truth)):
         if prediction[i] != truth[i]:
             sumOfSquares += math.pow(1, 2)

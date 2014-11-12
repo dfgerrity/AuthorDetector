@@ -50,7 +50,7 @@ def getNfolds(taggedSamples, featureExtractors, n=5):
     print("Shuffling featuresets")
     random.shuffle(featureSets)
     unit = int(len(featureSets) / n)
-    print("Divided in to", n, "folds")
+    print("Divided into", n, "folds")
     folds = []
     for i in range(n-1):
         folds.append(featureSets[unit*i:unit*(i+1)])
