@@ -14,14 +14,45 @@ def naiveBayes(training_set, test_set, MIF=5):
     def runTrained(tagglessTest_set):        
         print("Running pre-trained Naive Bayes classifier")
         predictions = classifier.classify_many(tagglessTest_set)
-        #print(predictions)
+        print(predictions)
         return [e for e in zip(tagglessTest_set, predictions)]
     return (runTrained, accuracy, predictedLabels, trueLabels)
 
+#GIS is the algorithm, we could try IIS, MEGAM and TADM
 def maxEnt(training_set, test_set, MIF=5):
-    classifier = nltk.classify.ConditionalExponentialClassifier.train(training_set)
+    classifier = nltk.classify.MaxentClassifier.train(training_set,"GIS", trace=0, max_iter=1000)
     print(nltk.classify.accuracy(classifier, test_set))
     classifier.show_most_informative_features(5)
+    print("Running new Max Ent classifier")
+    accuracy = nltk.classify.accuracy(classifier, test_set)
+    trueLabels = [l for d, l in test_set]
+    predictedLabels = classifier.classify_many([d for d,t in test_set])
+    print("Accuracy:",accuracy)
+    classifier.show_most_informative_features(MIF)
+    def runTrained(tagglessTest_set):        
+        print("Running pre-trained Max Ent classifier")
+        predictions = classifier.classify_many(tagglessTest_set)
+        print(predictions)
+        return [e for e in zip(tagglessTest_set, predictions)]
+    return (runTrained, accuracy, predictedLabels, trueLabels)
+
+def decisionTree(training_set, test_set, MIF=5):
+    classifier = nltk.classify.DecisionTreeClassifier.train(training_set, entropy_cutoff=0, support_cutoff=0)
+    print(nltk.classify.accuracy(classifier, test_set))
+#     classifier.show_most_informative_features(5)
+    print("Running new Decision Tree classifier")
+    accuracy = nltk.classify.accuracy(classifier, test_set)
+    trueLabels = [l for d, l in test_set]
+    predictedLabels = classifier.classify_many([d for d,t in test_set])
+    print("Accuracy:",accuracy)
+#     classifier.show_most_informative_features(MIF)
+    def runTrained(tagglessTest_set):        
+        print("Running pre-trained Decision Tree classifier")
+        predictions = classifier.classify_many(tagglessTest_set)
+        print(predictions)
+        return [e for e in zip(tagglessTest_set, predictions)]
+    return (runTrained, accuracy, predictedLabels, trueLabels)   
+
 
 def runNfoldCrossValidation(classifier, trainingSamples, testingSamples, featureExtractors, n):
     classifiers = []
@@ -38,7 +69,7 @@ def runNfoldCrossValidation(classifier, trainingSamples, testingSamples, feature
         print("Accuracy for classifier", i+1, ":", classifiers[i][1]) 
     print("Running most accurate trained classifier on test set") 
     predictions = [{"data": e[0], "features" : e[1][0], "predicted_label" : e[1][1]} 
-           for e in zip(testingSamples, classifiers[0][0](test_set))] 
+           for e in zip(testingSamples, classifiers[0][0]([data for data, tag in test_set]))] 
     print("PREDICTIONS:") 
     for i in range(len(predictions)):
         print("Prediction #", i+1, ":", predictions[i])
