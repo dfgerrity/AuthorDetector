@@ -12,6 +12,7 @@ from sys import argv
 
 testReviews = []
 trainingReviews = []
+reviewerToReviewsMap = {}
 
 def createOutPutFiles():
     files = glob.glob("./test/*.html")
@@ -26,6 +27,15 @@ def createOutPutFiles():
 
 def remove_values_from_list(the_list, val):
     return [value for value in the_list if value != val]
+
+def createReviewerToReviewMap():
+    for tuple in trainingReviews:
+
+        if tuple[0] in reviewerToReviewsMap:
+            reviewerToReviewsMap[tuple[0]].append(tuple)
+        else:
+            reviewerToReviewsMap[tuple[0]] = [tuple]
+    return reviewerToReviewsMap
 
 # Written review is given its own index in the array. The next 4 indices
 # are the paragraphs of the review. If we need to join them later we can
@@ -44,6 +54,9 @@ def createReviewArray():
             lines = remove_values_from_list(lines, '\u2019')
         if len(lines) != 13:
             print(len(lines), " ", lines)
+        
+        lines = [s.replace('\xa0', " ") for s in lines]
+        
         trainingReviews.append(lines)
     
 #     print("TRAINING")
@@ -114,5 +127,6 @@ def remove_tags(input_text):
 #Now just pass an HTML formatted text through this function .It remove the tags and return the string
 if __name__ == '__main__':
     createReviewArray()
+    createReviewerToReviewmap()
 
 
