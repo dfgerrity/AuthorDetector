@@ -14,7 +14,7 @@ def naiveBayes(training_set, test_set, MIF=5):
     def runTrained(tagglessTest_set):        
         print("Running pre-trained Naive Bayes classifier")
         predictions = classifier.classify_many(tagglessTest_set)
-        print(predictions)
+        #print(predictions)
         return [e for e in zip(tagglessTest_set, predictions)]
     return (runTrained, accuracy, predictedLabels, trueLabels)
 
@@ -38,7 +38,7 @@ def runNfoldCrossValidation(classifier, trainingSamples, testingSamples, feature
         print("Accuracy for classifier", i+1, ":", classifiers[i][1]) 
     print("Running most accurate trained classifier on test set") 
     predictions = [{"data": e[0], "features" : e[1][0], "predicted_label" : e[1][1]} 
-           for e in zip(testingSamples, classifiers[0][0]([data for data, tag in test_set]))] 
+           for e in zip(testingSamples, classifiers[0][0](test_set))] 
     print("PREDICTIONS:") 
     for i in range(len(predictions)):
         print("Prediction #", i+1, ":", predictions[i])

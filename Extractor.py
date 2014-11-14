@@ -1,11 +1,11 @@
 import random
 
 
-def extractAll(taggedSamples, featureExtractors):
+def extractAllTagged(taggedSamples, featureExtractors):
     '''Expects each taggedSample to be [data, tag] or (data,tag)
        Expects featureExtractors to be list of feature functions
        Automatically sends only the Data part of sample to feature extractors.
-       Returns list of feature sets. A feature set is a tuple of 1) a dictionary
+       Returns list of tagged feature sets. A tagged feature set is a tuple of 1) a dictionary
        for each sample composed of all features extracted from every feature
        extractor running on that sample and 2) the original tag paired with the sample.'''
     featureSets = []
@@ -14,7 +14,7 @@ def extractAll(taggedSamples, featureExtractors):
     print("Running",len(featureExtractors),"Extractor(s) on",  len(taggedSamples), "samples")
     for ts in taggedSamples:
         i+=1
-        print("Extracting features from Sample #", i)
+        #print("Extracting features from Sample #", i)
         newFeatureVector = {}
         f=0
         for f in featureExtractors:    
@@ -27,12 +27,40 @@ def extractAll(taggedSamples, featureExtractors):
                 uid+=1
             newFeatureVector.update(features)
         featureSets.append((newFeatureVector,ts[1]))
-    return featureSets                 
+    return featureSets 
+
+def extractAll(samples, featureExtractors):
+    '''Expects each sample to be the data directly accepted by feature extractors
+       Expects featureExtractors to be list of feature functions
+       Automatically sends only the Data part of sample to feature extractors.
+       Returns list of feature sets. Returns a dictionary
+       for each sample composed of all features extracted from every feature
+       extractor running on that sample.'''
+    featureSets = []
+    uid = 2
+    i=0
+    print("Running",len(featureExtractors),"Extractor(s) on",  len(samples), "samples")
+    for s in samples:
+        i+=1
+        #print("Extracting features from Sample #", i)
+        newFeatureVector = {}
+        f=0
+        for f in featureExtractors:    
+            #print("Running extractor #",f)        
+            features = f(s) # Expects data to be first element
+            if not features.keys().isdisjoint(newFeatureVector.keys()):
+                print("Warning! Two features extractors are claiming the same feature name.")
+                print("Applying automatic disambiguation.") 
+                features = {n+str(uid): v for n,v in features.items()}
+                uid+=1
+            newFeatureVector.update(features)
+        featureSets.append(newFeatureVector)
+    return featureSets                
         
 
 def getTestandTraining(taggedSamples, featureExtractors, trainWeight=2, testWeight=1):
     '''Expects taggedSamples to be [data, tag] or (data,tag) Returns test,training'''
-    featureSets = extractAll(taggedSamples, featureExtractors)
+    featureSets = extractAllTagged(taggedSamples, featureExtractors)
     print("Shuffling featuresets")
     random.shuffle(featureSets)
     unit = int(len(featureSets) / (trainWeight + testWeight))
@@ -46,7 +74,7 @@ def getNfolds(taggedSamples, featureExtractors, n=5):
     if n < 2:
         print("Cannot do cross-fold validation on 1 fold. Increasing to 2")
         n = 2
-    featureSets = extractAll(taggedSamples, featureExtractors)
+    featureSets = extractAllTagged(taggedSamples, featureExtractors)
     print("Shuffling featuresets")
     random.shuffle(featureSets)
     unit = int(len(featureSets) / n)
