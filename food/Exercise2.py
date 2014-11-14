@@ -36,10 +36,21 @@ def partI():
         return {"Food": rating[0], "Service": rating[1], "Venue" : rating[2], "OverallP" : rating[3]}
     featureExtractors = []
     featureExtractors.append(featureParagraphNumericRatings)
+
+    #BASELINE RUN
+    print("Running Baseline")
+    trainedBaseline = ClassifierRunner.runNfoldCrossValidation(ClassifierRunner.mostCommonTag, overallTagTraining, overallTagTesting, featureExtractors, 4)
+    predictionsBaseline = [c[2] for c in trainedBaseline]
+    truthsBaseline = [c[3] for c in trainedBaseline]
+    bRMS = Evaluator.reportAvgBinaryRMS(predictionsBaseline, truthsBaseline)
+
+    #OUR CLASSIFIER RUN
     trainedClassifiers = ClassifierRunner.runNfoldCrossValidation(ClassifierRunner.naiveBayes, overallTagTraining, overallTagTesting, featureExtractors, 4)
     predictions = [c[2] for c in trainedClassifiers]
     truths = [c[3] for c in trainedClassifiers]
-    Evaluator.reportAvgBinaryRMS(predictions, truths)
+    cRMS = Evaluator.reportAvgBinaryRMS(predictions, truths)
+    print("Accuracy improvement over baseline:", trainedClassifiers[0][1] - trainedBaseline[0][1])
+    print("RMS Error reduction from baseline:", bRMS - cRMS)
 
 def partII():
     #Get the classifier from Exercise 1 to compute rating for each paragraph
@@ -59,10 +70,22 @@ def partII():
         return {"Food": rating[0], "Service": rating[1], "Venue" : rating[2], "OverallP" : rating[3]}
     featureExtractors = []
     featureExtractors.append(featureParagraphNumericRatings)
+
+    #BASELINE RUN
+    print("Running Baseline")
+    trainedBaseline = ClassifierRunner.runNfoldCrossValidation(ClassifierRunner.mostCommonTag, overallTagTraining, overallTagTesting, featureExtractors, 4)
+    predictionsBaseline = [c[2] for c in trainedBaseline]
+    truthsBaseline = [c[3] for c in trainedBaseline]
+    bRMS = Evaluator.reportAvgBinaryRMS(predictionsBaseline, truthsBaseline)
+
+    #OUR CLASSIFIER RUN
     trainedClassifiers = ClassifierRunner.runNfoldCrossValidation(ClassifierRunner.naiveBayes, overallTagTraining, overallTagTesting, featureExtractors, 4)
     predictions = [c[2] for c in trainedClassifiers]
     truths = [c[3] for c in trainedClassifiers]
-    Evaluator.reportAvgRMS(predictions, truths)
+    cRMS = Evaluator.reportAvgBinaryRMS(predictions, truths)
+    print("Accuracy improvement over baseline:", trainedClassifiers[0][1] - trainedBaseline[0][1])
+    print("RMS Error reduction from baseline:", bRMS - cRMS)
+
 
 partI()
 #partII()

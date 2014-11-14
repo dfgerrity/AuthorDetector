@@ -59,11 +59,24 @@ def partII():
     numericTagTesting = [e["text"] for e in testParagraphs]
     featureExtractors = []
     featureExtractors.append(HappySad.featureNumericScore)
+    featureExtractors.append(HappySad.featureHitCount)
+
+    #BASELINE RUN
+    print("Running Baseline")
+    trainedBaseline = ClassifierRunner.runNfoldCrossValidation(ClassifierRunner.mostCommonTag, numericTagTraining, numericTagTesting, featureExtractors, 4)
+    predictionsBaseline = [c[2] for c in trainedBaseline]
+    truthsBaseline = [c[3] for c in trainedBaseline]
+    bRMS = Evaluator.reportAvgBinaryRMS(predictionsBaseline, truthsBaseline)
+
+    #OUR CLASSIFIER RUN
     trainedClassifiers = ClassifierRunner.runNfoldCrossValidation(ClassifierRunner.naiveBayes, numericTagTraining, numericTagTesting, featureExtractors, 4)
     predictions = [c[2] for c in trainedClassifiers]
     truths = [c[3] for c in trainedClassifiers]
-    Evaluator.reportAvgRMS(predictions, truths)
+    cRMS = Evaluator.reportAvgBinaryRMS(predictions, truths)
+    print("Accuracy improvement over baseline:", trainedClassifiers[0][1] - trainedBaseline[0][1])
+    print("RMS Error reduction from baseline:", bRMS - cRMS)
+
     return (trainedClassifiers, featureExtractors) # for use in Exercise 2
 
-partI()
-#partII()
+#partI()
+partII()
