@@ -30,7 +30,8 @@ def partI():
     binaryTagTraining = [(e["text"], "+") if e["overAllRating"] in [4,5] else (e["text"], "-") for e in trainingParagraphs] 
     binaryTagTesting = [e["text"] for e in testParagraphs]
     featureExtractors = []
-    featureExtractors.append(HappySad.featureBinaryScore)
+    featureExtractors.append(HappySad.featureNumericScore)
+    #featureExtractors.append(HappySad.featureHitCount)
     trainedClassifiers = ClassifierRunner.runNfoldCrossValidation(ClassifierRunner.naiveBayes, binaryTagTraining, binaryTagTesting, featureExtractors, 4)
     predictions = [c[2] for c in trainedClassifiers]
     truths = [c[3] for c in trainedClassifiers]
@@ -51,5 +52,5 @@ def partII():
     Evaluator.reportAvgRMS(predictions, truths)
     return (trainedClassifiers, featureExtractors) # for use in Exercise 2
 
-#partI()
-partII()
+partI()
+#partII()

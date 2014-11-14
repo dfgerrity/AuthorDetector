@@ -43,6 +43,22 @@ def featureNumericScore(sample):
     #print("Ours:", rating, "Score", score)
     return {"HS raw score" : score}
 
+def featureHitCount(sample):
+    words = Tokenize.byWord(sample)  
+    HSWords = loadHSWords()
+    sentimentWordCount = 0
+    score = 0
+    for w in words:
+        for s in HSWords:
+            if w == s["word"]:
+                score += s["score"]
+                sentimentWordCount +=1
+    #print("Raw score",score)
+    score = int(score / (sentimentWordCount if sentimentWordCount > 0 else 1))
+    #rating = 5 if score > 2 else 4 if score > 1 else 3 if score > -2 else 2 if score > -3 else 1
+    #print("Ours:", rating, "Score", score)
+    return {"HS hit count" : sentimentWordCount}
+
 def happySadClassifier(happySadScoredWords, taggedSamples):
     '''Expects happySadScoredWords to be list of dict {"word":word, "score":score}
        Expects each taggedSample in the form {"text" : "text", "overAllRating": number}'''
