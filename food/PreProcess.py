@@ -50,3 +50,37 @@ def getRatedParagraphs():
                 print("Bad format")
                 print(r)
     return testParaGraphs, taggedParaGraphs 
+
+def getRatedReviews():
+    print("Loading Files")
+    testReviews, trainingReviews = food.createReviewArray()
+    trainingReviews = sanitize(trainingReviews)
+    testReviews = sanitize(testReviews)
+    #Tagging every training review individually as four paragaphs and 1 overall rating label
+    print("Tagging Training data by paragraph")
+    trainingRatedReviews = []
+    for r in trainingReviews:
+        if len(r) < 13:
+            print("Warning!, Someone didn't have all four paragraphs")
+            #for l in r:
+                #print(l +"\n")
+        else:
+            try:
+                trainingRatedReviews.append({"overAllRating" : int(r[7].split(":")[1].strip()), "p1": r[9], "p2": r[10],"p3": r[11],"p4": r[12]})
+            except:
+                print("Bad format")
+    #Tagging every testing review individually
+    print("Tagging Testing data by paragraph")
+    testRatedReviews = []
+    for r in testReviews:
+        if len(r) < 13:
+            print("Warning!, Someone didn't have all four paragraphs")
+            #for l in r:
+                #print(l +"\n")
+        else:
+            try:
+                testRatedReviews.append({"overAllRating" : "unknown", "p1": r[9], "p2": r[10],"p3": r[11],"p4": r[12]})
+            except:
+                print("Bad format")
+                print(r)
+    return testRatedReviews, trainingRatedReviews

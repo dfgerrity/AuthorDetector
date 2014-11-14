@@ -23,7 +23,7 @@ def featureBinaryScore(sample):
                 sentimentWordCount +=1
     #print("Raw score",score)
     score = int(score / (sentimentWordCount if sentimentWordCount > 0 else 1))
-    rating = "+" if score > 2 else "-"
+    rating = "+" if score > -1 else "-"
     #print("Ours:", rating, "Score", score)
     return {"HS rating" : rating}
 
