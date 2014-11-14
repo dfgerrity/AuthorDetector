@@ -1,6 +1,27 @@
 import nltk
+from nltk import FreqDist
 import Extractor
 import Evaluator
+
+def mostCommonTag(training_set, test_set):
+    print("Training a new Most Common Tag baseline classifier")
+    tags = [tag for data, tag in training_set]
+    fd = sorted([entry for entry in FreqDist(tags).items()], key=lambda x: x[1], reverse = True)
+    mct = fd[0][0]
+    def classify(samples):
+        return [mct for s in samples]
+    print("Running new Most Common Tag baseline Bayes classifier")
+    accuracy = len([1 for data,tag in test_set if tag == mct])/len(test_set)
+    trueLabels = [l for d, l in test_set]
+    predictedLabels = classify([d for d,t in test_set])
+    print("Accuracy:",accuracy)
+    def runTrained(tagglessTest_set):        
+        print("Running pre-trained Most Common Tag baseline classifier")
+        predictions = classify(tagglessTest_set)
+        print("Predicted Labels:",predictions)
+        return [e for e in zip(tagglessTest_set, predictions)]
+    return (runTrained, accuracy, predictedLabels, trueLabels)
+
 
 def naiveBayes(training_set, test_set, MIF=5):
     print("Training a new Naive Bayes classifier")
@@ -14,7 +35,7 @@ def naiveBayes(training_set, test_set, MIF=5):
     def runTrained(tagglessTest_set):        
         print("Running pre-trained Naive Bayes classifier")
         predictions = classifier.classify_many(tagglessTest_set)
-        print(predictions)
+        print("Predicted Labels:",predictions)
         return [e for e in zip(tagglessTest_set, predictions)]
     return (runTrained, accuracy, predictedLabels, trueLabels)
 
@@ -32,7 +53,7 @@ def maxEnt(training_set, test_set, MIF=5):
     def runTrained(tagglessTest_set):        
         print("Running pre-trained Max Ent classifier")
         predictions = classifier.classify_many(tagglessTest_set)
-        print(predictions)
+        print("Predicted Labels:",predictions)
         return [e for e in zip(tagglessTest_set, predictions)]
     return (runTrained, accuracy, predictedLabels, trueLabels)
 
@@ -49,7 +70,7 @@ def decisionTree(training_set, test_set, MIF=5):
     def runTrained(tagglessTest_set):        
         print("Running pre-trained Decision Tree classifier")
         predictions = classifier.classify_many(tagglessTest_set)
-        print(predictions)
+        print("Predicted Labels:",predictions)
         return [e for e in zip(tagglessTest_set, predictions)]
     return (runTrained, accuracy, predictedLabels, trueLabels)   
 

@@ -25,6 +25,7 @@ def reportAvgBinaryRMS(predictions, truths):
         totalrms += rmsError
         print("RMS Error:", rmsError)
     print("Average RMS Error", totalrms / len(predictions))
+    return totalrms / len(predictions)
 
 def reportAvgRMS(predictions, truths):
     '''predictions and truths vectors must be of same length'''
@@ -34,3 +35,4 @@ def reportAvgRMS(predictions, truths):
         totalrms += rmsError
         print("RMS Error:", rmsError)
     print("Average RMS Error", totalrms / len(predictions))
+    return totalrms / len(predictions)
