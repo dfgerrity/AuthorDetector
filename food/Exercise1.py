@@ -27,7 +27,7 @@ def partI():
     #ourtagsAdded = HappySad.happySadClassifier(happySadScoredWords, trainingParagraphs)
     print("Classify by using HappySad score as features for:")
     print("Naive Bayes")
-    binaryTagTraining = [(e["text"], "+") if e["overAllRating"] in [3,4,5] else (e["text"], "-") for e in trainingParagraphs] 
+    binaryTagTraining = [(e["text"], "+") if e["overAllRating"] in [4,5] else (e["text"], "-") for e in trainingParagraphs] 
     binaryTagTesting = [e["text"] for e in testParagraphs]
     featureExtractors = []
     featureExtractors.append(HappySad.featureBinaryScore)
@@ -35,6 +35,7 @@ def partI():
     predictions = [c[2] for c in trainedClassifiers]
     truths = [c[3] for c in trainedClassifiers]
     Evaluator.reportAvgBinaryRMS(predictions, truths)
+    return (trainedClassifiers, featureExtractors) # for use in Exercise 2
 
 def partII():
     print("PART II Predict classify by numeric rating 1-5 ")

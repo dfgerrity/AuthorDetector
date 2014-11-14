@@ -2,7 +2,7 @@ import nltk
 from nltk import LancasterStemmer
 import Tokenize
 
-def loadHSWords(filename="words/happyAndSadWords3.txt"):
+def loadHSWords(filename="words/happyAndSadWords.txt"):
     f = open(filename)
     happySadScoredWords = []
     for line in f.readlines():
@@ -23,7 +23,7 @@ def featureBinaryScore(sample):
                 sentimentWordCount +=1
     #print("Raw score",score)
     score = int(score / (sentimentWordCount if sentimentWordCount > 0 else 1))
-    rating = "+" if score > -1 else "-"
+    rating = "+" if score > 0 else "-"
     #print("Ours:", rating, "Score", score)
     return {"HS rating" : rating}
 
