@@ -18,10 +18,41 @@ def naiveBayes(training_set, test_set, MIF=5):
         return [e for e in zip(tagglessTest_set, predictions)]
     return (runTrained, accuracy, predictedLabels, trueLabels)
 
+#GIS is the algorithm, we could try IIS, MEGAM and TADM
 def maxEnt(training_set, test_set, MIF=5):
-    classifier = nltk.classify.ConditionalExponentialClassifier.train(training_set)
+    classifier = nltk.classify.MaxentClassifier.train(training_set,"GIS", trace=0, max_iter=1000)
     print(nltk.classify.accuracy(classifier, test_set))
     classifier.show_most_informative_features(5)
+    print("Running new Max Ent classifier")
+    accuracy = nltk.classify.accuracy(classifier, test_set)
+    trueLabels = [l for d, l in test_set]
+    predictedLabels = classifier.classify_many([d for d,t in test_set])
+    print("Accuracy:",accuracy)
+    classifier.show_most_informative_features(MIF)
+    def runTrained(tagglessTest_set):        
+        print("Running pre-trained Max Ent classifier")
+        predictions = classifier.classify_many(tagglessTest_set)
+        print(predictions)
+        return [e for e in zip(tagglessTest_set, predictions)]
+    return (runTrained, accuracy, predictedLabels, trueLabels)
+
+def decisionTree(training_set, test_set, MIF=5):
+    classifier = nltk.classify.DecisionTreeClassifier.train(training_set, entropy_cutoff=0, support_cutoff=0)
+    print(nltk.classify.accuracy(classifier, test_set))
+#     classifier.show_most_informative_features(5)
+    print("Running new Decision Tree classifier")
+    accuracy = nltk.classify.accuracy(classifier, test_set)
+    trueLabels = [l for d, l in test_set]
+    predictedLabels = classifier.classify_many([d for d,t in test_set])
+    print("Accuracy:",accuracy)
+#     classifier.show_most_informative_features(MIF)
+    def runTrained(tagglessTest_set):        
+        print("Running pre-trained Decision Tree classifier")
+        predictions = classifier.classify_many(tagglessTest_set)
+        print(predictions)
+        return [e for e in zip(tagglessTest_set, predictions)]
+    return (runTrained, accuracy, predictedLabels, trueLabels)   
+
 
 def runNfoldCrossValidation(classifier, trainingSamples, testingSamples, featureExtractors, n):
     classifiers = []
