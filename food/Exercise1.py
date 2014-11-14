@@ -31,7 +31,7 @@ def partI():
     binaryTagTesting = [e["text"] for e in testParagraphs]
     featureExtractors = []
     featureExtractors.append(HappySad.featureNumericScore)
-    #featureExtractors.append(HappySad.featureHitCount)
+    featureExtractors.append(HappySad.featureHitCount)
     trainedClassifiers = ClassifierRunner.runNfoldCrossValidation(ClassifierRunner.naiveBayes, binaryTagTraining, binaryTagTesting, featureExtractors, 4)
     predictions = [c[2] for c in trainedClassifiers]
     truths = [c[3] for c in trainedClassifiers]
