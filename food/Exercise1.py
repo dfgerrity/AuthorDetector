@@ -31,7 +31,7 @@ def partI():
     binaryTagTesting = [(e["text"], "+") if e["overAllRating"] in [4,5] else (e["text"], "-") for e in testParagraphs]
     featureExtractors = []
     featureExtractors.append(HappySad.featureNumericScore)
-    featureExtractors.append(HappySad.featureHitCount)
+    featureExtractors.append(HappySad.featureHitCountBucketed)
 
     #BASELINE RUN
     print("Running Baseline")
@@ -62,7 +62,7 @@ def partII():
     numericTagTesting = [(e["text"], e["overAllRating"]) for e in testParagraphs]
     featureExtractors = []
     featureExtractors.append(HappySad.featureNumericScore)
-    featureExtractors.append(HappySad.featureHitCount)
+    featureExtractors.append(HappySad.featureHitCountBucketed)
 
     #BASELINE RUN
     print("Running Baseline")
