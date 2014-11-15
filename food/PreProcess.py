@@ -1,6 +1,7 @@
 import os 
 os.chdir("C:/Users/Dan'l Boone/Documents/GitHub/AuthorDetector/food")
 import food
+import random
 
 def sanitize(reviews):
     clean = []
@@ -84,3 +85,23 @@ def getRatedReviews():
                 print("Bad format")
                 print(r)
     return testRatedReviews, trainingRatedReviews
+
+
+def getByAuthor():
+    '''Splits reviews tagged by Author into 25% testReviews and 75% trainingReviews'''
+    authorMap = food.createReviewerToReviewMap()
+    print(len(authorMap.keys()))
+    testSet = []
+    trainingSet = []
+    for name in authorMap.keys():
+        if random.random() < .5:
+            pick = random.randint(0,len(authorMap[name])-1)
+            testSet.append(authorMap[name][pick])
+            trainingSet.extend([authorMap[name][i] for i in range(len(authorMap[name])) if i != pick]) 
+        else:
+            trainingSet.extend(authorMap[name])
+    return testSet, trainingSet
+
+te, tr = getByAuthor()
+print(len(te))
+print(len(tr))
