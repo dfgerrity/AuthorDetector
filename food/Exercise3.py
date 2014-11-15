@@ -13,13 +13,14 @@ import AuthorshipFeatures
 print("Loading Corpus...")
 testReviews, trainingReviews = PreProcess.getByAuthor()
 
+
 def partI():
     print("PART I Classify by author")
     
     print("Classify by using HappySad score as features for:")
     print("Naive Bayes")
-    binaryTagTraining = [(e["text"], e["author"]) for e in trainingReviews] 
-    binaryTagTesting = [(e["text"], e["author"]) for e in testParagraphs]
+    authorTagTraining = [(e["text"], e["author"]) for e in trainingReviews] 
+    authorTagTesting = [(e["text"], e["author"]) for e in testReviews]
     featureExtractors = []
     featureExtractors.append(HappySad.featureNumericScore)
     featureExtractors.append(HappySad.featureHitCount)
@@ -28,16 +29,20 @@ def partI():
 
     #BASELINE RUN
     print("Running Baseline")
-    trainedBaseline = ClassifierRunner.runNfoldCrossValidation(ClassifierRunner.mostCommonTag, binaryTagTraining, binaryTagTesting, featureExtractors, 4)
+    trainedBaseline = ClassifierRunner.runNfoldCrossValidation(ClassifierRunner.mostCommonTag, authorTagTraining, featureExtractors, 4)
+    ClassifierRunner.predictTagged(trainedBaseline[0][0], featureExtractors, authorTagTesting)
     predictionsBaseline = [c[2] for c in trainedBaseline]
     truthsBaseline = [c[3] for c in trainedBaseline]
     bRMS = Evaluator.reportAvgBinaryRMS(predictionsBaseline, truthsBaseline)
 
     #OUR CLASSIFIER RUN
-    print("Running Our Classifier")
-    trainedClassifiers = ClassifierRunner.runNfoldCrossValidation(ClassifierRunner.naiveBayes, binaryTagTraining, binaryTagTesting, featureExtractors, 4)
+    trainedClassifiers = ClassifierRunner.runNfoldCrossValidation(ClassifierRunner.naiveBayes, authorTagTraining, featureExtractors, 4)
+    print("Running most accurate trained classifier on test set")
+    ClassifierRunner.predictTagged(trainedClassifiers[0][0], featureExtractors, authorTagTesting)
     predictions = [c[2] for c in trainedClassifiers]
     truths = [c[3] for c in trainedClassifiers]
     cRMS = Evaluator.reportAvgBinaryRMS(predictions, truths)
     print("Accuracy improvement over baseline:", trainedClassifiers[0][1] - trainedBaseline[0][1])
     print("RMS Error reduction from baseline:", bRMS - cRMS)
+
+partI()

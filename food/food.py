@@ -35,6 +35,7 @@ def remove_values_from_list(the_list, val):
     return [value for value in the_list if value != val]
 
 def createReviewerToReviewMap():
+    createReviewArray()
     global reviewerToTrainingReviewsMap
     reviewerToTrainingReviewsMap = {}
     global reviewerToTestReviewsMap
@@ -42,10 +43,10 @@ def createReviewerToReviewMap():
    
     for tuple in test:
         s = re.sub('[^a-zA-Z:]', '', tuple[0])
-        if s in reviewerToTestReviewsMap:
-            reviewerToTestReviewsMap[s].append(tuple)
+        if s in reviewerToTrainingReviewsMap:
+            reviewerToTrainingReviewsMap[s].append(tuple)
         else:
-            reviewerToTestReviewsMap[s] = [tuple]
+            reviewerToTrainingReviewsMap[s] = [tuple]
    
     for tuple in training:
         s = re.sub('[^a-zA-Z:]', '', tuple[0])
@@ -54,7 +55,7 @@ def createReviewerToReviewMap():
         else:
             reviewerToTrainingReviewsMap[s] = [tuple]        
    
-    return reviewerToTestReviewsMap, reviewerToTrainingReviewsMap
+    return reviewerToTrainingReviewsMap
 
 # Written review is given its own index in the array. The next 4 indices
 # are the paragraphs of the review. If we need to join them later we can
