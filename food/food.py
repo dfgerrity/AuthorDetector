@@ -6,6 +6,7 @@ Created on Oct 21, 2014
 
 import glob
 import fileinput
+import re
 import nltk   
 from urllib.request import urlopen
 from sys import argv
@@ -31,11 +32,12 @@ def remove_values_from_list(the_list, val):
 def createReviewerToReviewMap():
     createReviewArray()
     for tuple in trainingReviews:
-
-        if tuple[0] in reviewerToReviewsMap:
-            reviewerToReviewsMap[tuple[0]].append(tuple)
+        s = re.sub('[^a-zA-Z:]', '', tuple[0])
+        if s in reviewerToReviewsMap:
+            reviewerToReviewsMap[s].append(tuple)
         else:
-            reviewerToReviewsMap[tuple[0]] = [tuple]
+            reviewerToReviewsMap[s] = [tuple]
+            
     return reviewerToReviewsMap
 
 # Written review is given its own index in the array. The next 4 indices
@@ -128,6 +130,6 @@ def remove_tags(input_text):
 #Now just pass an HTML formatted text through this function .It remove the tags and return the string
 if __name__ == '__main__':
     createReviewArray()
-    createReviewerToReviewmap()
+    createReviewerToReviewMap()
 
 
