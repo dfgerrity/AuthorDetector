@@ -1,4 +1,5 @@
-
+from textblob import TextBlob
+from textblob_aptagger import PerceptronTagger
 def selectTag(multi_taggedData, tag, removePrefix=False):
     '''Expects a dictionary of multi-tagged data {"text":data, "tags":[tags]}
        Searches through a multi-tagged (tagged with a list of tags) data set and selects entries
@@ -35,3 +36,13 @@ def selectTags(multi_taggedData, tags, removePrefix=False):
         if len(toAttach) == len(tags):
             selected.append((entry["text"], toAttach))
     return selected
+
+def taggerFunction():
+    s = "This is a sentence that I am going to try and tag. Lets see if it works!"
+    blob = TextBlob(s, pos_tagger=PerceptronTagger())
+    
+    print(blob.tags)
+    
+    
+if __name__ == '__main__':
+    taggerFunction()
