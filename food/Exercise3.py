@@ -8,21 +8,23 @@ import HappySad
 import Extractor
 import Evaluator
 import ClassifierRunner
-import Exercise1
+import AuthorshipFeatures
 
 print("Loading Corpus...")
-testReviews, trainingReviews = PreProcess.getRatedReviews()
+testReviews, trainingReviews = PreProcess.getByAuthor()
 
 def partI():
-    print("PART I Just classify by author")
+    print("PART I Classify by author")
     
     print("Classify by using HappySad score as features for:")
     print("Naive Bayes")
-    binaryTagTraining = [(e["text"], "+") if e["overAllRating"] in [4,5] else (e["text"], "-") for e in trainingParagraphs] 
-    binaryTagTesting = [e["text"] for e in testParagraphs]
+    binaryTagTraining = [(e["text"], e["author"]) for e in trainingReviews] 
+    binaryTagTesting = [(e["text"], e["author"]) for e in testParagraphs]
     featureExtractors = []
     featureExtractors.append(HappySad.featureNumericScore)
     featureExtractors.append(HappySad.featureHitCount)
+    featureExtractors.append(AuthorshipFeatures.typeTokenRatioBucketed)
+    featureExtractors.append(AuthorshipFeatures.vocabSizeBucketed)
 
     #BASELINE RUN
     print("Running Baseline")

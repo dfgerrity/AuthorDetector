@@ -28,21 +28,25 @@ def partI():
     print("Classify by using HappySad score as features for:")
     print("Naive Bayes")
     binaryTagTraining = [(e["text"], "+") if e["overAllRating"] in [4,5] else (e["text"], "-") for e in trainingParagraphs] 
-    binaryTagTesting = [e["text"] for e in testParagraphs]
+    binaryTagTesting = [(e["text"], e["overAllRating"]) for e in testParagraphs]
     featureExtractors = []
     featureExtractors.append(HappySad.featureNumericScore)
     featureExtractors.append(HappySad.featureHitCount)
 
     #BASELINE RUN
     print("Running Baseline")
-    trainedBaseline = ClassifierRunner.runNfoldCrossValidation(ClassifierRunner.mostCommonTag, binaryTagTraining, binaryTagTesting, featureExtractors, 4)
+    trainedBaseline = ClassifierRunner.runNfoldCrossValidation(ClassifierRunner.mostCommonTag, binaryTagTraining, featureExtractors, 4)
+    ClassifierRunner.predictTagged(trainedBaseline[0][0], featureExtractors, binaryTagTesting)
     predictionsBaseline = [c[2] for c in trainedBaseline]
     truthsBaseline = [c[3] for c in trainedBaseline]
     bRMS = Evaluator.reportAvgBinaryRMS(predictionsBaseline, truthsBaseline)
 
     #OUR CLASSIFIER RUN
     print("Running Our Classifier")
-    trainedClassifiers = ClassifierRunner.runNfoldCrossValidation(ClassifierRunner.naiveBayes, binaryTagTraining, binaryTagTesting, featureExtractors, 4)
+    trainedClassifiers = ClassifierRunner.runNfoldCrossValidation(ClassifierRunner.naiveBayes, binaryTagTraining, featureExtractors, 4)
+    ClassifierRunner.predictTagged(trainedClassifiers[0][0], featureExtractors, binaryTagTesting)
+    print("Running most accurate trained classifier on test set")
+
     predictions = [c[2] for c in trainedClassifiers]
     truths = [c[3] for c in trainedClassifiers]
     cRMS = Evaluator.reportAvgBinaryRMS(predictions, truths)
@@ -63,13 +67,15 @@ def partII():
 
     #BASELINE RUN
     print("Running Baseline")
-    trainedBaseline = ClassifierRunner.runNfoldCrossValidation(ClassifierRunner.mostCommonTag, numericTagTraining, numericTagTesting, featureExtractors, 4)
+    trainedBaseline = ClassifierRunner.runNfoldCrossValidation(ClassifierRunner.mostCommonTag, numericTagTraining, featureExtractors, 4)
+    ClassifierRunner.predictTagged(trainedBaseline[0][0], featureExtractors, numericTagTesting)
     predictionsBaseline = [c[2] for c in trainedBaseline]
     truthsBaseline = [c[3] for c in trainedBaseline]
     bRMS = Evaluator.reportAvgBinaryRMS(predictionsBaseline, truthsBaseline)
 
     #OUR CLASSIFIER RUN
-    trainedClassifiers = ClassifierRunner.runNfoldCrossValidation(ClassifierRunner.naiveBayes, numericTagTraining, numericTagTesting, featureExtractors, 4)
+    trainedClassifiers = ClassifierRunner.runNfoldCrossValidation(ClassifierRunner.naiveBayes, numericTagTraining, featureExtractors, 4)
+    ClassifierRunner.predictTagged(trainedClassifiers[0][0], featureExtractors, numericTagTesting)
     predictions = [c[2] for c in trainedClassifiers]
     truths = [c[3] for c in trainedClassifiers]
     cRMS = Evaluator.reportAvgBinaryRMS(predictions, truths)

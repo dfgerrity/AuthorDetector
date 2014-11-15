@@ -43,10 +43,10 @@ def getRatedParagraphs():
                 #print(l +"\n")
         else:
             try:
-                testParaGraphs.append({"overAllRating" : "unknown", "text": r[9]})
-                testParaGraphs.append({"overAllRating" : "unknown", "text": r[10]})
-                testParaGraphs.append({"overAllRating" : "unknown", "text": r[11]})
-                testParaGraphs.append({"overAllRating" : "unknown", "text": r[12]})
+                taggedParaGraphs.append({"overAllRating" : int(r[4].split(":")[1].strip()), "text": r[9]})
+                taggedParaGraphs.append({"overAllRating" : int(r[5].split(":")[1].strip()), "text": r[10]})
+                taggedParaGraphs.append({"overAllRating" : int(r[6].split(":")[1].strip()), "text": r[11]})
+                taggedParaGraphs.append({"overAllRating" : int(r[7].split(":")[1].strip()), "text": r[12]})
             except:
                 print("Bad format")
                 print(r)
@@ -80,7 +80,7 @@ def getRatedReviews():
                 #print(l +"\n")
         else:
             try:
-                testRatedReviews.append({"overAllRating" : "unknown", "p1": r[9], "p2": r[10],"p3": r[11],"p4": r[12]})
+                testRatedReviews.append({"overAllRating" : int(r[7].split(":")[1].strip()), "p1": r[9], "p2": r[10],"p3": r[11],"p4": r[12]})
             except:
                 print("Bad format")
                 print(r)
@@ -90,18 +90,27 @@ def getRatedReviews():
 def getByAuthor():
     '''Splits reviews tagged by Author into 25% testReviews and 75% trainingReviews'''
     authorMap = food.createReviewerToReviewMap()
-    print(len(authorMap.keys()))
     testSet = []
     trainingSet = []
     for name in authorMap.keys():
         if random.random() < .5:
             pick = random.randint(0,len(authorMap[name])-1)
-            testSet.append(authorMap[name][pick])
-            trainingSet.extend([authorMap[name][i] for i in range(len(authorMap[name])) if i != pick]) 
+            testSet.append({"author": name, "text" : 
+                            authorMap[name][pick][9] +
+                            authorMap[name][pick][10] + 
+                            authorMap[name][pick][11] + 
+                            authorMap[name][pick][12]})
+            trainingSet.extend([{"author": name, "text" : 
+                                 authorMap[name][i][9] + 
+                                 authorMap[name][i][10] + 
+                                 authorMap[name][i][11] + 
+                                 authorMap[name][i][12]} for i in range(len(authorMap[name])) if i != pick]) 
         else:
-            trainingSet.extend(authorMap[name])
+            trainingSet.extend([{"author": name, "text" : 
+                                 authorMap[name][i][9] + 
+                                 authorMap[name][i][10] + 
+                                 authorMap[name][i][11] + 
+                                 authorMap[name][i][12]} for i in range(len(authorMap[name]))])
     return testSet, trainingSet
 
-te, tr = getByAuthor()
-print(len(te))
-print(len(tr))
+

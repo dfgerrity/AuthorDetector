@@ -24,7 +24,7 @@ def partI():
     paragraphClassifier = classifiers[0][0]
 
     overallTagTraining = [([e["p1"], e["p2"], e["p3"], e["p4"]], "+" if e["overAllRating"] in [4,5] else "-") for e in trainingReviews] 
-    overallTagTesting = [([e["p1"], e["p2"], e["p3"], e["p4"]]) for e in testReviews] #dummy tagging "x"    
+    overallTagTesting = [([e["p1"], e["p2"], e["p3"], e["p4"]], e["overAllRating"]) for e in testReviews]    
 
     #Use ratings of each paragraph from Ex
     def featureParagraphNumericRatings(sample):
@@ -39,13 +39,15 @@ def partI():
 
     #BASELINE RUN
     print("Running Baseline")
-    trainedBaseline = ClassifierRunner.runNfoldCrossValidation(ClassifierRunner.mostCommonTag, overallTagTraining, overallTagTesting, featureExtractors, 4)
+    trainedBaseline = ClassifierRunner.runNfoldCrossValidation(ClassifierRunner.mostCommonTag, overallTagTraining, featureExtractors, 4)
+    ClassifierRunner.predictTagged(trainedBaseline[0][0], featureExtractors, overallTagTesting)
     predictionsBaseline = [c[2] for c in trainedBaseline]
     truthsBaseline = [c[3] for c in trainedBaseline]
     bRMS = Evaluator.reportAvgBinaryRMS(predictionsBaseline, truthsBaseline)
 
     #OUR CLASSIFIER RUN
-    trainedClassifiers = ClassifierRunner.runNfoldCrossValidation(ClassifierRunner.naiveBayes, overallTagTraining, overallTagTesting, featureExtractors, 4)
+    trainedClassifiers = ClassifierRunner.runNfoldCrossValidation(ClassifierRunner.naiveBayes, overallTagTraining, featureExtractors, 4)
+    ClassifierRunner.predictTagged(trainedClassifiers[0][0], featureExtractors, overallTagTesting)
     predictions = [c[2] for c in trainedClassifiers]
     truths = [c[3] for c in trainedClassifiers]
     cRMS = Evaluator.reportAvgBinaryRMS(predictions, truths)
@@ -58,7 +60,7 @@ def partII():
     paragraphClassifier = classifiers[0][0]
 
     overallTagTraining = [([e["p1"], e["p2"], e["p3"], e["p4"]], e["overAllRating"]) for e in trainingReviews] 
-    overallTagTesting = [([e["p1"], e["p2"], e["p3"], e["p4"]]) for e in testReviews] #dummy tagging "x"    
+    overallTagTesting = [([e["p1"], e["p2"], e["p3"], e["p4"]], e["overAllRating"]) for e in testReviews]     
 
     #Use ratings of each paragraph from Ex
     def featureParagraphNumericRatings(sample):
@@ -73,13 +75,15 @@ def partII():
 
     #BASELINE RUN
     print("Running Baseline")
-    trainedBaseline = ClassifierRunner.runNfoldCrossValidation(ClassifierRunner.mostCommonTag, overallTagTraining, overallTagTesting, featureExtractors, 4)
+    trainedBaseline = ClassifierRunner.runNfoldCrossValidation(ClassifierRunner.mostCommonTag, overallTagTraining, featureExtractors, 4)
+    ClassifierRunner.predictTagged(trainedBaseline[0][0], featureExtractors, overallTagTesting)
     predictionsBaseline = [c[2] for c in trainedBaseline]
     truthsBaseline = [c[3] for c in trainedBaseline]
     bRMS = Evaluator.reportAvgBinaryRMS(predictionsBaseline, truthsBaseline)
 
     #OUR CLASSIFIER RUN
-    trainedClassifiers = ClassifierRunner.runNfoldCrossValidation(ClassifierRunner.naiveBayes, overallTagTraining, overallTagTesting, featureExtractors, 4)
+    trainedClassifiers = ClassifierRunner.runNfoldCrossValidation(ClassifierRunner.naiveBayes, overallTagTraining, featureExtractors, 4)
+    ClassifierRunner.predictTagged(trainedClassifiers[0][0], featureExtractors, overallTagTesting)
     predictions = [c[2] for c in trainedClassifiers]
     truths = [c[3] for c in trainedClassifiers]
     cRMS = Evaluator.reportAvgBinaryRMS(predictions, truths)
