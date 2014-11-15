@@ -14,9 +14,10 @@ def sanitize(reviews):
 
 def getRatedParagraphs():
     print("Loading Files")
-    testReviews, trainingReviews = food.createReviewArray()
+    testReviews, trainingReviews = food.createReviewArray()    
     trainingReviews = sanitize(trainingReviews)
     testReviews = sanitize(testReviews)
+    #input(len(testReviews))
     #Tagging every training paragraph individually
     print("Tagging Training data by paragraph")
     taggedParaGraphs = []
@@ -43,13 +44,14 @@ def getRatedParagraphs():
                 #print(l +"\n")
         else:
             try:
-                taggedParaGraphs.append({"overAllRating" : int(r[4].split(":")[1].strip()), "text": r[9]})
-                taggedParaGraphs.append({"overAllRating" : int(r[5].split(":")[1].strip()), "text": r[10]})
-                taggedParaGraphs.append({"overAllRating" : int(r[6].split(":")[1].strip()), "text": r[11]})
-                taggedParaGraphs.append({"overAllRating" : int(r[7].split(":")[1].strip()), "text": r[12]})
+                testParaGraphs.append({"overAllRating" : int(r[4].split(":")[1].strip()), "text": r[9]})
+                testParaGraphs.append({"overAllRating" : int(r[5].split(":")[1].strip()), "text": r[10]})
+                testParaGraphs.append({"overAllRating" : int(r[6].split(":")[1].strip()), "text": r[11]})
+                testParaGraphs.append({"overAllRating" : int(r[7].split(":")[1].strip()), "text": r[12]})
             except:
                 print("Bad format")
                 print(r)
+    #input(len(testParaGraphs))
     return testParaGraphs, taggedParaGraphs 
 
 def getRatedReviews():

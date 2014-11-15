@@ -24,7 +24,7 @@ def partI():
     paragraphClassifier = classifiers[0][0]
 
     overallTagTraining = [([e["p1"], e["p2"], e["p3"], e["p4"]], "+" if e["overAllRating"] in [4,5] else "-") for e in trainingReviews] 
-    overallTagTesting = [([e["p1"], e["p2"], e["p3"], e["p4"]], e["overAllRating"]) for e in testReviews]    
+    overallTagTesting = [([e["p1"], e["p2"], e["p3"], e["p4"]], "+" if e["overAllRating"] in [4,5] else "-") for e in testReviews]    
 
     #Use ratings of each paragraph from Ex
     def featureParagraphNumericRatings(sample):
@@ -40,6 +40,7 @@ def partI():
     #BASELINE RUN
     print("Running Baseline")
     trainedBaseline = ClassifierRunner.runNfoldCrossValidation(ClassifierRunner.mostCommonTag, overallTagTraining, featureExtractors, 4)
+    print("Running most accurate trained classifier on test set")
     ClassifierRunner.predictTagged(trainedBaseline[0][0], featureExtractors, overallTagTesting)
     predictionsBaseline = [c[2] for c in trainedBaseline]
     truthsBaseline = [c[3] for c in trainedBaseline]
@@ -47,6 +48,7 @@ def partI():
 
     #OUR CLASSIFIER RUN
     trainedClassifiers = ClassifierRunner.runNfoldCrossValidation(ClassifierRunner.naiveBayes, overallTagTraining, featureExtractors, 4)
+    print("Running most accurate trained classifier on test set")
     ClassifierRunner.predictTagged(trainedClassifiers[0][0], featureExtractors, overallTagTesting)
     predictions = [c[2] for c in trainedClassifiers]
     truths = [c[3] for c in trainedClassifiers]

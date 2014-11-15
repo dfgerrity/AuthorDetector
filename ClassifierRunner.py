@@ -19,7 +19,7 @@ def mostCommonTag(training_set, test_set):
         print("Running pre-trained Most Common Tag baseline classifier")
         if hasTags:
             tagglessTest_set = [data for data, tag in test_set]            
-            print("Accuracy:",accuracy = len([1 for data,tag in test_set if tag == mct])/len(test_set))
+            print("Accuracy:",len([1 for data,tag in test_set if tag == mct])/len(test_set))
         else:
             tagglessTest_set = test_set        
         predictions = classify(tagglessTest_set)
@@ -124,7 +124,7 @@ def predictTagged(classifier, featureExtractors, taggedTestSet):
            for e in zip(taggedTestSet, classifier(test_set, True))] 
     print("PREDICTIONS:") 
     for i in range(len(predictions)):
-        print("Prediction #", i+1, ":", predictions[i])
+        print("Prediction #", i+1, ":", predictions[i]["predicted_label"])
         print("")
 
 def runSingleFold(classifier, taggedSamples, featureExtractors, trainWeight=2, testWeight=1):

@@ -28,7 +28,7 @@ def partI():
     print("Classify by using HappySad score as features for:")
     print("Naive Bayes")
     binaryTagTraining = [(e["text"], "+") if e["overAllRating"] in [4,5] else (e["text"], "-") for e in trainingParagraphs] 
-    binaryTagTesting = [(e["text"], e["overAllRating"]) for e in testParagraphs]
+    binaryTagTesting = [(e["text"], "+") if e["overAllRating"] in [4,5] else (e["text"], "-") for e in testParagraphs]
     featureExtractors = []
     featureExtractors.append(HappySad.featureNumericScore)
     featureExtractors.append(HappySad.featureHitCount)
@@ -44,9 +44,8 @@ def partI():
     #OUR CLASSIFIER RUN
     print("Running Our Classifier")
     trainedClassifiers = ClassifierRunner.runNfoldCrossValidation(ClassifierRunner.naiveBayes, binaryTagTraining, featureExtractors, 4)
-    ClassifierRunner.predictTagged(trainedClassifiers[0][0], featureExtractors, binaryTagTesting)
     print("Running most accurate trained classifier on test set")
-
+    ClassifierRunner.predictTagged(trainedClassifiers[0][0], featureExtractors, binaryTagTesting)
     predictions = [c[2] for c in trainedClassifiers]
     truths = [c[3] for c in trainedClassifiers]
     cRMS = Evaluator.reportAvgBinaryRMS(predictions, truths)
@@ -60,7 +59,7 @@ def partII():
     print("Classify by using HappySad raw score as features for:")
     print("Naive Bayes")
     numericTagTraining = [(e["text"], e["overAllRating"]) for e in trainingParagraphs] 
-    numericTagTesting = [e["text"] for e in testParagraphs]
+    numericTagTesting = [(e["text"], e["overAllRating"]) for e in testParagraphs]
     featureExtractors = []
     featureExtractors.append(HappySad.featureNumericScore)
     featureExtractors.append(HappySad.featureHitCount)
@@ -75,6 +74,7 @@ def partII():
 
     #OUR CLASSIFIER RUN
     trainedClassifiers = ClassifierRunner.runNfoldCrossValidation(ClassifierRunner.naiveBayes, numericTagTraining, featureExtractors, 4)
+    print("Running most accurate trained classifier on test set")
     ClassifierRunner.predictTagged(trainedClassifiers[0][0], featureExtractors, numericTagTesting)
     predictions = [c[2] for c in trainedClassifiers]
     truths = [c[3] for c in trainedClassifiers]
@@ -84,5 +84,5 @@ def partII():
 
     return (trainedClassifiers, featureExtractors) # for use in Exercise 2
 
-#partI()
-partII()
+partI()
+#partII()
