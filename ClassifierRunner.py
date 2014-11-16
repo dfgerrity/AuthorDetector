@@ -4,48 +4,54 @@ import Extractor
 import Evaluator
 
 def mostCommonTag(training_set, test_set):
-    print("Training a new Most Common Tag baseline classifier")
+    #print("Training a new Most Common Tag baseline classifier")
     tags = [tag for data, tag in training_set]
     fd = sorted([entry for entry in FreqDist(tags).items()], key=lambda x: x[1], reverse = True)
     mct = fd[0][0]
     def classify(samples):
         return [mct for s in samples]
-    print("Running new Most Common Tag baseline Bayes classifier")
+    #print("Running new Most Common Tag baseline Bayes classifier")
     accuracy = len([1 for data,tag in test_set if tag == mct])/len(test_set)
     trueLabels = [l for d, l in test_set]
     predictedLabels = classify([d for d,t in test_set])
-    print("Accuracy:",accuracy)
+    #print("Accuracy:",accuracy)
     def runTrained(test_set, hasTags=False):
-        print("Running pre-trained Most Common Tag baseline classifier")
+        #print("Running pre-trained Most Common Tag baseline classifier")
         if hasTags:
-            tagglessTest_set = [data for data, tag in test_set]            
-            print("Accuracy:",len([1 for data,tag in test_set if tag == mct])/len(test_set))
+            tagglessTest_set = [data for data, tag in test_set] 
+            acc = len([1 for data,tag in test_set if tag == mct])/len(test_set)
+            predictions = classify(tagglessTest_set)           
+            print("Accuracy:",acc)
+            return ([e for e in zip(test_set, predictions)], acc) 
         else:
             tagglessTest_set = test_set        
         predictions = classify(tagglessTest_set)
-        print("Predicted Labels:",predictions)
+        #print("Predicted Labels:",predictions)
         return [e for e in zip(test_set, predictions)]
     return (runTrained, accuracy, predictedLabels, trueLabels)
 
 
 def naiveBayes(training_set, test_set, MIF=5):
-    print("Training a new Naive Bayes classifier")
+    #print("Training a new Naive Bayes classifier")
     classifier = nltk.NaiveBayesClassifier.train(training_set)
-    print("Running new Naive Bayes classifier")
+    #print("Running new Naive Bayes classifier")
     accuracy = nltk.classify.accuracy(classifier, test_set)
     trueLabels = [l for d, l in test_set]
     predictedLabels = classifier.classify_many([d for d,t in test_set])
-    print("Accuracy:",accuracy)
+    #print("Accuracy:",accuracy)
     classifier.show_most_informative_features(MIF)
     def runTrained(test_set, hasTags=False):
-        print("Running pre-trained Naive Bayes classifier")
+        #print("Running pre-trained Naive Bayes classifier")
         if hasTags:
             tagglessTest_set = [data for data, tag in test_set]
-            print("Accuracy:", nltk.classify.accuracy(classifier, test_set))
+            acc = nltk.classify.accuracy(classifier, test_set)
+            print("Accuracy:", acc)
+            predictions = classifier.classify_many(tagglessTest_set)
+            return ([e for e in zip(tagglessTest_set, predictions)], acc)
         else:
             tagglessTest_set = test_set         
         predictions = classifier.classify_many(tagglessTest_set)
-        print("Predicted Labels:",predictions)
+        #print("Predicted Labels:",predictions)
         return [e for e in zip(tagglessTest_set, predictions)]
     return (runTrained, accuracy, predictedLabels, trueLabels)
 
@@ -54,21 +60,24 @@ def maxEnt(training_set, test_set, MIF=5):
     classifier = nltk.classify.MaxentClassifier.train(training_set,"GIS", trace=0, max_iter=1000)
     print(nltk.classify.accuracy(classifier, test_set))
     classifier.show_most_informative_features(5)
-    print("Running new Max Ent classifier")
+    #print("Running new Max Ent classifier")
     accuracy = nltk.classify.accuracy(classifier, test_set)
     trueLabels = [l for d, l in test_set]
     predictedLabels = classifier.classify_many([d for d,t in test_set])
-    print("Accuracy:",accuracy)
+    #print("Accuracy:",accuracy)
     classifier.show_most_informative_features(MIF)
     def runTrained(test_set, hasTags=False):
-        print("Running pre-trained Max Ent classifier")
+        #print("Running pre-trained Max Ent classifier")
         if hasTags:
             tagglessTest_set = [data for data, tag in test_set]
-            print("Accuracy:", nltk.classify.accuracy(classifier, test_set))
+            acc = nltk.classify.accuracy(classifier, test_set)
+            print("Accuracy:", acc)
+            predictions = classifier.classify_many(tagglessTest_set)
+            return ([e for e in zip(tagglessTest_set, predictions)], acc)
         else:
             tagglessTest_set = test_set       
         predictions = classifier.classify_many(tagglessTest_set)
-        print("Predicted Labels:",predictions)
+        #print("Predicted Labels:",predictions)
         return [e for e in zip(tagglessTest_set, predictions)]
     return (runTrained, accuracy, predictedLabels, trueLabels)
 
@@ -76,21 +85,24 @@ def decisionTree(training_set, test_set, MIF=5):
     classifier = nltk.classify.DecisionTreeClassifier.train(training_set, entropy_cutoff=0, support_cutoff=0)
     print(nltk.classify.accuracy(classifier, test_set))
 #     classifier.show_most_informative_features(5)
-    print("Running new Decision Tree classifier")
+    #print("Running new Decision Tree classifier")
     accuracy = nltk.classify.accuracy(classifier, test_set)
     trueLabels = [l for d, l in test_set]
     predictedLabels = classifier.classify_many([d for d,t in test_set])
-    print("Accuracy:",accuracy)
+    #print("Accuracy:",accuracy)
 #     classifier.show_most_informative_features(MIF)
     def runTrained(test_set, hasTags=False):
-        print("Running pre-trained Decision Tree classifier")
+        #print("Running pre-trained Decision Tree classifier")
         if hasTags:
             tagglessTest_set = [data for data, tag in test_set]
-            print("Accuracy:", nltk.classify.accuracy(classifier, test_set))
+            acc = nltk.classify.accuracy(classifier, test_set)
+            print("Accuracy:", acc)
+            predictions = classifier.classify_many(tagglessTest_set)
+            return ([e for e in zip(tagglessTest_set, predictions)], acc)
         else:
             tagglessTest_set = test_set         
         predictions = classifier.classify_many(tagglessTest_set)
-        print("Predicted Labels:",predictions)
+        #print("Predicted Labels:",predictions)
         return [e for e in zip(tagglessTest_set, predictions)]
     return (runTrained, accuracy, predictedLabels, trueLabels)   
 
@@ -106,26 +118,31 @@ def runNfoldCrossValidation(classifier, trainingSamples, featureExtractors, n):
          classifiers.append(classifier(training, folds[i]))    
     classifiers.sort(key=lambda x: x[1], reverse = True)
     for i in range(n):
-        print("Accuracy for classifier", i+1, ":", classifiers[i][1])
+        #print("Accuracy for classifier", i+1, ":", classifiers[i][1])
+        pass
     return classifiers
    
 def predictTagless(classifier, featureExtractors, taglessTestSet):     
     test_set = Extractor.extractAll(taglessTestSet, featureExtractors)
     predictions = [{"data": e[0], "features" : e[1][0], "predicted_label" : e[1][1]} 
            for e in zip(taglessTestSet, classifier(test_set))] 
-    print("PREDICTIONS:") 
-    for i in range(len(predictions)):
-        print("Prediction #", i+1, ":", predictions[i])
-        print("") 
+    #print("PREDICTIONS:") 
+    #for i in range(len(predictions)):
+    #    print("Prediction #", i+1, ":", predictions[i])
+    #    print("") 
+    return [e["predicted_label"] for e in predictions]
+
 
 def predictTagged(classifier, featureExtractors, taggedTestSet):     
     test_set = Extractor.extractAllTagged(taggedTestSet, featureExtractors)
+    pLabels, acc = classifier(test_set, True)
     predictions = [{"data": e[0], "features" : e[1][0], "predicted_label" : e[1][1]} 
-           for e in zip(taggedTestSet, classifier(test_set, True))] 
+           for e in zip(taggedTestSet, pLabels)] 
     print("PREDICTIONS:") 
     for i in range(len(predictions)):
-        print("Prediction #", i+1, ":", predictions[i]["predicted_label"])
-        print("")
+        print("Prediction #", i+1, ":", "Predicted Label:", predictions[i]["predicted_label"], "Actual Label:", predictions[i]["data"][1])
+        #print("")
+    return [e["predicted_label"] for e in predictions], acc
 
 def runSingleFold(classifier, taggedSamples, featureExtractors, trainWeight=2, testWeight=1):
     print("Compiling training and test sets")

@@ -97,18 +97,18 @@ def getByAuthor():
     for name in authorMap.keys():
         if random.random() < .5:
             pick = random.randint(0,len(authorMap[name])-1)
-            testSet.append({"author": name, "text" : 
+            testSet.append({"author": name[9:11]+name[-3:], "text" : 
                             authorMap[name][pick][9] +
                             authorMap[name][pick][10] + 
                             authorMap[name][pick][11] + 
                             authorMap[name][pick][12]})
-            trainingSet.extend([{"author": name, "text" : 
+            trainingSet.extend([{"author": name[9:11]+name[-3:], "text" : 
                                  authorMap[name][i][9] + 
                                  authorMap[name][i][10] + 
                                  authorMap[name][i][11] + 
                                  authorMap[name][i][12]} for i in range(len(authorMap[name])) if i != pick]) 
         else:
-            trainingSet.extend([{"author": name, "text" : 
+            trainingSet.extend([{"author": name[9:11]+name[-3:], "text" : 
                                  authorMap[name][i][9] + 
                                  authorMap[name][i][10] + 
                                  authorMap[name][i][11] + 

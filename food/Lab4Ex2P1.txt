@@ -1,0 +1,636 @@
+Loading Corpus...
+Loading Files
+Tagging Training data by paragraph
+Tagging Testing data by paragraph
+5
+29
+83
+142
+69
+Loading Happy/Sad Words...
+PART II Predict classify by numeric rating 1-5 
+Running Baseline
+Accuracy: 0.42592592592592593
+BaseLine RMS Error: 0.7576767609436587
+Most Informative Features
+            HS raw score = -2                  1 : 4      =     24.1 : 1.0
+            HS raw score = -1                  1 : 4      =     14.5 : 1.0
+            HS raw score = 2                   4 : 2      =      4.6 : 1.0
+            HS raw score = 1                   4 : 2      =      2.7 : 1.0
+            HS raw score = 3                   5 : 2      =      2.3 : 1.0
+Most Informative Features
+            HS raw score = -2                  2 : 4      =      5.7 : 1.0
+            HS raw score = 2                   5 : 2      =      5.3 : 1.0
+            HS raw score = -1                  1 : 5      =      4.6 : 1.0
+            HS hit count = 'HIGH'              2 : 5      =      3.1 : 1.0
+            HS raw score = 4                   5 : 4      =      1.7 : 1.0
+Most Informative Features
+            HS raw score = -2                  1 : 4      =     10.2 : 1.0
+            HS raw score = -1                  1 : 5      =      6.2 : 1.0
+            HS hit count = 'HIGH'              3 : 5      =      4.2 : 1.0
+            HS raw score = 0                   3 : 1      =      2.6 : 1.0
+            HS raw score = 2                   5 : 3      =      2.5 : 1.0
+Most Informative Features
+            HS raw score = -2                  1 : 4      =     10.1 : 1.0
+            HS raw score = 2                   5 : 3      =      4.5 : 1.0
+            HS raw score = -1                  1 : 5      =      4.3 : 1.0
+            HS raw score = 0                   2 : 1      =      2.5 : 1.0
+            HS hit count = 'HIGH'              3 : 5      =      2.5 : 1.0
+Running most accurate trained classifier on test set
+Accuracy: 0.4074074074074074
+Our RMS Error: 0.769800358919501
+Accuracy improvement over baseline: -0.018518518518518545
+RMS Error reduction from baseline: -0.012123597975842393
+Loading Corpus...
+Loading Files
+Tagging Training data by paragraph
+Tagging Testing data by paragraph
+0
+16
+39
+89
+20
+IGNORE////////////////
+PART I Just classify by positive or negative where "+" = {4,5} and "-" = {1,2,3}
+Running Baseline
+Accuracy: 0.6111111111111112
+BaseLine RMS Error: 0.6236095644623235
+Running Our Classifier
+Most Informative Features
+               HS rating = '+'                 + : -      =      2.4 : 1.0
+               HS rating = '-'                 - : +      =      2.0 : 1.0
+            HS hit count = 'HIGH'              - : +      =      1.7 : 1.0
+            HS hit count = 'LOW'               + : -      =      1.4 : 1.0
+            HS hit count = 'MEDIUM'            - : +      =      1.4 : 1.0
+Most Informative Features
+               HS rating = '+'                 + : -      =      2.2 : 1.0
+               HS rating = '-'                 - : +      =      1.8 : 1.0
+            HS hit count = 'HIGH'              - : +      =      1.5 : 1.0
+            HS hit count = 'MEDIUM'            - : +      =      1.4 : 1.0
+            HS hit count = 'LOW'               + : -      =      1.4 : 1.0
+Most Informative Features
+               HS rating = '+'                 + : -      =      1.9 : 1.0
+               HS rating = '-'                 - : +      =      1.8 : 1.0
+            HS hit count = 'HIGH'              - : +      =      1.7 : 1.0
+            HS hit count = 'LOW'               + : -      =      1.4 : 1.0
+            HS hit count = 'MEDIUM'            - : +      =      1.3 : 1.0
+Most Informative Features
+               HS rating = '+'                 + : -      =      2.0 : 1.0
+            HS hit count = 'HIGH'              - : +      =      1.9 : 1.0
+               HS rating = '-'                 - : +      =      1.8 : 1.0
+            HS hit count = 'LOW'               + : -      =      1.3 : 1.0
+            HS hit count = 'MEDIUM'            - : +      =      1.2 : 1.0
+Accuracy: 0.6388888888888888
+Our RMS Error: 0.6009252125773316
+Accuracy improvement over baseline: 0.02777777777777768
+RMS Error reduction from baseline: 0.02268435188499196
+Running most accurate trained classifier on test set
+PART II Predict classify by numeric rating 1-5 
+Running Baseline
+Accuracy: 0.42592592592592593
+BaseLine RMS Error: 0.7576767609436587
+0.36585365853658536
+  -5.655 HS hit count=='LOW' and label is 2
+   5.483 HS raw score==4 and label is 5
+   5.356 HS hit count=='HIGH' and label is 4
+   5.341 HS raw score==4 and label is 4
+   5.086 HS hit count=='HIGH' and label is 3
+  -5.655 HS hit count=='LOW' and label is 2
+   5.483 HS raw score==4 and label is 5
+   5.356 HS hit count=='HIGH' and label is 4
+   5.341 HS raw score==4 and label is 4
+   5.086 HS hit count=='HIGH' and label is 3
+0.45121951219512196
+  10.970 HS raw score==-2 and label is 1
+  -6.600 HS hit count=='LOW' and label is 1
+   6.275 HS raw score==4 and label is 5
+   6.248 HS raw score==4 and label is 4
+   5.963 HS raw score==-2 and label is 2
+  10.970 HS raw score==-2 and label is 1
+  -6.600 HS hit count=='LOW' and label is 1
+   6.275 HS raw score==4 and label is 5
+   6.248 HS raw score==4 and label is 4
+   5.963 HS raw score==-2 and label is 2
+0.36585365853658536
+  -6.206 HS hit count=='LOW' and label is 1
+   6.125 HS hit count=='HIGH' and label is 4
+   6.073 HS raw score==4 and label is 5
+   5.849 HS hit count=='HIGH' and label is 3
+   5.848 HS raw score==4 and label is 4
+  -6.206 HS hit count=='LOW' and label is 1
+   6.125 HS hit count=='HIGH' and label is 4
+   6.073 HS raw score==4 and label is 5
+   5.849 HS hit count=='HIGH' and label is 3
+   5.848 HS raw score==4 and label is 4
+0.45121951219512196
+   6.826 HS raw score==4 and label is 4
+  -3.369 Correction feature (3)
+   3.328 HS hit count=='LOW' and label is 4
+   2.801 HS hit count=='LOW' and label is 5
+   2.716 HS hit count=='LOW' and label is 3
+   6.826 HS raw score==4 and label is 4
+  -3.369 Correction feature (3)
+   3.328 HS hit count=='LOW' and label is 4
+   2.801 HS hit count=='LOW' and label is 5
+   2.716 HS hit count=='LOW' and label is 3
+Running most accurate trained classifier on test set
+Accuracy: 0.3611111111111111
+Our RMS Error: 0.7993052538854533
+Accuracy improvement over baseline: -0.06481481481481483
+RMS Error reduction from baseline: -0.041628492941794604
+END IGNORE////////////////
+Naive Bayes run # 0
+Running Baseline
+Accuracy: 0.8333333333333334
+BaseLine RMS Error: 0.408248290463863
+Most Informative Features
+                    Food = '-'                 - : +      =      2.6 : 1.0
+                OverallP = '-'                 - : +      =      2.6 : 1.0
+                OverallP = '+'                 + : -      =      2.4 : 1.0
+                 Service = '-'                 - : +      =      1.9 : 1.0
+                    Food = '+'                 + : -      =      1.6 : 1.0
+Most Informative Features
+                OverallP = '-'                 - : +      =      2.4 : 1.0
+                OverallP = '+'                 + : -      =      1.8 : 1.0
+                    Food = '-'                 - : +      =      1.7 : 1.0
+                 Service = '-'                 - : +      =      1.6 : 1.0
+                 Service = '+'                 + : -      =      1.3 : 1.0
+Most Informative Features
+                OverallP = '-'                 - : +      =      2.3 : 1.0
+                 Service = '-'                 - : +      =      2.1 : 1.0
+                OverallP = '+'                 + : -      =      2.1 : 1.0
+                    Food = '-'                 - : +      =      2.0 : 1.0
+                 Service = '+'                 + : -      =      1.4 : 1.0
+Most Informative Features
+                OverallP = '-'                 - : +      =      2.7 : 1.0
+                OverallP = '+'                 + : -      =      2.2 : 1.0
+                    Food = '-'                 - : +      =      1.9 : 1.0
+                 Service = '-'                 - : +      =      1.7 : 1.0
+                   Venue = '-'                 - : +      =      1.5 : 1.0
+Running most accurate trained classifier on test set
+Accuracy: 0.7407407407407407
+Our RMS Error: 0.5091750772173156
+Accuracy improvement over baseline: -0.09259259259259267
+RMS Error reduction from baseline: -0.10092678675345257
+Naive Bayes run # 1
+Running Baseline
+Accuracy: 0.8333333333333334
+BaseLine RMS Error: 0.408248290463863
+Most Informative Features
+                OverallP = '-'                 - : +      =      2.7 : 1.0
+                    Food = '-'                 - : +      =      2.7 : 1.0
+                OverallP = '+'                 + : -      =      2.1 : 1.0
+                 Service = '-'                 - : +      =      1.8 : 1.0
+                    Food = '+'                 + : -      =      1.6 : 1.0
+Most Informative Features
+                OverallP = '-'                 - : +      =      2.6 : 1.0
+                OverallP = '+'                 + : -      =      2.3 : 1.0
+                    Food = '-'                 - : +      =      2.0 : 1.0
+                 Service = '-'                 - : +      =      2.0 : 1.0
+                    Food = '+'                 + : -      =      1.4 : 1.0
+Most Informative Features
+                OverallP = '-'                 - : +      =      2.7 : 1.0
+                OverallP = '+'                 + : -      =      2.1 : 1.0
+                    Food = '-'                 - : +      =      1.9 : 1.0
+                 Service = '-'                 - : +      =      1.8 : 1.0
+                 Service = '+'                 + : -      =      1.3 : 1.0
+Most Informative Features
+                OverallP = '-'                 - : +      =      2.1 : 1.0
+                OverallP = '+'                 + : -      =      1.9 : 1.0
+                    Food = '-'                 - : +      =      1.7 : 1.0
+                 Service = '-'                 - : +      =      1.7 : 1.0
+                   Venue = '-'                 - : +      =      1.5 : 1.0
+Running most accurate trained classifier on test set
+Accuracy: 0.7407407407407407
+Our RMS Error: 0.5091750772173156
+Accuracy improvement over baseline: -0.09259259259259267
+RMS Error reduction from baseline: -0.10092678675345257
+Naive Bayes run # 2
+Running Baseline
+Accuracy: 0.8333333333333334
+BaseLine RMS Error: 0.408248290463863
+Most Informative Features
+                OverallP = '-'                 - : +      =      3.0 : 1.0
+                    Food = '-'                 - : +      =      2.3 : 1.0
+                OverallP = '+'                 + : -      =      2.2 : 1.0
+                 Service = '-'                 - : +      =      1.9 : 1.0
+                 Service = '+'                 + : -      =      1.4 : 1.0
+Most Informative Features
+                OverallP = '-'                 - : +      =      2.3 : 1.0
+                OverallP = '+'                 + : -      =      2.0 : 1.0
+                 Service = '-'                 - : +      =      2.0 : 1.0
+                    Food = '-'                 - : +      =      1.9 : 1.0
+                 Service = '+'                 + : -      =      1.5 : 1.0
+Most Informative Features
+                OverallP = '-'                 - : +      =      2.4 : 1.0
+                OverallP = '+'                 + : -      =      2.0 : 1.0
+                    Food = '-'                 - : +      =      1.8 : 1.0
+                 Service = '-'                 - : +      =      1.4 : 1.0
+                    Food = '+'                 + : -      =      1.3 : 1.0
+Most Informative Features
+                OverallP = '-'                 - : +      =      2.4 : 1.0
+                OverallP = '+'                 + : -      =      2.3 : 1.0
+                    Food = '-'                 - : +      =      2.2 : 1.0
+                 Service = '-'                 - : +      =      2.0 : 1.0
+                    Food = '+'                 + : -      =      1.5 : 1.0
+Running most accurate trained classifier on test set
+Accuracy: 0.7407407407407407
+Our RMS Error: 0.5091750772173156
+Accuracy improvement over baseline: -0.09259259259259267
+RMS Error reduction from baseline: -0.10092678675345257
+Naive Bayes run # 3
+Running Baseline
+Accuracy: 0.8333333333333334
+BaseLine RMS Error: 0.408248290463863
+Most Informative Features
+                 Service = '-'                 - : +      =      2.4 : 1.0
+                OverallP = '-'                 - : +      =      2.3 : 1.0
+                    Food = '-'                 - : +      =      2.2 : 1.0
+                OverallP = '+'                 + : -      =      1.8 : 1.0
+                 Service = '+'                 + : -      =      1.5 : 1.0
+Most Informative Features
+                OverallP = '-'                 - : +      =      2.9 : 1.0
+                OverallP = '+'                 + : -      =      2.7 : 1.0
+                    Food = '-'                 - : +      =      2.3 : 1.0
+                    Food = '+'                 + : -      =      1.5 : 1.0
+                   Venue = '-'                 - : +      =      1.4 : 1.0
+Most Informative Features
+                OverallP = '-'                 - : +      =      2.2 : 1.0
+                 Service = '-'                 - : +      =      1.9 : 1.0
+                OverallP = '+'                 + : -      =      1.8 : 1.0
+                    Food = '-'                 - : +      =      1.7 : 1.0
+                 Service = '+'                 + : -      =      1.4 : 1.0
+Most Informative Features
+                OverallP = '-'                 - : +      =      2.7 : 1.0
+                OverallP = '+'                 + : -      =      2.4 : 1.0
+                    Food = '-'                 - : +      =      2.1 : 1.0
+                 Service = '-'                 - : +      =      1.8 : 1.0
+                   Venue = '-'                 - : +      =      1.5 : 1.0
+Running most accurate trained classifier on test set
+Accuracy: 0.7407407407407407
+Our RMS Error: 0.5091750772173156
+Accuracy improvement over baseline: -0.09259259259259267
+RMS Error reduction from baseline: -0.10092678675345257
+Naive Bayes run # 4
+Running Baseline
+Accuracy: 0.8333333333333334
+BaseLine RMS Error: 0.408248290463863
+Most Informative Features
+                OverallP = '-'                 - : +      =      2.5 : 1.0
+                    Food = '-'                 - : +      =      2.1 : 1.0
+                OverallP = '+'                 + : -      =      2.0 : 1.0
+                 Service = '-'                 - : +      =      1.7 : 1.0
+                    Food = '+'                 + : -      =      1.4 : 1.0
+Most Informative Features
+                OverallP = '-'                 - : +      =      3.0 : 1.0
+                OverallP = '+'                 + : -      =      2.5 : 1.0
+                    Food = '-'                 - : +      =      2.0 : 1.0
+                 Service = '-'                 - : +      =      1.8 : 1.0
+                   Venue = '-'                 - : +      =      1.6 : 1.0
+Most Informative Features
+                OverallP = '-'                 - : +      =      2.1 : 1.0
+                OverallP = '+'                 + : -      =      1.9 : 1.0
+                    Food = '-'                 - : +      =      1.8 : 1.0
+                 Service = '-'                 - : +      =      1.6 : 1.0
+                    Food = '+'                 + : -      =      1.3 : 1.0
+Most Informative Features
+                OverallP = '-'                 - : +      =      2.7 : 1.0
+                    Food = '-'                 - : +      =      2.3 : 1.0
+                 Service = '-'                 - : +      =      2.3 : 1.0
+                OverallP = '+'                 + : -      =      2.1 : 1.0
+                    Food = '+'                 + : -      =      1.5 : 1.0
+Running most accurate trained classifier on test set
+Accuracy: 0.7407407407407407
+Our RMS Error: 0.5091750772173156
+Accuracy improvement over baseline: -0.09259259259259267
+RMS Error reduction from baseline: -0.10092678675345257
+Decision Tree run # 0
+Running Baseline
+Accuracy: 0.8333333333333334
+BaseLine RMS Error: 0.408248290463863
+0.6829268292682927
+0.6829268292682927
+0.6829268292682927
+0.8048780487804879
+Running most accurate trained classifier on test set
+Accuracy: 0.7962962962962963
+Our RMS Error: 0.45133546692422
+Accuracy improvement over baseline: -0.03703703703703709
+RMS Error reduction from baseline: -0.04308717646035698
+Decision Tree run # 1
+Running Baseline
+Accuracy: 0.8333333333333334
+BaseLine RMS Error: 0.408248290463863
+0.7560975609756098
+0.5853658536585366
+0.5853658536585366
+0.7317073170731707
+Running most accurate trained classifier on test set
+Accuracy: 0.6851851851851852
+Our RMS Error: 0.5610836076867821
+Accuracy improvement over baseline: -0.14814814814814814
+RMS Error reduction from baseline: -0.1528353172229191
+Decision Tree run # 2
+Running Baseline
+Accuracy: 0.8333333333333334
+BaseLine RMS Error: 0.408248290463863
+0.7560975609756098
+0.7317073170731707
+0.7560975609756098
+0.7804878048780488
+Running most accurate trained classifier on test set
+Accuracy: 0.7777777777777778
+Our RMS Error: 0.4714045207910317
+Accuracy improvement over baseline: -0.05555555555555558
+RMS Error reduction from baseline: -0.06315623032716866
+Decision Tree run # 3
+Running Baseline
+Accuracy: 0.8333333333333334
+BaseLine RMS Error: 0.408248290463863
+0.7317073170731707
+0.7317073170731707
+0.7073170731707317
+0.5853658536585366
+Running most accurate trained classifier on test set
+Accuracy: 0.7962962962962963
+Our RMS Error: 0.45133546692422
+Accuracy improvement over baseline: -0.03703703703703709
+RMS Error reduction from baseline: -0.04308717646035698
+Decision Tree run # 4
+Running Baseline
+Accuracy: 0.8333333333333334
+BaseLine RMS Error: 0.408248290463863
+0.7317073170731707
+0.4878048780487805
+0.7317073170731707
+0.7804878048780488
+Running most accurate trained classifier on test set
+Accuracy: 0.7222222222222222
+Our RMS Error: 0.5270462766947299
+Accuracy improvement over baseline: -0.11111111111111116
+RMS Error reduction from baseline: -0.1187979862308669
+Max Entropy run # 0
+Running Baseline
+Accuracy: 0.8333333333333334
+BaseLine RMS Error: 0.408248290463863
+0.7804878048780488
+  -0.872 OverallP=='+' and label is '-'
+  -0.514 OverallP=='-' and label is '+'
+   0.460 OverallP=='-' and label is '-'
+  -0.452 Service=='+' and label is '-'
+  -0.380 Food=='+' and label is '-'
+  -0.872 OverallP=='+' and label is '-'
+  -0.514 OverallP=='-' and label is '+'
+   0.460 OverallP=='-' and label is '-'
+  -0.452 Service=='+' and label is '-'
+  -0.380 Food=='+' and label is '-'
+0.7317073170731707
+  -0.919 OverallP=='+' and label is '-'
+  -0.430 Food=='+' and label is '-'
+  -0.408 Service=='+' and label is '-'
+   0.405 OverallP=='-' and label is '-'
+  -0.386 OverallP=='-' and label is '+'
+  -0.919 OverallP=='+' and label is '-'
+  -0.430 Food=='+' and label is '-'
+  -0.408 Service=='+' and label is '-'
+   0.405 OverallP=='-' and label is '-'
+  -0.386 OverallP=='-' and label is '+'
+0.6585365853658537
+  -1.335 OverallP=='+' and label is '-'
+  -0.534 OverallP=='-' and label is '+'
+   0.497 OverallP=='-' and label is '-'
+   0.381 OverallP=='+' and label is '+'
+  -0.371 Service=='+' and label is '-'
+  -1.335 OverallP=='+' and label is '-'
+  -0.534 OverallP=='-' and label is '+'
+   0.497 OverallP=='-' and label is '-'
+   0.381 OverallP=='+' and label is '+'
+  -0.371 Service=='+' and label is '-'
+0.6829268292682927
+  -1.059 OverallP=='+' and label is '-'
+  -0.771 OverallP=='-' and label is '+'
+   0.590 OverallP=='-' and label is '-'
+  -0.562 Service=='+' and label is '-'
+  -0.514 Service=='-' and label is '+'
+  -1.059 OverallP=='+' and label is '-'
+  -0.771 OverallP=='-' and label is '+'
+   0.590 OverallP=='-' and label is '-'
+  -0.562 Service=='+' and label is '-'
+  -0.514 Service=='-' and label is '+'
+Running most accurate trained classifier on test set
+Accuracy: 0.7407407407407407
+Our RMS Error: 0.5091750772173156
+Accuracy improvement over baseline: -0.09259259259259267
+RMS Error reduction from baseline: -0.10092678675345257
+Max Entropy run # 1
+Running Baseline
+Accuracy: 0.8333333333333334
+BaseLine RMS Error: 0.408248290463863
+0.7560975609756098
+  -1.053 OverallP=='+' and label is '-'
+  -0.541 OverallP=='-' and label is '+'
+   0.530 OverallP=='-' and label is '-'
+  -0.452 Venue=='-' and label is '-'
+  -0.399 Food=='+' and label is '-'
+  -1.053 OverallP=='+' and label is '-'
+  -0.541 OverallP=='-' and label is '+'
+   0.530 OverallP=='-' and label is '-'
+  -0.452 Venue=='-' and label is '-'
+  -0.399 Food=='+' and label is '-'
+0.6341463414634146
+  -1.015 OverallP=='+' and label is '-'
+  -0.567 Food=='+' and label is '-'
+  -0.454 Service=='+' and label is '-'
+  -0.434 Food=='-' and label is '+'
+   0.401 Food=='-' and label is '-'
+  -1.015 OverallP=='+' and label is '-'
+  -0.567 Food=='+' and label is '-'
+  -0.454 Service=='+' and label is '-'
+  -0.434 Food=='-' and label is '+'
+   0.401 Food=='-' and label is '-'
+0.6097560975609756
+  -1.078 OverallP=='+' and label is '-'
+  -0.793 OverallP=='-' and label is '+'
+  -0.692 Service=='+' and label is '-'
+  -0.626 Service=='-' and label is '+'
+   0.608 OverallP=='-' and label is '-'
+  -1.078 OverallP=='+' and label is '-'
+  -0.793 OverallP=='-' and label is '+'
+  -0.692 Service=='+' and label is '-'
+  -0.626 Service=='-' and label is '+'
+   0.608 OverallP=='-' and label is '-'
+0.8048780487804879
+  -0.933 OverallP=='+' and label is '-'
+  -0.476 OverallP=='-' and label is '+'
+   0.433 OverallP=='-' and label is '-'
+  -0.364 Food=='+' and label is '-'
+   0.348 OverallP=='+' and label is '+'
+  -0.933 OverallP=='+' and label is '-'
+  -0.476 OverallP=='-' and label is '+'
+   0.433 OverallP=='-' and label is '-'
+  -0.364 Food=='+' and label is '-'
+   0.348 OverallP=='+' and label is '+'
+Running most accurate trained classifier on test set
+Accuracy: 0.7407407407407407
+Our RMS Error: 0.5091750772173156
+Accuracy improvement over baseline: -0.09259259259259267
+RMS Error reduction from baseline: -0.10092678675345257
+Max Entropy run # 2
+Running Baseline
+Accuracy: 0.8333333333333334
+BaseLine RMS Error: 0.408248290463863
+0.7317073170731707
+  -0.879 OverallP=='+' and label is '-'
+  -0.460 OverallP=='-' and label is '+'
+  -0.435 Service=='+' and label is '-'
+   0.403 OverallP=='-' and label is '-'
+   0.328 OverallP=='+' and label is '+'
+  -0.879 OverallP=='+' and label is '-'
+  -0.460 OverallP=='-' and label is '+'
+  -0.435 Service=='+' and label is '-'
+   0.403 OverallP=='-' and label is '-'
+   0.328 OverallP=='+' and label is '+'
+0.6829268292682927
+  -1.089 OverallP=='+' and label is '-'
+  -0.704 OverallP=='-' and label is '+'
+   0.604 OverallP=='-' and label is '-'
+  -0.423 Service=='+' and label is '-'
+  -0.401 Venue=='-' and label is '-'
+  -1.089 OverallP=='+' and label is '-'
+  -0.704 OverallP=='-' and label is '+'
+   0.604 OverallP=='-' and label is '-'
+  -0.423 Service=='+' and label is '-'
+  -0.401 Venue=='-' and label is '-'
+0.7560975609756098
+  -1.218 OverallP=='+' and label is '-'
+  -0.521 OverallP=='-' and label is '+'
+   0.481 OverallP=='-' and label is '-'
+  -0.441 Service=='+' and label is '-'
+  -0.435 Food=='+' and label is '-'
+  -1.218 OverallP=='+' and label is '-'
+  -0.521 OverallP=='-' and label is '+'
+   0.481 OverallP=='-' and label is '-'
+  -0.441 Service=='+' and label is '-'
+  -0.435 Food=='+' and label is '-'
+0.7073170731707317
+  -0.974 OverallP=='+' and label is '-'
+  -0.514 OverallP=='-' and label is '+'
+   0.499 OverallP=='-' and label is '-'
+  -0.492 Service=='+' and label is '-'
+  -0.448 Venue=='-' and label is '-'
+  -0.974 OverallP=='+' and label is '-'
+  -0.514 OverallP=='-' and label is '+'
+   0.499 OverallP=='-' and label is '-'
+  -0.492 Service=='+' and label is '-'
+  -0.448 Venue=='-' and label is '-'
+Running most accurate trained classifier on test set
+Accuracy: 0.7407407407407407
+Our RMS Error: 0.5091750772173156
+Accuracy improvement over baseline: -0.09259259259259267
+RMS Error reduction from baseline: -0.10092678675345257
+Max Entropy run # 3
+Running Baseline
+Accuracy: 0.8333333333333334
+BaseLine RMS Error: 0.408248290463863
+0.7560975609756098
+  -0.623 OverallP=='+' and label is '-'
+  -0.440 Service=='+' and label is '-'
+  -0.415 Food=='-' and label is '+'
+  -0.411 Food=='+' and label is '-'
+  -0.376 OverallP=='-' and label is '+'
+  -0.623 OverallP=='+' and label is '-'
+  -0.440 Service=='+' and label is '-'
+  -0.415 Food=='-' and label is '+'
+  -0.411 Food=='+' and label is '-'
+  -0.376 OverallP=='-' and label is '+'
+0.7804878048780488
+  -1.073 OverallP=='+' and label is '-'
+  -0.449 OverallP=='-' and label is '+'
+   0.444 OverallP=='-' and label is '-'
+   0.355 OverallP=='+' and label is '+'
+  -0.343 Service=='+' and label is '-'
+  -1.073 OverallP=='+' and label is '-'
+  -0.449 OverallP=='-' and label is '+'
+   0.444 OverallP=='-' and label is '-'
+   0.355 OverallP=='+' and label is '+'
+  -0.343 Service=='+' and label is '-'
+0.6341463414634146
+  -1.312 OverallP=='+' and label is '-'
+  -0.983 OverallP=='-' and label is '+'
+   0.671 OverallP=='-' and label is '-'
+  -0.498 Venue=='-' and label is '-'
+  -0.476 Service=='+' and label is '-'
+  -1.312 OverallP=='+' and label is '-'
+  -0.983 OverallP=='-' and label is '+'
+   0.671 OverallP=='-' and label is '-'
+  -0.498 Venue=='-' and label is '-'
+  -0.476 Service=='+' and label is '-'
+0.6341463414634146
+  -1.310 OverallP=='+' and label is '-'
+  -0.558 Service=='+' and label is '-'
+   0.504 OverallP=='-' and label is '-'
+  -0.492 OverallP=='-' and label is '+'
+   0.436 Service=='-' and label is '-'
+  -1.310 OverallP=='+' and label is '-'
+  -0.558 Service=='+' and label is '-'
+   0.504 OverallP=='-' and label is '-'
+  -0.492 OverallP=='-' and label is '+'
+   0.436 Service=='-' and label is '-'
+Running most accurate trained classifier on test set
+Accuracy: 0.7407407407407407
+Our RMS Error: 0.5091750772173156
+Accuracy improvement over baseline: -0.09259259259259267
+RMS Error reduction from baseline: -0.10092678675345257
+Max Entropy run # 4
+Running Baseline
+Accuracy: 0.8333333333333334
+BaseLine RMS Error: 0.408248290463863
+0.7073170731707317
+  -1.152 OverallP=='+' and label is '-'
+  -0.722 OverallP=='-' and label is '+'
+   0.577 OverallP=='-' and label is '-'
+  -0.483 Service=='+' and label is '-'
+   0.371 Service=='-' and label is '-'
+  -1.152 OverallP=='+' and label is '-'
+  -0.722 OverallP=='-' and label is '+'
+   0.577 OverallP=='-' and label is '-'
+  -0.483 Service=='+' and label is '-'
+   0.371 Service=='-' and label is '-'
+0.5853658536585366
+  -1.176 OverallP=='+' and label is '-'
+   0.463 OverallP=='-' and label is '-'
+  -0.453 OverallP=='-' and label is '+'
+  -0.429 Service=='+' and label is '-'
+   0.357 OverallP=='+' and label is '+'
+  -1.176 OverallP=='+' and label is '-'
+   0.463 OverallP=='-' and label is '-'
+  -0.453 OverallP=='-' and label is '+'
+  -0.429 Service=='+' and label is '-'
+   0.357 OverallP=='+' and label is '+'
+0.7073170731707317
+  -0.950 OverallP=='+' and label is '-'
+  -0.511 Service=='+' and label is '-'
+   0.463 OverallP=='-' and label is '-'
+  -0.457 OverallP=='-' and label is '+'
+  -0.388 Venue=='-' and label is '-'
+  -0.950 OverallP=='+' and label is '-'
+  -0.511 Service=='+' and label is '-'
+   0.463 OverallP=='-' and label is '-'
+  -0.457 OverallP=='-' and label is '+'
+  -0.388 Venue=='-' and label is '-'
+0.6829268292682927
+  -0.905 OverallP=='+' and label is '-'
+  -0.717 Food=='-' and label is '+'
+  -0.597 OverallP=='-' and label is '+'
+  -0.559 Food=='+' and label is '-'
+   0.500 Food=='-' and label is '-'
+  -0.905 OverallP=='+' and label is '-'
+  -0.717 Food=='-' and label is '+'
+  -0.597 OverallP=='-' and label is '+'
+  -0.559 Food=='+' and label is '-'
+   0.500 Food=='-' and label is '-'
+Running most accurate trained classifier on test set
+Accuracy: 0.6851851851851852
+Our RMS Error: 0.5610836076867821
+Accuracy improvement over baseline: -0.14814814814814814
+RMS Error reduction from baseline: -0.1528353172229191

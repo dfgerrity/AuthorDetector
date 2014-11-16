@@ -11,7 +11,7 @@ def extractAllTagged(taggedSamples, featureExtractors):
     featureSets = []
     uid = 2
     i=0
-    print("Running",len(featureExtractors),"Extractor(s) on",  len(taggedSamples), "samples")
+    #print("Running",len(featureExtractors),"Extractor(s) on",  len(taggedSamples), "samples")
     for ts in taggedSamples:
         i+=1
         #print("Extracting features from Sample #", i)
@@ -39,7 +39,7 @@ def extractAll(samples, featureExtractors):
     featureSets = []
     uid = 2
     i=0
-    print("Running",len(featureExtractors),"Extractor(s) on",  len(samples), "samples")
+    #print("Running",len(featureExtractors),"Extractor(s) on",  len(samples), "samples")
     for s in samples:
         i+=1
         #print("Extracting features from Sample #", i)
@@ -72,13 +72,13 @@ def getTestandTraining(taggedSamples, featureExtractors, trainWeight=2, testWeig
 def getNfolds(taggedSamples, featureExtractors, n=5):
     '''Expects taggedSamples to be [data, tag] or (data,tag) Returns folds[] '''
     if n < 2:
-        print("Cannot do cross-fold validation on 1 fold. Increasing to 2")
+        #print("Cannot do cross-fold validation on 1 fold. Increasing to 2")
         n = 2
     featureSets = extractAllTagged(taggedSamples, featureExtractors)
-    print("Shuffling featuresets")
+    #print("Shuffling featuresets")
     random.shuffle(featureSets)
     unit = int(len(featureSets) / n)
-    print("Divided into", n, "folds")
+    #print("Divided into", n, "folds")
     folds = []
     for i in range(n-1):
         folds.append(featureSets[unit*i:unit*(i+1)])

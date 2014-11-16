@@ -1,0 +1,535 @@
+Loading Corpus...
+Loading Files
+Tagging Training data by paragraph
+Tagging Testing data by paragraph
+4
+30
+82
+141
+71
+Loading Happy/Sad Words...
+Naive Bayes run # 0
+PART I Just classify by positive or negative where "+" = {4,5} and "-" = {1,2,3}
+Running Baseline
+Accuracy: 0.6018518518518519
+BaseLine RMS Error: 1.0
+Running Our Classifier
+Most Informative Features
+               HS rating = '+'                 + : -      =      1.9 : 1.0
+               HS rating = '-'                 - : +      =      1.8 : 1.0
+            HS hit count = 'HIGH'              - : +      =      1.4 : 1.0
+            HS hit count = 'LOW'               + : -      =      1.4 : 1.0
+            HS hit count = 'MEDIUM'            - : +      =      1.3 : 1.0
+Most Informative Features
+               HS rating = '+'                 + : -      =      1.7 : 1.0
+               HS rating = '-'                 - : +      =      1.6 : 1.0
+            HS hit count = 'MEDIUM'            - : +      =      1.2 : 1.0
+            HS hit count = 'LOW'               + : -      =      1.2 : 1.0
+            HS hit count = 'HIGH'              - : +      =      1.1 : 1.0
+Most Informative Features
+               HS rating = '+'                 + : -      =      2.3 : 1.0
+            HS hit count = 'HIGH'              - : +      =      2.1 : 1.0
+               HS rating = '-'                 - : +      =      1.8 : 1.0
+            HS hit count = 'LOW'               + : -      =      1.6 : 1.0
+            HS hit count = 'MEDIUM'            - : +      =      1.3 : 1.0
+Most Informative Features
+               HS rating = '+'                 + : -      =      2.2 : 1.0
+               HS rating = '-'                 - : +      =      1.9 : 1.0
+            HS hit count = 'HIGH'              - : +      =      1.6 : 1.0
+            HS hit count = 'LOW'               + : -      =      1.2 : 1.0
+            HS hit count = 'MEDIUM'            - : +      =      1.1 : 1.0
+Accuracy: 0.6388888888888888
+Our RMS Error: 1.0
+Accuracy improvement over baseline: 0.03703703703703698
+RMS Error reduction from baseline: 0.0
+Running most accurate trained classifier on test set
+Naive Bayes run # 1
+PART I Just classify by positive or negative where "+" = {4,5} and "-" = {1,2,3}
+Running Baseline
+Accuracy: 0.6018518518518519
+BaseLine RMS Error: 1.0
+Running Our Classifier
+Most Informative Features
+               HS rating = '+'                 + : -      =      2.1 : 1.0
+               HS rating = '-'                 - : +      =      1.9 : 1.0
+            HS hit count = 'LOW'               + : -      =      1.3 : 1.0
+            HS hit count = 'MEDIUM'            - : +      =      1.3 : 1.0
+            HS hit count = 'HIGH'              - : +      =      1.1 : 1.0
+Most Informative Features
+               HS rating = '+'                 + : -      =      1.8 : 1.0
+            HS hit count = 'HIGH'              - : +      =      1.6 : 1.0
+               HS rating = '-'                 - : +      =      1.6 : 1.0
+            HS hit count = 'LOW'               + : -      =      1.4 : 1.0
+            HS hit count = 'MEDIUM'            - : +      =      1.3 : 1.0
+Most Informative Features
+            HS hit count = 'HIGH'              - : +      =      2.9 : 1.0
+               HS rating = '+'                 + : -      =      1.9 : 1.0
+               HS rating = '-'                 - : +      =      1.8 : 1.0
+            HS hit count = 'LOW'               + : -      =      1.4 : 1.0
+            HS hit count = 'MEDIUM'            - : +      =      1.0 : 1.0
+Most Informative Features
+               HS rating = '+'                 + : -      =      2.3 : 1.0
+               HS rating = '-'                 - : +      =      2.0 : 1.0
+            HS hit count = 'MEDIUM'            - : +      =      1.3 : 1.0
+            HS hit count = 'LOW'               + : -      =      1.3 : 1.0
+            HS hit count = 'HIGH'              - : +      =      1.1 : 1.0
+Accuracy: 0.6388888888888888
+Our RMS Error: 1.0
+Accuracy improvement over baseline: 0.03703703703703698
+RMS Error reduction from baseline: 0.0
+Running most accurate trained classifier on test set
+Naive Bayes run # 2
+PART I Just classify by positive or negative where "+" = {4,5} and "-" = {1,2,3}
+Running Baseline
+Accuracy: 0.6018518518518519
+BaseLine RMS Error: 1.0
+Running Our Classifier
+Most Informative Features
+            HS hit count = 'HIGH'              - : +      =      2.1 : 1.0
+               HS rating = '+'                 + : -      =      2.0 : 1.0
+               HS rating = '-'                 - : +      =      1.7 : 1.0
+            HS hit count = 'LOW'               + : -      =      1.3 : 1.0
+            HS hit count = 'MEDIUM'            - : +      =      1.1 : 1.0
+Most Informative Features
+               HS rating = '+'                 + : -      =      1.9 : 1.0
+               HS rating = '-'                 - : +      =      1.8 : 1.0
+            HS hit count = 'HIGH'              - : +      =      1.6 : 1.0
+            HS hit count = 'LOW'               + : -      =      1.3 : 1.0
+            HS hit count = 'MEDIUM'            - : +      =      1.2 : 1.0
+Most Informative Features
+               HS rating = '+'                 + : -      =      2.2 : 1.0
+               HS rating = '-'                 - : +      =      1.9 : 1.0
+            HS hit count = 'LOW'               + : -      =      1.4 : 1.0
+            HS hit count = 'HIGH'              - : +      =      1.3 : 1.0
+            HS hit count = 'MEDIUM'            - : +      =      1.3 : 1.0
+Most Informative Features
+               HS rating = '+'                 + : -      =      1.9 : 1.0
+               HS rating = '-'                 - : +      =      1.8 : 1.0
+            HS hit count = 'HIGH'              - : +      =      1.4 : 1.0
+            HS hit count = 'LOW'               + : -      =      1.3 : 1.0
+            HS hit count = 'MEDIUM'            - : +      =      1.2 : 1.0
+Accuracy: 0.6388888888888888
+Our RMS Error: 1.0
+Accuracy improvement over baseline: 0.03703703703703698
+RMS Error reduction from baseline: 0.0
+Running most accurate trained classifier on test set
+Naive Bayes run # 3
+PART I Just classify by positive or negative where "+" = {4,5} and "-" = {1,2,3}
+Running Baseline
+Accuracy: 0.6018518518518519
+BaseLine RMS Error: 1.0
+Running Our Classifier
+Most Informative Features
+               HS rating = '+'                 + : -      =      2.1 : 1.0
+               HS rating = '-'                 - : +      =      1.7 : 1.0
+            HS hit count = 'HIGH'              - : +      =      1.7 : 1.0
+            HS hit count = 'LOW'               + : -      =      1.3 : 1.0
+            HS hit count = 'MEDIUM'            - : +      =      1.1 : 1.0
+Most Informative Features
+               HS rating = '+'                 + : -      =      1.9 : 1.0
+               HS rating = '-'                 - : +      =      1.8 : 1.0
+            HS hit count = 'HIGH'              - : +      =      1.7 : 1.0
+            HS hit count = 'LOW'               + : -      =      1.2 : 1.0
+            HS hit count = 'MEDIUM'            - : +      =      1.1 : 1.0
+Most Informative Features
+               HS rating = '+'                 + : -      =      1.9 : 1.0
+               HS rating = '-'                 - : +      =      1.8 : 1.0
+            HS hit count = 'HIGH'              - : +      =      1.3 : 1.0
+            HS hit count = 'LOW'               + : -      =      1.3 : 1.0
+            HS hit count = 'MEDIUM'            - : +      =      1.3 : 1.0
+Most Informative Features
+               HS rating = '+'                 + : -      =      2.3 : 1.0
+               HS rating = '-'                 - : +      =      1.8 : 1.0
+            HS hit count = 'HIGH'              - : +      =      1.5 : 1.0
+            HS hit count = 'LOW'               + : -      =      1.5 : 1.0
+            HS hit count = 'MEDIUM'            - : +      =      1.4 : 1.0
+Accuracy: 0.6388888888888888
+Our RMS Error: 1.0
+Accuracy improvement over baseline: 0.03703703703703698
+RMS Error reduction from baseline: 0.0
+Running most accurate trained classifier on test set
+Naive Bayes run # 4
+PART I Just classify by positive or negative where "+" = {4,5} and "-" = {1,2,3}
+Running Baseline
+Accuracy: 0.6018518518518519
+BaseLine RMS Error: 1.0
+Running Our Classifier
+Most Informative Features
+               HS rating = '+'                 + : -      =      1.9 : 1.0
+            HS hit count = 'HIGH'              - : +      =      1.8 : 1.0
+               HS rating = '-'                 - : +      =      1.6 : 1.0
+            HS hit count = 'LOW'               + : -      =      1.4 : 1.0
+            HS hit count = 'MEDIUM'            - : +      =      1.2 : 1.0
+Most Informative Features
+               HS rating = '+'                 + : -      =      1.9 : 1.0
+               HS rating = '-'                 - : +      =      1.7 : 1.0
+            HS hit count = 'HIGH'              - : +      =      1.4 : 1.0
+            HS hit count = 'LOW'               + : -      =      1.2 : 1.0
+            HS hit count = 'MEDIUM'            - : +      =      1.2 : 1.0
+Most Informative Features
+               HS rating = '+'                 + : -      =      1.9 : 1.0
+               HS rating = '-'                 - : +      =      1.8 : 1.0
+            HS hit count = 'HIGH'              - : +      =      1.5 : 1.0
+            HS hit count = 'LOW'               + : -      =      1.3 : 1.0
+            HS hit count = 'MEDIUM'            - : +      =      1.2 : 1.0
+Most Informative Features
+               HS rating = '+'                 + : -      =      2.5 : 1.0
+               HS rating = '-'                 - : +      =      2.1 : 1.0
+            HS hit count = 'HIGH'              - : +      =      1.5 : 1.0
+            HS hit count = 'LOW'               + : -      =      1.4 : 1.0
+            HS hit count = 'MEDIUM'            - : +      =      1.3 : 1.0
+Accuracy: 0.6388888888888888
+Our RMS Error: 1.0
+Accuracy improvement over baseline: 0.03703703703703698
+RMS Error reduction from baseline: 0.0
+Running most accurate trained classifier on test set
+Decision Tree run # 0
+PART I Just classify by positive or negative where "+" = {4,5} and "-" = {1,2,3}
+Running Baseline
+Accuracy: 0.6018518518518519
+BaseLine RMS Error: 1.0
+Running Our Classifier
+0.5975609756097561
+0.6951219512195121
+0.6951219512195121
+0.6707317073170732
+Accuracy: 0.6018518518518519
+Our RMS Error: 1.0
+Accuracy improvement over baseline: 0.0
+RMS Error reduction from baseline: 0.0
+Running most accurate trained classifier on test set
+Decision Tree run # 1
+PART I Just classify by positive or negative where "+" = {4,5} and "-" = {1,2,3}
+Running Baseline
+Accuracy: 0.6018518518518519
+BaseLine RMS Error: 1.0
+Running Our Classifier
+0.6707317073170732
+0.6341463414634146
+0.5975609756097561
+0.6219512195121951
+Accuracy: 0.6203703703703703
+Our RMS Error: 1.0
+Accuracy improvement over baseline: 0.01851851851851849
+RMS Error reduction from baseline: 0.0
+Running most accurate trained classifier on test set
+Decision Tree run # 2
+PART I Just classify by positive or negative where "+" = {4,5} and "-" = {1,2,3}
+Running Baseline
+Accuracy: 0.6018518518518519
+BaseLine RMS Error: 1.0
+Running Our Classifier
+0.6951219512195121
+0.5853658536585366
+0.6585365853658537
+0.6463414634146342
+Accuracy: 0.6111111111111112
+Our RMS Error: 1.0
+Accuracy improvement over baseline: 0.0092592592592593
+RMS Error reduction from baseline: 0.0
+Running most accurate trained classifier on test set
+Decision Tree run # 3
+PART I Just classify by positive or negative where "+" = {4,5} and "-" = {1,2,3}
+Running Baseline
+Accuracy: 0.6018518518518519
+BaseLine RMS Error: 1.0
+Running Our Classifier
+0.6829268292682927
+0.6829268292682927
+0.6829268292682927
+0.573170731707317
+Accuracy: 0.6111111111111112
+Our RMS Error: 1.0
+Accuracy improvement over baseline: 0.0092592592592593
+RMS Error reduction from baseline: 0.0
+Running most accurate trained classifier on test set
+Decision Tree run # 4
+PART I Just classify by positive or negative where "+" = {4,5} and "-" = {1,2,3}
+Running Baseline
+Accuracy: 0.6018518518518519
+BaseLine RMS Error: 1.0
+Running Our Classifier
+0.5975609756097561
+0.6341463414634146
+0.6097560975609756
+0.5487804878048781
+Accuracy: 0.6018518518518519
+Our RMS Error: 1.0
+Accuracy improvement over baseline: 0.0
+RMS Error reduction from baseline: 0.0
+Running most accurate trained classifier on test set
+Max Entropy run # 0
+PART I Just classify by positive or negative where "+" = {4,5} and "-" = {1,2,3}
+Running Baseline
+Accuracy: 0.6018518518518519
+BaseLine RMS Error: 1.0
+Running Our Classifier
+0.6219512195121951
+  -0.887 HS rating=='+' and label is '-'
+  -0.482 HS hit count=='LOW' and label is '-'
+   0.384 HS rating=='+' and label is '+'
+   0.265 HS hit count=='LOW' and label is '+'
+  -0.173 HS hit count=='MEDIUM' and label is '-'
+  -0.887 HS rating=='+' and label is '-'
+  -0.482 HS hit count=='LOW' and label is '-'
+   0.384 HS rating=='+' and label is '+'
+   0.265 HS hit count=='LOW' and label is '+'
+  -0.173 HS hit count=='MEDIUM' and label is '-'
+0.6097560975609756
+  -1.119 HS rating=='+' and label is '-'
+  -0.627 HS hit count=='HIGH' and label is '-'
+   0.450 HS rating=='+' and label is '+'
+   0.422 HS hit count=='HIGH' and label is '+'
+  -0.265 HS rating=='-' and label is '+'
+  -1.119 HS rating=='+' and label is '-'
+  -0.627 HS hit count=='HIGH' and label is '-'
+   0.450 HS rating=='+' and label is '+'
+   0.422 HS hit count=='HIGH' and label is '+'
+  -0.265 HS rating=='-' and label is '+'
+0.7073170731707317
+  -0.912 HS rating=='+' and label is '-'
+  -0.442 HS hit count=='LOW' and label is '-'
+   0.398 HS rating=='+' and label is '+'
+   0.253 HS hit count=='LOW' and label is '+'
+   0.178 HS rating=='-' and label is '-'
+  -0.912 HS rating=='+' and label is '-'
+  -0.442 HS hit count=='LOW' and label is '-'
+   0.398 HS rating=='+' and label is '+'
+   0.253 HS hit count=='LOW' and label is '+'
+   0.178 HS rating=='-' and label is '-'
+0.6219512195121951
+  -1.183 HS rating=='+' and label is '-'
+  -0.445 HS hit count=='LOW' and label is '-'
+   0.440 HS rating=='+' and label is '+'
+   0.249 HS hit count=='LOW' and label is '+'
+   0.243 HS rating=='-' and label is '-'
+  -1.183 HS rating=='+' and label is '-'
+  -0.445 HS hit count=='LOW' and label is '-'
+   0.440 HS rating=='+' and label is '+'
+   0.249 HS hit count=='LOW' and label is '+'
+   0.243 HS rating=='-' and label is '-'
+Accuracy: 0.6388888888888888
+Our RMS Error: 1.0
+Accuracy improvement over baseline: 0.03703703703703698
+RMS Error reduction from baseline: 0.0
+Running most accurate trained classifier on test set
+Max Entropy run # 1
+PART I Just classify by positive or negative where "+" = {4,5} and "-" = {1,2,3}
+Running Baseline
+Accuracy: 0.6018518518518519
+BaseLine RMS Error: 1.0
+Running Our Classifier
+0.6829268292682927
+  -0.732 HS rating=='+' and label is '-'
+  -0.555 HS hit count=='LOW' and label is '-'
+   0.353 HS rating=='+' and label is '+'
+   0.296 HS hit count=='LOW' and label is '+'
+   0.092 HS rating=='-' and label is '-'
+  -0.732 HS rating=='+' and label is '-'
+  -0.555 HS hit count=='LOW' and label is '-'
+   0.353 HS rating=='+' and label is '+'
+   0.296 HS hit count=='LOW' and label is '+'
+   0.092 HS rating=='-' and label is '-'
+0.5609756097560976
+  -1.280 HS rating=='+' and label is '-'
+   0.461 HS rating=='+' and label is '+'
+  -0.311 HS hit count=='LOW' and label is '-'
+  -0.267 HS rating=='-' and label is '+'
+   0.258 HS rating=='-' and label is '-'
+  -1.280 HS rating=='+' and label is '-'
+   0.461 HS rating=='+' and label is '+'
+  -0.311 HS hit count=='LOW' and label is '-'
+  -0.267 HS rating=='-' and label is '+'
+   0.258 HS rating=='-' and label is '-'
+0.6707317073170732
+  -0.901 HS rating=='+' and label is '-'
+   0.400 HS rating=='+' and label is '+'
+  -0.354 HS hit count=='LOW' and label is '-'
+  -0.228 HS hit count=='HIGH' and label is '-'
+   0.225 HS rating=='-' and label is '-'
+  -0.901 HS rating=='+' and label is '-'
+   0.400 HS rating=='+' and label is '+'
+  -0.354 HS hit count=='LOW' and label is '-'
+  -0.228 HS hit count=='HIGH' and label is '-'
+   0.225 HS rating=='-' and label is '-'
+0.573170731707317
+  -1.248 HS rating=='+' and label is '-'
+   0.445 HS rating=='+' and label is '+'
+  -0.396 HS hit count=='LOW' and label is '-'
+   0.229 HS hit count=='LOW' and label is '+'
+  -0.223 HS hit count=='MEDIUM' and label is '-'
+  -1.248 HS rating=='+' and label is '-'
+   0.445 HS rating=='+' and label is '+'
+  -0.396 HS hit count=='LOW' and label is '-'
+   0.229 HS hit count=='LOW' and label is '+'
+  -0.223 HS hit count=='MEDIUM' and label is '-'
+Accuracy: 0.6388888888888888
+Our RMS Error: 1.0
+Accuracy improvement over baseline: 0.03703703703703698
+RMS Error reduction from baseline: 0.0
+Running most accurate trained classifier on test set
+Max Entropy run # 2
+PART I Just classify by positive or negative where "+" = {4,5} and "-" = {1,2,3}
+Running Baseline
+Accuracy: 0.6018518518518519
+BaseLine RMS Error: 1.0
+Running Our Classifier
+0.6097560975609756
+  -1.057 HS rating=='+' and label is '-'
+  -0.492 HS hit count=='LOW' and label is '-'
+   0.425 HS rating=='+' and label is '+'
+   0.270 HS hit count=='LOW' and label is '+'
+   0.205 HS rating=='-' and label is '-'
+  -1.057 HS rating=='+' and label is '-'
+  -0.492 HS hit count=='LOW' and label is '-'
+   0.425 HS rating=='+' and label is '+'
+   0.270 HS hit count=='LOW' and label is '+'
+   0.205 HS rating=='-' and label is '-'
+0.6829268292682927
+  -1.056 HS rating=='+' and label is '-'
+   0.425 HS rating=='+' and label is '+'
+  -0.380 HS hit count=='LOW' and label is '-'
+  -0.231 HS rating=='-' and label is '+'
+   0.227 HS rating=='-' and label is '-'
+  -1.056 HS rating=='+' and label is '-'
+   0.425 HS rating=='+' and label is '+'
+  -0.380 HS hit count=='LOW' and label is '-'
+  -0.231 HS rating=='-' and label is '+'
+   0.227 HS rating=='-' and label is '-'
+0.6219512195121951
+  -0.878 HS rating=='+' and label is '-'
+  -0.434 HS hit count=='LOW' and label is '-'
+   0.384 HS rating=='+' and label is '+'
+   0.247 HS hit count=='LOW' and label is '+'
+  -0.187 HS hit count=='MEDIUM' and label is '-'
+  -0.878 HS rating=='+' and label is '-'
+  -0.434 HS hit count=='LOW' and label is '-'
+   0.384 HS rating=='+' and label is '+'
+   0.247 HS hit count=='LOW' and label is '+'
+  -0.187 HS hit count=='MEDIUM' and label is '-'
+0.6829268292682927
+  -1.067 HS rating=='+' and label is '-'
+   0.427 HS rating=='+' and label is '+'
+  -0.325 HS hit count=='LOW' and label is '-'
+  -0.224 HS hit count=='HIGH' and label is '-'
+   0.203 HS hit count=='LOW' and label is '+'
+  -1.067 HS rating=='+' and label is '-'
+   0.427 HS rating=='+' and label is '+'
+  -0.325 HS hit count=='LOW' and label is '-'
+  -0.224 HS hit count=='HIGH' and label is '-'
+   0.203 HS hit count=='LOW' and label is '+'
+Accuracy: 0.6388888888888888
+Our RMS Error: 1.0
+Accuracy improvement over baseline: 0.03703703703703698
+RMS Error reduction from baseline: 0.0
+Running most accurate trained classifier on test set
+Max Entropy run # 3
+PART I Just classify by positive or negative where "+" = {4,5} and "-" = {1,2,3}
+Running Baseline
+Accuracy: 0.6018518518518519
+BaseLine RMS Error: 1.0
+Running Our Classifier
+0.573170731707317
+  -1.163 HS rating=='+' and label is '-'
+  -0.555 HS hit count=='LOW' and label is '-'
+   0.433 HS rating=='+' and label is '+'
+   0.285 HS hit count=='LOW' and label is '+'
+   0.225 HS rating=='-' and label is '-'
+  -1.163 HS rating=='+' and label is '-'
+  -0.555 HS hit count=='LOW' and label is '-'
+   0.433 HS rating=='+' and label is '+'
+   0.285 HS hit count=='LOW' and label is '+'
+   0.225 HS rating=='-' and label is '-'
+0.6463414634146342
+  -1.024 HS rating=='+' and label is '-'
+  -0.452 HS hit count=='LOW' and label is '-'
+   0.417 HS rating=='+' and label is '+'
+  -0.313 HS hit count=='HIGH' and label is '-'
+   0.254 HS hit count=='LOW' and label is '+'
+  -1.024 HS rating=='+' and label is '-'
+  -0.452 HS hit count=='LOW' and label is '-'
+   0.417 HS rating=='+' and label is '+'
+  -0.313 HS hit count=='HIGH' and label is '-'
+   0.254 HS hit count=='LOW' and label is '+'
+0.5975609756097561
+  -1.014 HS rating=='+' and label is '-'
+   0.412 HS rating=='+' and label is '+'
+  -0.399 HS hit count=='LOW' and label is '-'
+   0.234 HS hit count=='LOW' and label is '+'
+  -0.226 HS hit count=='MEDIUM' and label is '-'
+  -1.014 HS rating=='+' and label is '-'
+   0.412 HS rating=='+' and label is '+'
+  -0.399 HS hit count=='LOW' and label is '-'
+   0.234 HS hit count=='LOW' and label is '+'
+  -0.226 HS hit count=='MEDIUM' and label is '-'
+0.6341463414634146
+  -0.881 HS rating=='+' and label is '-'
+   0.402 HS rating=='+' and label is '+'
+  -0.241 HS rating=='-' and label is '+'
+   0.232 HS rating=='-' and label is '-'
+  -0.229 HS hit count=='LOW' and label is '-'
+  -0.881 HS rating=='+' and label is '-'
+   0.402 HS rating=='+' and label is '+'
+  -0.241 HS rating=='-' and label is '+'
+   0.232 HS rating=='-' and label is '-'
+  -0.229 HS hit count=='LOW' and label is '-'
+Accuracy: 0.6111111111111112
+Our RMS Error: 1.0
+Accuracy improvement over baseline: 0.0092592592592593
+RMS Error reduction from baseline: 0.0
+Running most accurate trained classifier on test set
+Max Entropy run # 4
+PART I Just classify by positive or negative where "+" = {4,5} and "-" = {1,2,3}
+Running Baseline
+Accuracy: 0.6018518518518519
+BaseLine RMS Error: 1.0
+Running Our Classifier
+0.6219512195121951
+  -1.036 HS rating=='+' and label is '-'
+  -0.529 HS hit count=='LOW' and label is '-'
+   0.418 HS rating=='+' and label is '+'
+   0.283 HS hit count=='LOW' and label is '+'
+   0.177 HS rating=='-' and label is '-'
+  -1.036 HS rating=='+' and label is '-'
+  -0.529 HS hit count=='LOW' and label is '-'
+   0.418 HS rating=='+' and label is '+'
+   0.283 HS hit count=='LOW' and label is '+'
+   0.177 HS rating=='-' and label is '-'
+0.6829268292682927
+  -0.976 HS rating=='+' and label is '-'
+  -0.419 HS hit count=='LOW' and label is '-'
+   0.409 HS rating=='+' and label is '+'
+   0.242 HS hit count=='LOW' and label is '+'
+   0.162 HS rating=='-' and label is '-'
+  -0.976 HS rating=='+' and label is '-'
+  -0.419 HS hit count=='LOW' and label is '-'
+   0.409 HS rating=='+' and label is '+'
+   0.242 HS hit count=='LOW' and label is '+'
+   0.162 HS rating=='-' and label is '-'
+0.5975609756097561
+  -1.095 HS rating=='+' and label is '-'
+   0.436 HS rating=='+' and label is '+'
+  -0.260 HS hit count=='LOW' and label is '-'
+   0.242 HS rating=='-' and label is '-'
+  -0.241 HS rating=='-' and label is '+'
+  -1.095 HS rating=='+' and label is '-'
+   0.436 HS rating=='+' and label is '+'
+  -0.260 HS hit count=='LOW' and label is '-'
+   0.242 HS rating=='-' and label is '-'
+  -0.241 HS rating=='-' and label is '+'
+0.6585365853658537
+  -0.952 HS rating=='+' and label is '-'
+  -0.430 HS hit count=='LOW' and label is '-'
+   0.402 HS rating=='+' and label is '+'
+   0.246 HS hit count=='LOW' and label is '+'
+  -0.233 HS hit count=='HIGH' and label is '-'
+  -0.952 HS rating=='+' and label is '-'
+  -0.430 HS hit count=='LOW' and label is '-'
+   0.402 HS rating=='+' and label is '+'
+   0.246 HS hit count=='LOW' and label is '+'
+  -0.233 HS hit count=='HIGH' and label is '-'
+Accuracy: 0.6388888888888888
+Our RMS Error: 1.0
+Accuracy improvement over baseline: 0.03703703703703698
+RMS Error reduction from baseline: 0.0
+Running most accurate trained classifier on test set
