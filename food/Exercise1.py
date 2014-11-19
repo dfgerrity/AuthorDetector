@@ -9,19 +9,32 @@ import Extractor
 import Evaluator
 import ClassifierRunner
 
-print("Loading Corpus...")
-testParagraphs, trainingParagraphs = PreProcess.getRatedParagraphs()
-print(len([r for r in trainingParagraphs if r["overAllRating"] == 1]))
-print(len([r for r in trainingParagraphs if r["overAllRating"] == 2]))
-print(len([r for r in trainingParagraphs if r["overAllRating"] == 3]))
-print(len([r for r in trainingParagraphs if r["overAllRating"] == 4]))
-print(len([r for r in trainingParagraphs if r["overAllRating"] == 5]))
+testParagraphs = [] 
+trainingParagraphs = []
+happySadScoredWords = []
 
-
-print("Loading Happy/Sad Words...")
-happySadScoredWords = HappySad.loadHSWords("./words/happyAndSadWords3.txt")
+def setup():
+    global testParagraphs
+    global trainingParagraphs
+    global happySadScoredWords
+    testParagraphs = [] 
+    trainingParagraphs = []
+    happySadScoredWords = []
+    print("Loading Corpus...")
+    testParagraphs, trainingParagraphs = PreProcess.getRatedParagraphs()
+    print(len([r for r in trainingParagraphs if r["overAllRating"] == 1]))
+    print(len([r for r in trainingParagraphs if r["overAllRating"] == 2]))
+    print(len([r for r in trainingParagraphs if r["overAllRating"] == 3]))
+    print(len([r for r in trainingParagraphs if r["overAllRating"] == 4]))
+    print(len([r for r in trainingParagraphs if r["overAllRating"] == 5]))
+    print("Loading Happy/Sad Words...")
+    happySadScoredWords = HappySad.loadHSWords("./words/happyAndSadWords3.txt")
 
 def partI(classifier):
+    global testParagraphs
+    global trainingParagraphs
+    global happySadScoredWords
+    setup()
     print("PART I Just classify by positive or negative where \"+\" = {4,5} and \"-\" = {1,2,3}")
    # print("Classify by straight HappySad score mapping:")
     #ourtagsAdded = HappySad.happySadClassifier(happySadScoredWords, trainingParagraphs)
@@ -62,6 +75,7 @@ def partI(classifier):
     return (trainedClassifiers, featureExtractors) # for use in Exercise 2
 
 def partII(classifier):
+    setup()
     print("PART II Predict classify by numeric rating 1-5 ")    
     numericTagTraining = [(e["text"], e["overAllRating"]) for e in trainingParagraphs] 
     numericTagTesting = [(e["text"], e["overAllRating"]) for e in testParagraphs]
@@ -118,5 +132,5 @@ def runPartII():
         print("Max Entropy run #", i)
         partII(ClassifierRunner.maxEnt)
 
-partII(ClassifierRunner.naiveBayes)
-#runPartI()
+#partII(ClassifierRunner.naiveBayes)
+runPartII()

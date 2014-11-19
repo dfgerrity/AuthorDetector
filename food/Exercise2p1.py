@@ -148,4 +148,4 @@ def runPartII():
         print("Max Entropy run #", i)
         partII(ClassifierRunner.maxEnt)
 
-runPartII()
+runPartI()

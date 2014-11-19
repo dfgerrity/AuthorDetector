@@ -10,15 +10,10 @@ import Evaluator
 import ClassifierRunner
 import AuthorshipFeatures
 
-print("Loading Corpus...")
-testReviews, trainingReviews = PreProcess.getByAuthor()
-
-
 def partI(classifier):
     print("PART I Classify by author")
-    
-    print("Classify by using HappySad score as features for:")
-    print("Naive Bayes")
+    print("Loading Corpus...")
+    testReviews, trainingReviews = PreProcess.getByAuthor()
     authorTagTraining = [(e["text"], e["author"]) for e in trainingReviews] 
     authorTagTesting = [(e["text"], e["author"]) for e in testReviews]
     featureExtractors = []

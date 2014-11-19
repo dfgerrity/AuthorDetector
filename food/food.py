@@ -60,6 +60,13 @@ def createReviewerToReviewMap():
 # Written review is given its own index in the array. The next 4 indices
 # are the paragraphs of the review. If we need to join them later we can
 def createReviewArray():
+    testReviews = []
+    trainingReviews = []
+    reviewerToTestReviewsMap = {}
+    reviewerToTrainingReviewsMap = {}
+    test = []
+    training = []
+
     files = glob.glob("./trainingOut/*.html")
 
     for file in files:
