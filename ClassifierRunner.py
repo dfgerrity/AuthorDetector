@@ -2,6 +2,8 @@ import nltk
 from nltk import FreqDist
 import Extractor
 import Evaluator
+from sklearn.svm import LinearSVC
+from nltk.classify.scikitlearn import SklearnClassifier
 
 def mostCommonTag(training_set, test_set):
     #print("Training a new Most Common Tag baseline classifier")
@@ -105,6 +107,31 @@ def decisionTree(training_set, test_set, MIF=5):
         #print("Predicted Labels:",predictions)
         return [e for e in zip(tagglessTest_set, predictions)]
     return (runTrained, accuracy, predictedLabels, trueLabels)   
+
+def SVM(training_set, test_set, MIF=5):
+    classifier = nltk.classify.scikitlearn. .train(training_set, entropy_cutoff=0, support_cutoff=0)
+    print(nltk.classify.accuracy(classifier, test_set))
+#     classifier.show_most_informative_features(5)
+    #print("Running new Decision Tree classifier")
+    accuracy = nltk.classify.accuracy(classifier, test_set)
+    trueLabels = [l for d, l in test_set]
+    predictedLabels = classifier.classify_many([d for d,t in test_set])
+    #print("Accuracy:",accuracy)
+#     classifier.show_most_informative_features(MIF)
+    def runTrained(test_set, hasTags=False):
+        #print("Running pre-trained Decision Tree classifier")
+        if hasTags:
+            tagglessTest_set = [data for data, tag in test_set]
+            acc = nltk.classify.accuracy(classifier, test_set)
+            print("Accuracy:", acc)
+            predictions = classifier.classify_many(tagglessTest_set)
+            return ([e for e in zip(tagglessTest_set, predictions)], acc)
+        else:
+            tagglessTest_set = test_set         
+        predictions = classifier.classify_many(tagglessTest_set)
+        #print("Predicted Labels:",predictions)
+        return [e for e in zip(tagglessTest_set, predictions)]
+    return (runTrained, accuracy, predictedLabels, trueLabels)
 
 
 def runNfoldCrossValidation(classifier, trainingSamples, featureExtractors, n):
