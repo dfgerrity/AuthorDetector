@@ -9,4 +9,13 @@ def byWord(text):
     | [][.,;"'?():-_`]
     '''
     return (nltk.regexp_tokenize(text.lower(), pattern))
+
+def byWordAlphaOnly(text):
+    tokens = byWord(text)
+    return [token for token in tokens if token.isalpha()]
+
+def byWordStem(text):
+    words = byWordAlphaOnly(text)
+    lc = LancasterStemmer()
+    return [lc.stem(word) for word in words if token.isalpha()]
     

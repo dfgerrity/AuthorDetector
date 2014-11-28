@@ -36,6 +36,7 @@ def avgWordLength(text):
     tokens = Tokenize.byWord(text)
     sum = 0
     count = 0
+    tokens = list(set(tokens))
     for token in tokens:
         if token.isalpha():
             sum += len(token)
@@ -44,14 +45,8 @@ def avgWordLength(text):
 
 # Bucketed version
 def avgWordLengthBucketed(text):
-    tokens = Tokenize.byWordAlphaOnly(text)
-    sum = 0
-    count = 0
-    for token in tokens:
-        sum += len(token)
-        count +=1
-    numericValue = int(sum/count)
-    bucketLabel = "Long" if numericValue > 6 else "Medium" if numericValue > 4 else "Short"
+    numericValue = avgWordLength(text)["AVG word Length"]
+    bucketLabel = "Long" if numericValue > 5 else "Medium" if numericValue > 3 else "Short"
     return {"AVG word Length" : bucketLabel}
 
 def topMCharacterNgrams(text, m ,n):
@@ -63,7 +58,11 @@ def topMCharacterNgrams(text, m ,n):
     return vector
 
 def topMWordNgrams(text, m ,n, stem=False):
-    
+    words=[]
+    if stem:
+        words = Tokenize.byWordStem(text)
+    else:
+        words = Tokenize.byWordAlphaOnly(text)
     fd = Ngrams.getNgramFreqDist(words,n)
     topM = sorted([item for item in fd.items()],key=lambda x:x[1], reverse=True)[:m]
     vector = {}
@@ -77,11 +76,25 @@ def textLength(text):
 #Need POS tagger for better features
 
 
-testext = "ababababababab bcbcbcbcbcb dgdgdgd rtrt ff dd dd eg dd eg tt ww xxx www www www"
+
+#Testing
+testext = "ababababababab abx abz aby abt bcbcbcbcbcb dgdgdgd rtrt ff dd dd eg dd eg tt ww xxx www www www"
 def testtopMCharacterNgrams():
-    print(topMCharacterNgrams(testext,2,2))
+    print(topMCharacterNgrams(testext,5,2))
+    print(topMCharacterNgrams(testext,5,3))
 
 testwords = "We should probably do some sanity checks on the data (e.g. average # of sentences per answers, avg # of words per answers, avg # number of answers per author"
 def testtopMWordNgrams():
-    print(topMWordNgrams(testWords,2,2))
+    print(topMWordNgrams(testext,3,2))
+    print(topMWordNgrams(testwords,3,2))
+    print(topMWordNgrams(testwords,3,3))
+
+def testAvgWordLength():
+    print(avgWordLengthBucketed(testwords))
+    print(avgWordLength(testwords))
+
+
+testtopMCharacterNgrams()
+testtopMWordNgrams()
+testAvgWordLength()
 

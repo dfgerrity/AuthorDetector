@@ -1,3 +1,5 @@
+import textblob
+import nltk
 from textblob import TextBlob
 from textblob_aptagger import PerceptronTagger
 def selectTag(multi_taggedData, tag, removePrefix=False):
