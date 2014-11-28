@@ -108,9 +108,11 @@ def decisionTree(training_set, test_set, MIF=5):
         return [e for e in zip(tagglessTest_set, predictions)]
     return (runTrained, accuracy, predictedLabels, trueLabels)   
 
-def SVM(training_set, test_set, MIF=5):
-    classifier = nltk.classify.scikitlearn. .train(training_set, entropy_cutoff=0, support_cutoff=0)
-    print(nltk.classify.accuracy(classifier, test_set))
+def SVM(training_set, test_set):
+    classifier = SklearnClassifier(LinearSVC())
+    print("Training a new SVM classifier")
+    classifier.train(training_set)
+    print("Accuracy of SVM in training:",nltk.classify.accuracy(classifier, test_set))
 #     classifier.show_most_informative_features(5)
     #print("Running new Decision Tree classifier")
     accuracy = nltk.classify.accuracy(classifier, test_set)
@@ -131,7 +133,7 @@ def SVM(training_set, test_set, MIF=5):
         predictions = classifier.classify_many(tagglessTest_set)
         #print("Predicted Labels:",predictions)
         return [e for e in zip(tagglessTest_set, predictions)]
-    return (runTrained, accuracy, predictedLabels, trueLabels)
+    return (runTrained, accuracy, predictedLabels, trueLabels) 
 
 
 def runNfoldCrossValidation(classifier, trainingSamples, featureExtractors, n):
