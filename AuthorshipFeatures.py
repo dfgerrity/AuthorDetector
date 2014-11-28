@@ -1,5 +1,6 @@
 import Tokenize
 import Ngrams
+import TaggingTools
 from nltk import LancasterStemmer
 
 def typeTokenRatio(text, lengthFilter=None):
@@ -74,8 +75,16 @@ def textLength(text):
     return {"text Length" : len(Tokenize.byWord(text))}
 
 #Need POS tagger for better features
+#We Have a POS tagger!
 
-
+def topMPOSNgrams(text, m ,n):
+    POStags = [tag for word, tag in TaggingTools.tagPOS(text)]
+    fd = Ngrams.getNgramFreqDist(POStags,n)
+    topM = sorted([item for item in fd.items()],key=lambda x:x[1], reverse=True)[:m]
+    vector = {}
+    for i in range(len(topM)):
+        vector["#"+str(i)+" "+str(n)+"gram"] = topM[i][0]
+    return vector
 
 #Testing
 testext = "ababababababab abx abz aby abt bcbcbcbcbcb dgdgdgd rtrt ff dd dd eg dd eg tt ww xxx www www www"
@@ -94,7 +103,7 @@ def testAvgWordLength():
     print(avgWordLength(testwords))
 
 
-testtopMCharacterNgrams()
-testtopMWordNgrams()
-testAvgWordLength()
+#testtopMCharacterNgrams()
+#testtopMWordNgrams()
+#testAvgWordLength()
 

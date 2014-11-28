@@ -39,12 +39,9 @@ def selectTags(multi_taggedData, tags, removePrefix=False):
             selected.append((entry["text"], toAttach))
     return selected
 
-def taggerFunction():
-    s = "This is a sentence that I am going to try and tag. Lets see if it works!"
-    blob = TextBlob(s, pos_tagger=PerceptronTagger())
-    
-    print(blob.tags)
-    
+def tagPOS(text):    
+    return TextBlob(s, pos_tagger=PerceptronTagger())    
     
 if __name__ == '__main__':
-    taggerFunction()
+    s = "This is a sentence that I am going to try and tag. Lets see if it works!"
+    print(tagPOS(s).tags)
