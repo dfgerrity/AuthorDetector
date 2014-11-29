@@ -36,8 +36,8 @@ def vocabSize(text, lengthFilter=None):
 
 def wordLengthDist(text):
     words = Tokenize.byWordAlphaOnly(text)
-    input(words)
     vector = {}
+    total = 0
     for i in range(1,11):
         vector["%ofwords"+str(i)+"long"] = 0
     count = 0
@@ -47,6 +47,9 @@ def wordLengthDist(text):
             vector["%ofwords"+str(len(word))+"long"] += 1 
         else:
             vector["%ofwords"+str(10)+"long"] += 1
+        total +=1
+    for i in range(1,11):
+        vector["%ofwords"+str(i)+"long"] = int(100*vector["%ofwords"+str(i)+"long"]/total)
     return vector
 
 def avgWordLength(text):
@@ -90,6 +93,29 @@ def topMWordNgrams(text, m ,n, stem=False):
 def textLength(text):
     return {"text Length" : len(Tokenize.byWord(text))}
 
+def percentOfLetters(text):
+    vector = {}
+    total = 0
+    for i in range(26):
+        vector["pL"+chr(i + ord('a'))] = 0
+    for c in text.lower():
+        if c.isalpha():
+            vector["pL"+c] +=1
+            total += 1
+    for i in range(26):
+        vector["pL"+chr(i + ord('a'))] = int(100*(vector["pL"+chr(i + ord('a'))]/total))
+    return vector
+
+def percentOfUpperLetters(text):
+    uppers = 0
+    total = 0    
+    for c in text:
+        if c.isupper():
+            uppers +=1
+        total += 1    
+    percent = int(100*uppers/total)
+    return {"percentUpperCase" : percent}
+
 #Need POS tagger for better features
 #We Have a POS tagger!
 
@@ -106,10 +132,14 @@ def posDist(text):
     POStags = [tag for word, tag in TaggingTools.tagPOS(text)]
     possibleTags = PerceptronTagger().model.classes
     vector = {}
+    total = 0
     for tag in possibleTags:
         vector[tag] = 0
     for tag in POStags:
         vector[tag] += 1
+        total +=1
+    for tag in possibleTags:
+        vector[tag] = int(100*vector[tag]/total)
     return vector
 
 #Testing
@@ -118,7 +148,7 @@ def testtopMCharacterNgrams():
     print(topMCharacterNgrams(testext,5,2))
     print(topMCharacterNgrams(testext,5,3))
 
-testwords = "We should probably do some sanity checks on the data (e.g. average # of sentences per answers, avg # of words per answers, avg # number of answers per author"
+testwords = "We should probably do some Sanity Checks on the Data (e.g. Average # of sentences per answers, avg # of words per answers, Avg # number of answers per Author"
 def testtopMWordNgrams():
     print(topMWordNgrams(testext,3,2))
     print(topMWordNgrams(testwords,3,2))
@@ -138,9 +168,14 @@ def testtopMPOSNgrams():
 def testposDist():
     print(posDist(testwords))
 
+def testPercents():
+    print(sorted([item for item in percentOfLetters(testwords).items()]))
+    print(percentOfUpperLetters(testwords))
+
 #testtopMCharacterNgrams()
 #testtopMWordNgrams()
 #testAvgWordLength()
-#testwordLengthDist()
-testtopMPOSNgrams()
+testwordLengthDist()
+#testtopMPOSNgrams()
 testposDist()
+testPercents()
