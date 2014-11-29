@@ -2,6 +2,7 @@ import Tokenize
 import Ngrams
 import TaggingTools
 from nltk import LancasterStemmer
+from textblob_aptagger import PerceptronTagger
 
 def typeTokenRatio(text, lengthFilter=None):
     tokens = Tokenize.byWord(text)
@@ -33,8 +34,23 @@ def vocabSize(text, lengthFilter=None):
     types = set(tokens)
     return {"vocabSize" :len(types)}
 
+def wordLengthDist(text):
+    words = Tokenize.byWordAlphaOnly(text)
+    input(words)
+    vector = {}
+    for i in range(1,11):
+        vector["%ofwords"+str(i)+"long"] = 0
+    count = 0
+    words = list(set(words))
+    for word in words:
+        if len(word) < 10:
+            vector["%ofwords"+str(len(word))+"long"] += 1 
+        else:
+            vector["%ofwords"+str(10)+"long"] += 1
+    return vector
+
 def avgWordLength(text):
-    tokens = Tokenize.byWord(text)
+    tokens = Tokenize.byWordAlphaOnly(text)
     sum = 0
     count = 0
     tokens = list(set(tokens))
@@ -55,7 +71,7 @@ def topMCharacterNgrams(text, m ,n):
     topM = sorted([item for item in fd.items()],key=lambda x:x[1], reverse=True)[:m]
     vector = {}
     for i in range(len(topM)):
-        vector["#"+str(i)+" "+str(n)+"gram"] = topM[i][0]
+        vector["#"+str(i)+" "+str(n)+"gramC"] = topM[i][0]
     return vector
 
 def topMWordNgrams(text, m ,n, stem=False):
@@ -68,7 +84,7 @@ def topMWordNgrams(text, m ,n, stem=False):
     topM = sorted([item for item in fd.items()],key=lambda x:x[1], reverse=True)[:m]
     vector = {}
     for i in range(len(topM)):
-        vector["#"+str(i)+" "+str(n)+"gram"] = topM[i][0]
+        vector["#"+str(i)+" "+str(n)+"gramW"] = topM[i][0]
     return vector
 
 def textLength(text):
@@ -84,6 +100,16 @@ def topMPOSNgrams(text, m ,n):
     vector = {}
     for i in range(len(topM)):
         vector["#"+str(i)+" "+str(n)+"gram"] = topM[i][0]
+    return vector
+
+def posDist(text):
+    POStags = [tag for word, tag in TaggingTools.tagPOS(text)]
+    possibleTags = PerceptronTagger().model.classes
+    vector = {}
+    for tag in possibleTags:
+        vector[tag] = 0
+    for tag in POStags:
+        vector[tag] += 1
     return vector
 
 #Testing
@@ -102,8 +128,19 @@ def testAvgWordLength():
     print(avgWordLengthBucketed(testwords))
     print(avgWordLength(testwords))
 
+def testwordLengthDist():
+    print(wordLengthDist(testext))
+    print(wordLengthDist(testwords))
+
+def testtopMPOSNgrams():
+    print(topMPOSNgrams(testwords, 3, 2))
+
+def testposDist():
+    print(posDist(testwords))
 
 #testtopMCharacterNgrams()
 #testtopMWordNgrams()
 #testAvgWordLength()
-
+#testwordLengthDist()
+testtopMPOSNgrams()
+testposDist()

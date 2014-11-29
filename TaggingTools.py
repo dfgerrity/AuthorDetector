@@ -40,7 +40,8 @@ def selectTags(multi_taggedData, tags, removePrefix=False):
     return selected
 
 def tagPOS(text):    
-    return TextBlob(s, pos_tagger=PerceptronTagger())    
+    blob = TextBlob(text, pos_tagger=PerceptronTagger())
+    return blob.tags     
     
 if __name__ == '__main__':
     s = "This is a sentence that I am going to try and tag. Lets see if it works!"
