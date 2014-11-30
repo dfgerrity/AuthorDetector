@@ -1,0 +1,2820 @@
+(lp0
+((dp1
+S'text'
+p2
+(lp3
+VHere's my not so subtle profile
+p4
+as(dp5
+S'author'
+p6
+V23283
+p7
+stp8
+a((dp9
+g2
+(lp10
+VDoes SomeLowLevelLibrary
+p11
+aVlib contain or use any classes named CRect
+p12
+aVDoes it use STL
+p13
+as(dp14
+g6
+V23283
+p15
+stp16
+a((dp17
+g2
+(lp18
+VYou're running into a parameter size problem difference between C# and C++
+p19
+aVIn the C++/windows world LONG is a 4 byte signed integer
+p20
+aVIn the C# world long is a 8 byte signed integer
+p21
+aVYou should change your C# signature to take an int
+p22
+aVffpf is wrong in saying that you should use an IntPtr here
+p23
+aVIt will fix this particular problem on a 32 bit machine since an IntPtr will marshal as a int
+p24
+aVIf you run this on a 64 bit machine it will marshal as a 8 byte signed integer again and will crash
+p25
+as(dp26
+g6
+V23283
+p27
+stp28
+a((dp29
+g2
+(lp30
+VNot a C/C++ expert when it comes to packing
+p31
+aVBut I imagine there is a rule in the spec which says that when a non-bitfield follows a bitfield it must be aligned on the word boundary regardless of whether or not it fits in the remaining space
+p32
+aVBy making it an explicit bitvector you are avoiding this problem
+p33
+aVAgain this is speculation with a touch of experience
+p34
+as(dp35
+g6
+V23283
+p36
+stp37
+a((dp38
+g2
+(lp39
+VI don't think using _ or m_ to indicate member variables is bad in Java or any other language
+p40
+aVIt my opinion it improves readability of your code because it allows you to look at a snippet and quickly identify out all of the member variables from locals
+p41
+aVYou can also achieve this by forcing users to prepend instance variables with "this" but I find this slighly draconian
+p42
+aVIn many ways it violates DRY because it's an instance variable, why qualify it twice
+p43
+aVMy own personal style is to use m_ instead of _
+p44
+aVThe reason being that there are also global and static variables
+p45
+aVThe advantage to m_/_ is it distinguishes a variables scope
+p46
+aVSo you can't reuse _ for global or static and instead I choose g_ and s_ respectively
+p47
+as(dp48
+g6
+V23283
+p49
+stp50
+a((dp51
+g2
+(lp52
+VThis depends on what type of native exception you are talking about
+p53
+aVIf you're referring to an SEH exception then the CLR will do one of two things
+p54
+aVIn the case of a known SEH error code it will map it to the appropriate
+p55
+aVNet exception (i
+p56
+aVe
+p57
+aVOutOfMemoryException)
+p58
+aVIn the case of an un-mappable (E_FAIL) or unknown code it will just throw an SEHException instance
+p59
+aVBoth of these will be caught with a simple "catch (Exception)" block
+p60
+aVThe other type of native exception which can cross the native managed boundary are C++ exceptions
+p61
+aVI'm not sure how they are mapped/handled
+p62
+aVMy guess is that since Windows implements C++ exceptions on top of SEH, they are just mapped the same way
+p63
+as(dp64
+g6
+V23283
+p65
+stp66
+a((dp67
+g2
+(lp68
+VYou can enumerate the child keys under HKEY_LOCAL_MACHINE\u005cSOFTWARE\u005cMicrosoft\u005cVisualStudio\u005c9
+p69
+aV0\u005cToolWindows
+p70
+as(dp71
+g6
+V23283
+p72
+stp73
+a((dp74
+g2
+(lp75
+VOne factor your not taking into account is the robustness of the GetHashcode() function
+p76
+aVWith a perfect hash function the HashSet will clearly have better searching performance
+p77
+aVBut as the hash function diminishes so will the HashSet search time
+p78
+as(dp79
+g6
+V23283
+p80
+stp81
+a((dp82
+g2
+(lp83
+VI wanted to add one small comment to most of the above solutions
+p84
+aVThey are not actually testing if a particular file exists or not
+p85
+aVThey are checking to see if the file exists and you have access to it
+p86
+aVIt's entirely possible for a file to exist in a directory you do not have permission to in which case you won't be able to view the file even though it exists
+p87
+as(dp88
+g6
+V23283
+p89
+stp90
+a((dp91
+g2
+(lp92
+VAnother Pitfall you must consider is thread safety
+p93
+aVAll of your application requests are running in the same AppDomain but may come on different threads
+p94
+aVAccessing a static variable must account for it being accessed from multiple threads
+p95
+aVProbably a bit more overhead than you are looking for
+p96
+aVCache object is better for this purpose
+p97
+as(dp98
+g6
+V23283
+p99
+stp100
+a((dp101
+g2
+(lp102
+VThe second
+p103
+aVHere is my attempt at quoting Sutter
+p104
+aVThrow by value, catch by reference"
+p105
+aVHere's the full summary
+p106
+aVThe reason to avoid catching exceptions by value is that it implicitly makes a copy of the exception
+p107
+aVIf the exception is of a subclass, then information about it will be lost
+p108
+aVCatching by reference avoids this issue by not copying the exception
+p109
+as(dp110
+g6
+V23283
+p111
+stp112
+a((dp113
+g2
+(lp114
+VThere are several problems with implementation method you are describing
+p115
+aVYou shouldn't ever expose your synchronization object
+p116
+aVDoing so will open up yourself to a consumer grabbing the object and taking a lock on it and then you're toast
+p117
+aVYou're implementing a non-thread safe interface with a thread safe class
+p118
+aVIMHO this will cost you down the road
+p119
+aVPersonally, I've found the best way to implement a thread safe class is via immutability
+p120
+aVIt really reduces the number of problems you can run into with thread safety
+p121
+aVCheck out Eric Lippert's Blog for more details
+p122
+as(dp123
+g6
+V23283
+p124
+stp125
+a((dp126
+g2
+(lp127
+VOne spooky place that can change your path is the OpenFileDialog
+p128
+aVAs a user navigates between folders it's changing your application directory to the one currently being looked at
+p129
+aVIf the user closes the dialog in a different directory then you will be stuck in that directory
+p130
+aVIt has a property called RestoreDirectory which causes the dialog to reset the path
+p131
+aVBut I believe the default is "false"
+p132
+as(dp133
+g6
+V23283
+p134
+stp135
+a((dp136
+g2
+(lp137
+VThe most reliable way is to use WMI
+p138
+aV$_
+p139
+aVDriveLetter[0] }
+p140
+aVThe DriveType is an enum wit hthe following values
+p141
+aV0 - Unknown
+p142
+aV1 - No Root Directory
+p143
+aV2 - Removable Disk
+p144
+aV3 - Local Disk
+p145
+aV4 - Network Drive
+p146
+aV5 - Compact Disk
+p147
+aV6 - RAM Disk
+p148
+aVHere's a link to a blog post I did on the subject
+p149
+as(dp150
+g6
+V23283
+p151
+stp152
+a((dp153
+g2
+(lp154
+VThe PInvoke interop assistant only supports C not C++
+p155
+aVUnfortunately the MFC String class (CString I believe
+p156
+aVis C++ and won't work through the assistant
+p157
+aVInstead try using the following
+p158
+as(dp159
+g6
+V23283
+p160
+stp161
+a((dp162
+g2
+(lp163
+VNo
+p164
+aVYou can only use a full
+p165
+aVdll from a C# program
+p166
+as(dp167
+g6
+V23283
+p168
+stp169
+a((dp170
+g2
+(lp171
+VThis is a subjective question but I don't think there's anything wrong with it up to a point
+p172
+aVFor instance if the chain extends beyond the readable aread of the editor then you should introduce some locals
+p173
+aVFor instance, on my browser I can't see the last 3 calls so I have no idea what you're doing :)
+p174
+as(dp175
+g6
+V23283
+p176
+stp177
+a((dp178
+g2
+(lp179
+VAre you running on Vista
+p180
+aVIf so then you may be running into file system virtualization
+p181
+aVThis is a feature in 32 bit versions of Vista which allows a normal user to write to protected parts of the file system
+p182
+aVIt's a shim introduced to reduce the pain of the LUA features of Vista
+p183
+aVThe short version is that the operating system will create a virtual file system for certain protected roots (such as program files)
+p184
+aVWhen a non-admin attempts to write to it, a copy will be created an editted instead of the original
+p185
+aVWhen your user account attempts to look at the file it will see the edit
+p186
+aVs  Other user accounts will only see the original
+p187
+aVLonger Version: http://thelazyadmin
+p188
+aVcom/blogs/thelazyadmin/archive/2007/04/26/file-system-virtualization
+p189
+aVaspx
+p190
+as(dp191
+g6
+V23283
+p192
+stp193
+a((dp194
+g2
+(lp195
+VOregonGhost's answer is only correct if the char* returned from GetDir is either allocated in HGlobal or LocalAlloc
+p196
+aVI can't remember which one but the CLR will assume that any string return type from a PInvoke function was allocated with one or the other
+p197
+aVA more robust way is to type the return of GetDir to be IntPtr
+p198
+aVThen you can use any of the Marshal
+p199
+aVPtrToStringAnsi functions in order to get out a string type
+p200
+aVIt also gives you th flexibility of freeing the string in the manner of your choosing
+p201
+aVCan you give us any other hints as to the behavior of GetDir
+p202
+aVDoes it modify the input string
+p203
+aVHow is the value which is returned allocated
+p204
+aVIf you can provide that I can give a much better answer
+p205
+as(dp206
+g6
+V23283
+p207
+stp208
+a((dp209
+g2
+(lp210
+VThere is one clarifying point you need to consider for this question
+p211
+aVDo you require
+p212
+aVThat one and only one instance of a class is ever actually created
+p213
+aVMany instances of a class can be created but there should only be one true definitive instance of the class
+p214
+aVThere are many samples on the web to implement these patterns in C++
+p215
+aVHere's a Code Project Sample
+p216
+as(dp217
+g6
+V23283
+p218
+stp219
+a((dp220
+g2
+(lp221
+VNEVER manually ref count a COM object
+p222
+aVOne of two things will happen
+p223
+aVYou will get it wrongThe next guy will screw it up
+p224
+as(dp225
+g6
+V23283
+p226
+stp227
+a((dp228
+g2
+(lp229
+VSlight variation on a few other answers
+p230
+aVRestrict the input to be exactly the matched text
+p231
+as(dp232
+g6
+V23283
+p233
+stp234
+a((dp235
+g2
+(lp236
+VThe problem with /GS is it won't actually scan for bugs
+p237
+aVIt will just alert you after the fact
+p238
+aVIt seems like you are looking for a tool which will scan your existing code for potential buffer over/under runs
+p239
+aVA good tool for this, and other defects, is the Microsoft PreFAST tool
+p240
+aVInformation here
+p241
+as(dp242
+g6
+V23283
+p243
+stp244
+a((dp245
+g2
+(lp246
+VI think a lot of this will come down to your personal style
+p247
+aVIMHO, the best features of C# 3
+p248
+aV5 really come down to the following
+p249
+aVLambda ExpressionsLINQExtension Methods
+p250
+aVMy OO code still tends to look a bit functional oriented
+p251
+aVTherefore I see 3
+p252
+aV5 as a huge benefit and it's definately worth the upgrade
+p253
+aVWhat's even better is it's possible to use the 3
+p254
+aV5 compiler to down target CLR 2
+p255
+aV0
+p256
+aVThis allows you to deploy based on a 2
+p257
+aV0 install (vs a 3
+p258
+aV0/3
+p259
+aV5 install) using the new framework
+p260
+aVAll of the above can be done in this scenario if you're willing to add the appropriate types into your program
+p261
+as(dp262
+g6
+V23283
+p263
+stp264
+a((dp265
+g2
+(lp266
+VHere's my personal experience with this problem
+p267
+aVI ran my own SVN server for 2+ years and CVS 2+ years before that
+p268
+aVSVN is dirt simple to admin but over time more and more of my code was making it's way into the repository
+p269
+aVI literally have everything I ever wrote from college up until today my respository  (work projects of course excluded)
+p270
+aVI truly fretted way to often that I had my life's work sitting on some random server in my house
+p271
+aV5 years of code is quite a bit
+p272
+aVOccasionally I would get paranoid enough to run a backup and take a CD to work and throw it in the desk
+p273
+aVBut the time between backups frankly was lacking
+p274
+aVThere was also the security concerns of self hosting a server
+p275
+aVI was pretty diligent about installing updates (debian is so so easy to that with)
+p276
+aVBut over time I found I had less and less time to admin the server
+p277
+aVEventually I researched some providers and took a stab at using wush
+p278
+aVnet
+p279
+aVYou won't be able to make me go back to self hosting
+p280
+aVWush
+p281
+aVnet is an incredible host
+p282
+aVI've been using them for 2-3 years now and in all of that time there has been a single (yes single) instance that I wasn't able to get my source
+p283
+aVThey do nightly offsite backups so I feel good about the security of my code
+p284
+aVAnd not having to admin anymore I have that much more time to actually get some coding done
+p285
+as(dp286
+g6
+V23283
+p287
+stp288
+a((dp289
+g2
+(lp290
+VNo if you are strictly speaking about reguralr expressions and not including some regular expression implementations that are actually context free grammars
+p291
+aVThere is one limitation of regular expressions which makes it impossible to write a regex that matches a regex
+p292
+aVYou cannot match implementations such as braces which are paired
+p293
+aVRegex's use many such constructs, lets take [] as an example
+p294
+aVWhenever there is an [ there must be a matching ]
+p295
+aVSimple enough for a regex "[
+p296
+aV*]"
+p297
+aVWhat makes it impossible for regexe's is that they can be nested
+p298
+aVHow can you write a regex that matches nested brackets
+p299
+aVThe answer is you can't without an infinitely long regex
+p300
+aVYou can match any number of nested parens through brute force but you can't ever match an arbitrarily long set of nested brackets
+p301
+aVThis capability is often referred to as counting (you're counting the depth of the nesting)
+p302
+aVA regex by definition does not have the capability to count
+p303
+aVEDIT:
+p304
+aVEnded up writing a blog post about this: Regular Expression Limitations
+p305
+as(dp306
+g6
+V23283
+p307
+stp308
+a((dp309
+g2
+(lp310
+VIt depends
+p311
+aVIf you mean is there a completely generic way to make this determination the answer is no
+p312
+aVAll IQueryable will give access to is the Type of each expression
+p313
+aVThere is no way to arbitrarily map a Type to a column size
+p314
+aVIf on the other hand you have the ability to map a Type to members and member type to a column size then yes there is a way to get the size
+p315
+as(dp316
+g6
+V23283
+p317
+stp318
+a((dp319
+g2
+(lp320
+VThere are two tools I simply can't work without
+p321
+aVPowerShell
+p322
+aVGVim (or really any vim style program)
+p323
+aVThese tools are so heavily ingrained into my daily routine and greatly increase my productivity
+p324
+as(dp325
+g6
+V23283
+p326
+stp327
+a((dp328
+g2
+(lp329
+VThat won't recreate the same semantics as the VB Catch When expression
+p330
+aVThere is one key difference
+p331
+aVThe VB When expression is executed before the stack unwind occurs
+p332
+aVIf you were to examine the stack at the point of a when Filter, you would actually see the frame where the exception was thrown
+p333
+aVHaving an if in the catch block is different because the catch block executes after the stack is unwound
+p334
+aVThis is especially important when it comes to error reporting
+p335
+aVIn the VB scenario you have the capability of crashing with a stack trace including the failure
+p336
+aVIt's not possible to get that behavior in C#
+p337
+aVEDIT:
+p338
+aVWrote a detailed blog post on the subject
+p339
+as(dp340
+g6
+V23283
+p341
+stp342
+a((dp343
+g2
+(lp344
+VThere appear to be two problems
+p345
+aVYou're using the ^ outside a [] which matches the start of the line
+p346
+aVYou're not using a * or + which means you will only match a single character
+p347
+aVI think you want the following regex @"([^a-zA-Z0-9\u005cs])+"
+p348
+as(dp349
+g6
+V23283
+p350
+stp351
+a((dp352
+g2
+(lp353
+VWarnings are and should be treated as bugs
+p354
+aVIf you can't code well enough to get rid of your warnings then you probably shouldn't be coding
+p355
+aVIn my group we made the decision to force all warnings to errors
+p356
+aVIt ends this discussion altogether and really, IMHO, improves code quality
+p357
+as(dp358
+g6
+V23283
+p359
+stp360
+a((dp361
+g2
+(lp362
+VNot to be a kill joy but what you're attempting to do with a regular expression is boggling your mind because it's simply not possible
+p363
+aVRegular expressions are a class of finite automata and do not posses enough state in which to peform recursive/nested matching
+p364
+aVYou'll need a context free grammar of sorts in order to get this working
+p365
+aVThere are some regular expression engines which do support a notion of recursion
+p366
+aVThese are not strictly speaking regular expressions though
+p367
+aVCan you tell us what engine you are using because it's possible it has a recursion function which will help out this scenario
+p368
+as(dp369
+g6
+V23283
+p370
+stp371
+a((dp372
+g2
+(lp373
+VOne trick when dealing with pointers is to just use an IntPtr
+p374
+aVYou can then use Marshal
+p375
+aVPtrToStructure on the pointer and increment based on the size of the structure to get your results
+p376
+as(dp377
+g6
+V23283
+p378
+stp379
+a((dp380
+g2
+(lp381
+VThe function below will return the x86  directory in all of these three Windows configurations:
+p382
+aV32 bit Windows
+p383
+aV32 bit program running on 64 bit Windows
+p384
+aV64 bit program running on 64 bit windows
+p385
+aV 
+p386
+as(dp387
+g6
+V23283
+p388
+stp389
+a((dp390
+g2
+(lp391
+VTypeLib's are also important if you ever wish to migrate COM components to managed code in the future
+p392
+aVOr have managed code interact with the COM components
+p393
+aVWith a typelib there are lots of tools which will automagically translate your COM signatures into
+p394
+aVNet interfaces and types
+p395
+aVThis can be done by hand but with a large project it's certainly a huge time saver
+p396
+as(dp397
+g6
+V23283
+p398
+stp399
+a((dp400
+g2
+(lp401
+Vsbeskur's response has a bug in the translation of InternetGetConnectedState
+p402
+aVThe parameters are both DWORD's (first one is an LPDWORD)
+p403
+aVBoth of these translate to int's in C# (technically, uint but int will work for most scenarios)
+p404
+aVCorrect translation below
+p405
+as(dp406
+g6
+V23283
+p407
+stp408
+a((dp409
+g2
+(lp410
+VThis is in slight response to Joel's comment about making a slighly more optimized version
+p411
+aVInstead of returning a random date directly, why not return a generator function which can be called repeatedly to create a random date
+p412
+as(dp413
+g6
+V23283
+p414
+stp415
+a((dp416
+g2
+(lp417
+VThe
+p418
+aVNet Framework provides an XML documentation file for the shipped assemblies
+p419
+aVThe IDE reads these documentation files in order to get the descriptions and tooltips for the built-in types
+p420
+aVThis documentation is typically, but not always, stored in a sub-directory of the framework intsall point
+p421
+aVFor instance on my machine the files are stored in the directory C:\u005cwindows\u005cmicrosoft
+p422
+aVnet\u005cframework\u005cv2
+p423
+ag256
+aV50727\u005cen
+p424
+aVThere is one XML file per assembly shipped in the framework
+p425
+as(dp426
+g6
+V23283
+p427
+stp428
+a((dp429
+g2
+(lp430
+VThe simplest way is to use an aggregate function to combine the elements
+p431
+as(dp432
+g6
+V23283
+p433
+stp434
+a((dp435
+g2
+(lp436
+VAlthough I can't provide a specific example of why not, I am going to go ahead and outright say no
+p437
+aVThis is more on principal
+p438
+aVRegex's are an amazing tool but they should only be used for certain problems
+p439
+aVThey are fantastic for data matching and searching
+p440
+aVThey are not however a good tool for security
+p441
+aVIt is too easy to mess up a regex and have it be only partially correct
+p442
+aVHackers can find lots of wiggle room inside a poorly or even well constructed regex
+p443
+aVI would try another avenue to prevent cross site scripting
+p444
+as(dp445
+g6
+V23283
+p446
+stp447
+a((dp448
+g2
+(lp449
+VI think the simple answer is "Create a custom exception when no existing exception adequetely expresses the exceptional situation
+p450
+aVI also have a second rule that I apply: "Only create a custom exception if you expect a developer to be able to handle the exception
+p451
+aVThere is no point in creating a new exception if you don't consider the exception a recoverable condition
+p452
+aVIt is more effectient to throw InvalidOperationException in that context
+p453
+aVEDIT: Ended up writing a blog post on this subject: http://blogs
+p454
+aVmsdn
+p455
+aVcom/jaredpar/archive/2008/10/20/custom-exceptions-when-should-you-create-them
+p456
+aVaspx
+p457
+as(dp458
+g6
+V23283
+p459
+stp460
+a((dp461
+g2
+(lp462
+VVB
+p463
+aVNet has a concept of default namespace for a project
+p464
+aVAny file created in the project which does not contain an explicit namespace will be intsead included in the default namespace
+p465
+aVIf you don't like this behavior you can disable it from the project property page (right click on the project and select properties)
+p466
+aVGo to the Application tab and clear the Root Namespace text box
+p467
+aVThis will force you to provide a namespace for every type you define
+p468
+as(dp469
+g6
+V23283
+p470
+stp471
+a((dp472
+g2
+(lp473
+VI'm not sure why the conversion doesn't work but you could use an overload to fix the problem
+p474
+as(dp475
+g6
+V23283
+p476
+stp477
+a((dp478
+g2
+(lp479
+VCheck out this KB article specifically tagged at what you're trying to do
+p480
+aVhttp://support
+p481
+aVmicrosoft
+p482
+aVcom/kb/226473
+p483
+aVThe short version is you want to use the InternetOpen, InternetSetOption API's to update the proxy settings
+p484
+as(dp485
+g6
+V23283
+p486
+stp487
+a((dp488
+g2
+(lp489
+VBoth have about the same performance because both require creating a new Array
+p490
+aVArrays are fixed size continuous structures
+p491
+aVIn order to maintain this on an insert a new Array must be created with an additional element
+p492
+aVAll of the existing values are copied into the array in their new position and then the inserted element is added
+p493
+aVIn order to maintain this for a delete a new Array must be created with one less element
+p494
+aVThen all of the existing entries except for the delete must be copied into the new array
+p495
+aVBoth of these operations have essentially the same operations over nearly identical sizes
+p496
+aVPerformance won't be significantly different
+p497
+as(dp498
+g6
+V23283
+p499
+stp500
+a((dp501
+g2
+(lp502
+VThis is slighly nitpicky but the actual maximum value of any enum is Int32
+p503
+aVMaxValue (assuming it's a enum derived from int)
+p504
+aVIt's perfectly legal to cast any Int32 value to an any enum regardless of whether or not it actually declared a member with that value
+p505
+aVLegal:
+p506
+as(dp507
+g6
+V23283
+p508
+stp509
+a((dp510
+g2
+(lp511
+VUsing Regex
+p512
+aVReplace directly I do not think there is a way
+p513
+aVBut you could make this a two step process and get the result you are looking for
+p514
+as(dp515
+g6
+V23283
+p516
+stp517
+a((dp518
+g2
+(lp519
+VTry out the PInvoke interop Assistant
+p520
+aVThis tool has a search functionality that allows you to browse through all of the defined windows messages
+p521
+aVIt will then generate the correct C#/VB
+p522
+aVNet code for those values
+p523
+aVIt's also not limited to just constant values
+p524
+aVIt can also generated structs, functions, function pointers and enums
+p525
+as(dp526
+g6
+V23283
+p527
+stp528
+a((dp529
+g2
+(lp530
+VIf RoleAssignments is a  you can use the following code
+p531
+as(dp532
+g6
+V23283
+p533
+stp534
+a((dp535
+g2
+(lp536
+VIMHO, you should avoid the #if solution
+p537
+aVThat is the C/C++ way of doing conditional debugging routines
+p538
+aVInstead attribute all of logging/debugging functions with the ConditionalAttribute
+p539
+aVThe constructor of the attribute takes in a string
+p540
+aVThis method will only be called if the particular pre-processor definition of the same name as the attribute string is defined
+p541
+aVThis has the exact same runtime implications as the #if/#endif solution but it looks a heck of a lot better in code
+p542
+as(dp543
+g6
+V23283
+p544
+stp545
+a((dp546
+g2
+(lp547
+VI do not believe there is an existing mechanism that allows you to perform a deep copy of an XNode style tree
+p548
+aVI think you are left with two options
+p549
+aVDo as you suggested an convert to a string and then back into a tree
+p550
+aVWrite on yourself with a visitor pattern
+p551
+aVThe visitor pattern is certainly possible but it will take a good deal of work an testing
+p552
+aVI think your best option is #1
+p553
+as(dp554
+g6
+V23283
+p555
+stp556
+a((dp557
+g2
+(lp558
+VI prefer the second example because it's a more type inference friendly style of programming
+p559
+aVHaving an out parameter prevents a developer from using type inference for a particular call
+p560
+as(dp561
+g6
+V23283
+p562
+stp563
+a((dp564
+g2
+(lp565
+VI think the simplest solution is to make your WinForms thread execute in an STA
+p566
+aVThere is nothing wrong with having an STA thread winforms app (it is in fact often the default)
+p567
+aVYou can fix this by adding the following line to the main method of your program
+p568
+as(dp569
+g6
+V23283
+p570
+stp571
+a((dp572
+g2
+(lp573
+VIn C# it's not possible to use the "is" keyword as part of a switch statement
+p574
+aVAll case labels in a switch must evaluate to constant expressions
+p575
+aV"is" is not convertible to a constant expression
+p576
+aVI definately feel the pain though when it comes to switching on types
+p577
+aVBecause really the solution you outlined works but it's a conveluted way of saying for x do y, and a do b
+p578
+aVIt would be much more natular to write it more like the following
+p579
+aVHere's a blog post I wrote on how to achieve this functionality
+p580
+aVhttp://blogs
+p581
+aVmsdn
+p582
+aVcom/jaredpar/archive/2008/05/16/switching-on-types
+p583
+aVaspx
+p584
+as(dp585
+g6
+V23283
+p586
+stp587
+a((dp588
+g2
+(lp589
+VI believe you are looking for Reverse PInvoke
+p590
+aVIf you google for reverse pinvoke you'll get a lot of helpful entries
+p591
+aVI think the following has a good quick and dirty example
+p592
+aVPInvoke-Reverse PInvoke and __stdcall - __cdecl
+p593
+as(dp594
+g6
+V23283
+p595
+stp596
+a((dp597
+g2
+(lp598
+VThe most practical use of meta programming is turning a runtime error into a compile time error
+p599
+aVExample:  Lets call the interface IFoo
+p600
+aVOne of my programs dealt with a COM object that had multiple paths to IFoo (very complicated inheritance hierarchy)
+p601
+aVUnfortunately the underlying COM object implementation didn't realize they had multiple paths to IFoo
+p602
+aVThey assumed it was always the left most one
+p603
+aVSo inside their code, the following pattern was very common
+p604
+aVThe second IFoo though caused the resulting "p" pointer to be completely invalid (multiple inheritance is dangerous)
+p605
+aVThe long term solution was to have the COM object owner fix this issue
+p606
+aVShort term though I needed to make sure that I always returned the correct IFoo
+p607
+aVI could guarantee that I had the appropriate IFoo by using a QI and avoiding any implicit casts to IFoo
+p608
+aVSo I created a new CComPtr<> implementation and added the following override to the equal method
+p609
+aVThis quickly revealed every single place I implicitly casted to IFoo
+p610
+as(dp611
+g6
+V23283
+p612
+stp613
+a((dp614
+g2
+(lp615
+VI think you need to ask yourself a slighly different question "What advantage does creating a new exception give me or developers who use my code
+p616
+aVReally the only advantage it gives you or other people is the ability to handle the exception
+p617
+aVThat seems like an obvious answer but really it's not
+p618
+aVYou should only be handling exceptions that you can reasonably recover from
+p619
+aVIf the exception you throw is a truly fatal error why give developers a chance to mis-handle it
+p620
+aVMore in depth discussion: Custom exceptions: When should you create them
+p621
+as(dp622
+g6
+V23283
+p623
+stp624
+a((dp625
+g2
+(lp626
+VIf you are using C# 3
+p627
+aV0 then why not take advantage of LINQ here
+p628
+aVNot only is this generic (works for any comparable type) the implementation under the hood is pretty efficient (uses a hashing algorithm)
+p629
+as(dp630
+g6
+V23283
+p631
+stp632
+a((dp633
+g2
+(lp634
+VEven though I've grown to hate this pattern over time, it's in-grained into COM programming
+p635
+as(dp636
+g6
+V23283
+p637
+stp638
+a((dp639
+g2
+(lp640
+VDispose of an object the instant your are done with it
+p641
+aVDisposable objects represent objects holding a valuable resource which the CLR is not intrinsically aware of
+p642
+aVConsequently the GC is also unaware of the resources and is unable to make intelligent decisions as to when it should collect a disposable object and hence free the underlying resource
+p643
+aVEventually the GC will feel memory pressure and collect your object by coincidence (nothing more)
+p644
+aVIf you don't dispose of objects in a deterministic manner then it is completely possible to enter a resource starved state with almost no memory pressure
+p645
+aVQuick example of how this can happen
+p646
+aVLets think of the underlying resource as  Win32 handle
+p647
+aVThese are very finite and fairly small
+p648
+aVYou run an operation that create a lot of Foo objects
+p649
+aVFoo objects implement IDisposable and are responsible for creating and disposing of a Win32 handle
+p650
+aVThey are not manually freed and by a difference quirk make it into the Gen2 heap
+p651
+aVThis heap is freed fairly infrequently
+p652
+aVOver time enough Foo instances make it into the Gen2 heap to take up all of the available handles
+p653
+aVNew Foo objects are consequently unable to be created regardless of how much memory is being used
+p654
+aVIn fact to free the handles, it would take a rather large amount of memory to be allocated during a single operation to give enough pressure to free the instances
+p655
+as(dp656
+g6
+V23283
+p657
+stp658
+a((dp659
+g2
+(lp660
+VFor the out of the box solution, there is no way
+p661
+aVThe main reason is the thread running the TimerCallback function is in all likelihood still alive even if the code running the callback has completed
+p662
+aVThe TimerCallback is executed by a Thread out of the ThreadPool
+p663
+aVWhen the task is completed the thread does not die, but instead goes back into the queue for the next thread pool task
+p664
+aVIn order to get this to work your going to have to use a manner of thread safe signalling to detect the operation has completed
+p665
+aVTimer Documentation
+p666
+as(dp667
+g6
+V23283
+p668
+stp669
+a((dp670
+g2
+(lp671
+VNo you cannot rename this folder and have it actually contain executable code
+p672
+aVThe web project system is hard coded to look for code in this folder and will not consider any other folder for raw code
+p673
+as(dp674
+g6
+V23283
+p675
+stp676
+a((dp677
+g2
+(lp678
+VI dislike rule CA1021: Avoid out parameters
+p679
+aVOut parameters are useful for many different patterns (including the
+p680
+aVNet Try* pattern)
+p681
+aVOut can certainly be overused but really it seems overkill to have an FxCop rule for it
+p682
+aVRule CA1021
+p683
+as(dp684
+g6
+V23283
+p685
+stp686
+a((dp687
+g2
+(lp688
+VSwitch the declaration of *ptr to be
+p689
+aVThe problem is you are essentially assigning a const char* to a char*
+p690
+aVThis is a violation of const since you're going from a const to a non-const
+p691
+as(dp692
+g6
+V23283
+p693
+stp694
+a((dp695
+g2
+(lp696
+VAjryan is correct but depending on your profile this menu item may be obscured
+p697
+aVThe keyboard shortcut should still work though
+p698
+aVCTRL+R,CTRL+W
+p699
+as(dp700
+g6
+V23283
+p701
+stp702
+a((dp703
+g2
+(lp704
+VThe DebuggerDisplay attribute is not recursive
+p705
+aVThe {} inside the string essentially say evaluate this expression and display the result inline
+p706
+aVThe string for the inner result is calculated as if there was no DebuggerDisplay attribute in play for type or member
+p707
+aVThat is why you see {Foo} instead of --foo--
+p708
+aVThe reason for this is reliability
+p709
+aVIt is far too easy to have mutually recursive DebuggerDisplay attribute tags
+p710
+aVThis would cause a stack overflow or infinite loop to occur when evaluating an inner expression
+p711
+aVNot recursively evaluating the DebuggerDisplay attribute prevents this infinite recursion (although it's still quite possible for the user to create it themselves inside a particular expression)
+p712
+aVOne way you can control the way the inner expression is displayed is by overriding the
+p713
+aVToString() method
+p714
+aVThis will be evaluated when computing the display string for an inner expression
+p715
+as(dp716
+g6
+V23283
+p717
+stp718
+a((dp719
+g2
+(lp720
+VUnfortunately there is no equivalent version of that macro in C#
+p721
+aVI don't consider the GetCurrentMethodName() solution equivalent to the C++ __FUNCTION__ macro
+p722
+aVNamely becase the C++ version is a compile time computation of the name
+p723
+aVFor C# this is a runtime calculation and incurs a performance hit
+p724
+aVI'm not making any assumtions about the severity of the cost but there is one
+p725
+as(dp726
+g6
+V23283
+p727
+stp728
+a((dp729
+g2
+(lp730
+VAt the very least, an abstract class should have a protected constructor
+p731
+aVIt's not strictly necessary since it's not possible to use the constructor anyway but it makes the contract explicit
+p732
+aVAnother option is to make the constructor private
+p733
+aVThis is only a good idea though if all of the implementations of the class are private inner classes
+p734
+aVA rare but useful example
+p735
+as(dp736
+g6
+V23283
+p737
+stp738
+a((dp739
+g2
+(lp740
+VIt depends on how reliable you want this function to be
+p741
+aVIf you want to know if the particular Process instance you have is still running and available with 100% accuracy then you are out of luck
+p742
+aVThe reason being that from the managed process object there are only 2 ways to identify the process
+p743
+aVThe first is the Process Id
+p744
+aVUnforunately process id's are not unique and can be recycled
+p745
+aVSearching the process list for a matching Id will only tell you that there is a process with the same id running, but it's not necessarily your process
+p746
+aVThe second item is the Process Handle
+p747
+aVIt has the same problem though as the Id and it's more awkaard to work with
+p748
+aVIf you're looking for medium level reliability then checking the current process list for a process of the same ID is sufficient
+p749
+as(dp750
+g6
+V23283
+p751
+stp752
+a((dp753
+g2
+(lp754
+VThere are two pieces of code I write today in order to sort data
+p755
+as(dp756
+g6
+V23283
+p757
+stp758
+a((dp759
+g2
+(lp760
+VIf they have the same version number the answer is you can't
+p761
+aVIf you attempt to load an assembly that has the same full assembly name (name, version, key) as a GAC'd assembly the CLR will pick the GAC'd assembly every single time
+p762
+as(dp763
+g6
+V23283
+p764
+stp765
+a((dp766
+g2
+(lp767
+VThe top 3 defensive coding practices I employ are
+p768
+aVunit testing
+p769
+aVunit testing
+p770
+aVunit testing
+p771
+aVThere is no better defense for the quality of your code than a good unit test to back you up
+p772
+as(dp773
+g6
+V23283
+p774
+stp775
+a((dp776
+g2
+(lp777
+VShot in the dark:  Are you running on Vista
+p778
+aVIf so make sure you are running with full admin privleges
+p779
+aVOtherwise it's possible you're registering this app via virtualization
+p780
+as(dp781
+g6
+V23283
+p782
+stp783
+a((dp784
+g2
+(lp785
+VI'm not sure how you can get this in the form of an exception
+p786
+aVWhen I run into this problem I usually try and open the DLL with depends
+p787
+aVexe
+p788
+aVIt's pretty good and reporting missing dependencies that exist if the DLL is simply loaded from it's current location
+p789
+as(dp790
+g6
+V23283
+p791
+stp792
+a((dp793
+g2
+(lp794
+VI don't think there is anything in the C++ language that allows you to do this
+p795
+aVAlthough I'd love to be wrong on this point
+p796
+aVI've run into this in the past and come up with the following solution
+p797
+aVAsumme the class is C1
+p798
+aVDefine a private inner class called Data
+p799
+aVPut all of my members I would delare in C1 on Data instead
+p800
+aVDefine a protected copy constructor that just copies Data instances between C1
+p801
+aVThis approach has a couple of downsides
+p802
+aVNamely it feels a bit un-natural and eliminates direct field access (can be mitigated with small accessor functions)
+p803
+aVIt's a roundabout way of doing what you're looking for but it avoids you having to write the copy constructor by hand
+p804
+as(dp805
+g6
+V23283
+p806
+stp807
+a((dp808
+g2
+(lp809
+VCheck out the Gardens Point Parser Generator
+p810
+aVIt's a YACC/BISON like implementation for C#
+p811
+aVGPPG
+p812
+as(dp813
+g6
+V23283
+p814
+stp815
+a((dp816
+g2
+(lp817
+VThe reason why is an underyling API choice in the LazyInit
+p818
+aVIt uses Interlocked
+p819
+aVCompareExchange in order to do a thread safe value set
+p820
+aVCompareExchange while generic is constrained to only use class types
+p821
+aVTherefore the T value of LazyInit must also be a class
+p822
+aVYou can view the implementation here: LazyInit
+p823
+as(dp824
+g6
+V23283
+p825
+stp826
+a((dp827
+g2
+(lp828
+VAdd the keyword Shadows to the function definition
+p829
+as(dp830
+g6
+V23283
+p831
+stp832
+a((dp833
+g2
+(lp834
+VI don't believe there are any performance gains from using a readonly field
+p835
+aVIt's simply a check to ensure that once the object is fully constructed, that field cannot be pointed to a new value
+p836
+aVHowever "readonly" is very different from other types of read-only semantics because it's enforced at runtime by the CLR
+p837
+aVThe readonly keyword compiles down to
+p838
+aVinitonly which is verifiable by the CLR
+p839
+aVThe real advantage of this keyword is to generate immutable data structures
+p840
+aVImmutable data structures by definition cannot be changed once constructed
+p841
+aVThis makes it very easy to reason about the behavior of a structure at runtime
+p842
+aVFor instance, there is no danger of passing an immutable structure to another random portion of code
+p843
+aVThey can't changed it ever so you can program reliably against that structure
+p844
+aVHere is a good entry about one of the benefits of immutability: Threading
+p845
+as(dp846
+g6
+V23283
+p847
+stp848
+a((dp849
+g2
+(lp850
+VOne other great site is
+p851
+aVstackoverflow
+p852
+aVcom :)
+p853
+aVThere are some really great questions asked on this site
+p854
+aVI find it fun to pick some of the questions and develop answers for them
+p855
+aVOften I pick a theme
+p856
+aVFor instance for the last week, I've tried to solve as many problems as possible using only a single LINQ expression
+p857
+as(dp858
+g6
+V23283
+p859
+stp860
+a((dp861
+g2
+(lp862
+VIn a static class you cannot override ToString
+p863
+aVToString is an instance method and by definition a static class can only have static members
+p864
+aVAlso why would you want to override
+p865
+aVToString()
+p866
+aVThere is no way to get an instance of the class and hence no way to call the function
+p867
+aVNote: Using the new syntax will not override
+p868
+aVToString
+p869
+aVIt will create a new member that is completely unrelated to the Object
+p870
+aVToString() method
+p871
+as(dp872
+g6
+V23283
+p873
+stp874
+a((dp875
+g2
+(lp876
+VI don't know about a registry solution, but you can use an INI file to disable JIT optimazation
+p877
+aVThe short version is create an
+p878
+aVini file (i
+p879
+ag57
+aVmyapp
+p880
+aVini) with the following contents
+p881
+aVFull Explanation Here
+p882
+as(dp883
+g6
+V23283
+p884
+stp885
+a((dp886
+g2
+(lp887
+VF#
+p888
+as(dp889
+g6
+V23283
+p890
+stp891
+a((dp892
+g2
+(lp893
+VShort Version: Make the static non-readonly and it will fix the bug you are experiencing
+p894
+aVLong Version: This is a very misunderstood portion of C#
+p895
+aVWhen you access a struct you are accessing a copy of the struct
+p896
+aVThe underlying call of LazyInit
+p897
+aVValue is a mutating operation
+p898
+aVNormally a copyback is performed but in the case of a read-only field there is no way to perform the copy back and hence you are still left with an uninitialized value
+p899
+aVExtremely detailed explanation: http://ericlippert
+p900
+aVcom/2008/05/14/mutating-readonly-structs/
+p901
+as(dp902
+g6
+V23283
+p903
+stp904
+a((dp905
+g2
+(lp906
+VMy recomendation is to return use a ReadOnlyCollection\u005c for the scenario directly
+p907
+aVThis makes the usage explicit to the calling user
+p908
+aVNormally I would suggest using the appropriate interface
+p909
+aVBut given that the
+p910
+aVNet Framework does not currently have a suitable IReadOnlyCollection, you must go with the ReadOnlyCollection type
+p911
+aVAlso you must beware when using ReadOnlyCollection because it is not actually readonly: Immutability and ReadOnlyCollection
+p912
+as(dp913
+g6
+V23283
+p914
+stp915
+a((dp916
+g2
+(lp917
+VTake a look at this blog entry I wrote
+p918
+aVIt will registry ATL COM objects into HKCU instead of HKCR using RegOverridePredefKey
+p919
+aVYou can use the same technique to call RegisterTypeLib and have it properly register under HKCU
+p920
+aVRegister ATL as Normal User
+p921
+as(dp922
+g6
+V23283
+p923
+stp924
+a((dp925
+g2
+(lp926
+VI find there are a couple of problems with explicitly yielding a thread via
+p927
+aVSleep() or other means when you are just making sure it doesn't take over the processor
+p928
+aVThe first is that it just makes your code look poor as it's sprinkled with Thread
+p929
+aVSleep(0)
+p930
+aVYou can comment every instance but it doesn't look great
+p931
+aVThe next problem is that you can only yield the code you control
+p932
+aVThis doesn't help at all if part of the long running script calls a long running function you have no control over
+p933
+aVInstead I would alter the ThreadPriority during the long running operation to be BelowNormal or Lowest
+p934
+aVThis will solve both problems and likely will be more effecient as the OS can now make a more informed decision as to when to page you out
+p935
+as(dp936
+g6
+V23283
+p937
+stp938
+a((dp939
+g2
+(lp940
+VI think the problem is that once you deploy your application to IIS you are suddenly running inside an MTA COM Apartment
+p941
+aVI believe that Excel is an STA component and therefore cannot be created inside the MTA
+p942
+aVYou will need to set the aspcompat option in the page you are using
+p943
+aVMore Info Here
+p944
+as(dp945
+g6
+V23283
+p946
+stp947
+a((dp948
+g2
+(lp949
+VIt looks like two of your lines are out of order
+p950
+aVYou start the process before setting up an event handler to capture the output
+p951
+aVIt's possible the process is just finishing before the event handler is added
+p952
+aVSwitch the lines like so
+p953
+as(dp954
+g6
+V23283
+p955
+stp956
+a((dp957
+g2
+(lp958
+VYes and No
+p959
+aVThis depends on your context of what you are trying to achieve
+p960
+aVIf you simply want a pointer to a type then no there is not a way
+p961
+aVA type does not live in memory in the sense of a pointer
+p962
+aVThere reason I said yes though is some people would consider the virtual table a pointer to a type
+p963
+aVIt is possible to get this pointer since the virtual table does exist in memory and can be used to invoke virtual methods with a bit of trickery
+p964
+as(dp965
+g6
+V23283
+p966
+stp967
+a((dp968
+g2
+(lp969
+VYes it does
+p970
+aVYou can test this out yourself by updating the corresponding registry entry for the folder
+p971
+aVLook under
+p972
+aVHKEY_CURRENT_USER\u005cSoftware\u005cMicrosoft\u005cWindows\u005cCurrentVersion\u005cExplorer\u005cShell Folders
+p973
+as(dp974
+g6
+V23283
+p975
+stp976
+a((dp977
+g2
+(lp978
+VFor really deep memory leak problems in the CLR, I find the best tool is windbg
+p979
+aVIf you can get past the cryptic syntax it's an amazingly effective debugger and leak tracker
+p980
+aVThe downside is it's not very intuitive to use and there is a very steep learning curve
+p981
+aVThe best way to learn windbg though is by doing
+p982
+aVHere are a couple of articles that talk about using windbg to track down a leak
+p983
+aVhttp://blogs
+p984
+aVmsdn
+p985
+aVcom/ricom/archive/2004/12/10/279612
+p986
+aVaspx
+p987
+aVhttp://weblogs
+p988
+aVasp
+p989
+aVnet/scottgu/archive/2006/02/02/437231
+p990
+aVaspx
+p991
+as(dp992
+g6
+V23283
+p993
+stp994
+a((dp995
+g2
+(lp996
+VThe basic principle is that COM interfaces and Type Libraries should be immutable (that is, they shouldn't ever change)
+p997
+aVIf you change one item inside a COM interface, then the new version needs to be a completely separate entity from the previous version
+p998
+aVThe only way to do this is to change the GUID for every interface in the library and the GUID for the type library itself
+p999
+aVIt's also a good idea (for your own personal sanity) to change the name of the type library
+p1000
+aVIdeally you shouldn't ever change a COM interface
+p1001
+aVInstead create a new derived COM interface and publish in a new type library
+p1002
+as(dp1003
+g6
+V23283
+p1004
+stp1005
+a((dp1006
+g2
+(lp1007
+VExpanding on Jon's comment with a sample
+p1008
+as(dp1009
+g6
+V23283
+p1010
+stp1011
+a((dp1012
+g2
+(lp1013
+VYou're likely running into an issue where your current profile settings hid the macro explorer
+p1014
+aVTry going to Tools -> Import/Export Settings and choose reset all settings
+p1015
+aVChoose the "General Profile
+p1016
+aVIf it is a settings issue, this will cause the menu to re-appear
+p1017
+as(dp1018
+g6
+V23283
+p1019
+stp1020
+a((dp1021
+g2
+(lp1022
+VMinimal path is the set of edges which when traversed cover the least amount of distance between two edges
+p1023
+aVMinimal distance is the sum of the distance between the edges of a minimal path
+p1024
+as(dp1025
+g6
+V23283
+p1026
+stp1027
+a((dp1028
+g2
+(lp1029
+VCorrection, if you are using VB the property you are looking for is "IsHideBySig"
+p1030
+aVThis will be false in the case that the "new" keyword was used to define a method/property
+p1031
+aVIn the C# case, both instances are outputted as "hidebysig"
+p1032
+aVThanks for pointing that out Greg
+p1033
+aVI didn't realize I only tested this in VB
+p1034
+aVHere's sample VB code that will repro this behavior
+p1035
+as(dp1036
+g6
+V23283
+p1037
+stp1038
+a((dp1039
+g2
+(lp1040
+VSadly there is no way
+p1041
+aVIn between two system calls in Win32 there is no way to prevent your process/thread from being context switched out
+p1042
+aVOtherwise it would be trivial for someone to implement a process that locked down the system by refusing to every get switched out
+p1043
+as(dp1044
+g6
+V23283
+p1045
+stp1046
+a((dp1047
+g2
+(lp1048
+VShot in the dark
+p1049
+aVOne of the platforms is running 3
+p1050
+aV5 RTM and the other is running 3
+p1051
+aV5 SP1
+p1052
+aVIf so you are likely running into a breaking change introduced in 3
+p1053
+aV5SP1 that altered the way
+p1054
+aVCast() operates
+p1055
+aVSee these posts for more details
+p1056
+aVhttp://blogs
+p1057
+aVmsdn
+p1058
+aVcom/ed_maurer/archive/2008/02/16/breaking-change-in-linq-queries-using-explicitly-typed-range-variables
+p1059
+aVaspx
+p1060
+aVhttp://blogs
+p1061
+aVmsdn
+p1062
+aVcom/dinesh
+p1063
+aVkulkarni/archive/2008/08/10/net-fx-3-5-sp1-two-perf-improvements-linq-to-objects-and-linq-to-sql
+p1064
+aVaspx
+p1065
+as(dp1066
+g6
+V23283
+p1067
+stp1068
+a((dp1069
+g2
+(lp1070
+VHere is the appropriate signature for the native function
+p1071
+as(dp1072
+g6
+V23283
+p1073
+stp1074
+a((dp1075
+g2
+(lp1076
+VThe simple answer is variant is weakly typed while duck typing is strongly typed
+p1077
+aVDuck typing can be summed up nicely as "if it walks like a duck, looks like a duck, acts like a duck, then it's a duck
+p1078
+aVIt computer science terms consider duck to be the following interface
+p1079
+aVNow let's examine Daffy
+p1080
+aVDaffy is not actually an IDuck in this case
+p1081
+aVYet it acts just like a Duck
+p1082
+aVWhy make Daffy implement IDuck when it's quite obvious that Daffy is in fact a duck
+p1083
+aVThis is where Duck typing comes in
+p1084
+aVIt allows a type safe conversion between any type that has all of the behaviors of a IDuck and an IDuck reference
+p1085
+aVThe Quack method can now be called on "d" with complete type safety
+p1086
+aVThere is no chance of a runtime type error in this assignment or method call
+p1087
+as(dp1088
+g6
+V23283
+p1089
+stp1090
+a((dp1091
+g2
+(lp1092
+VI do not believe there is a way to do this via the UI (or even a registry hack)
+p1093
+aVMy guess at the reason is showing all of the frames in a stack overflow situation can have a very negative performance impact
+p1094
+aVMost stack frames are the result of bad recursion
+p1095
+aVIf this is the case, you can likely set a conditional breakpoint on the target function
+p1096
+aVSet it to break only when the hit count reaches a certain level
+p1097
+aVI'd start with a count of around 1,000
+p1098
+aVYou may have to experiment a bit to get the right count but it shouldn't take more than a few tries
+p1099
+as(dp1100
+g6
+V23283
+p1101
+stp1102
+a((dp1103
+g2
+(lp1104
+VDllImport does not consult the PATH environment variable when loading DLL's
+p1105
+aVI am fairly certain that DllImport follows the standard rules for loading a native DLL in a native program when the DLL is referenced by name
+p1106
+aVHere is an article which details those rules
+p1107
+aVhttp://msdn
+p1108
+aVmicrosoft
+p1109
+aVcom/en-us/library/ms682586
+p1110
+aVaspx
+p1111
+aVI've found the simplest way to load the DLL is just to put it in the same location as the program I am executing
+p1112
+as(dp1113
+g6
+V23283
+p1114
+stp1115
+a((dp1116
+g2
+(lp1117
+VFor a normal
+p1118
+aVNet application you can disable the use of JIT optimizations with an
+p1119
+aVINI file next to the starting binary
+p1120
+aVHere's a link to how this is accomplished
+p1121
+aVhttp://blogs
+p1122
+aVmsdn
+p1123
+aVcom/jaredpar/archive/2008/08/29/disabling-jit-optimizations-while-debugging
+p1124
+aVaspx
+p1125
+aVDebugging ASP
+p1126
+aVNet is a bit different though and I'm not sure if this will work for you
+p1127
+aVIf you are debugging locally using the light weight web server (cassini) you can apply this trick to Cassini itself
+p1128
+aVIf you are debuggin directly on a web server though inside of IIS I don't know how to get this trick to work but hopefully it will lead you in the right direction
+p1129
+as(dp1130
+g6
+V23283
+p1131
+stp1132
+a((dp1133
+g2
+(lp1134
+VBy default the
+p1135
+aVNet Compact framework does not support displaying GIF based animations on a Windows Form
+p1136
+aVIt is possbile to code up a custom animator that will essentially do the same
+p1137
+aVHere's a link to a sample class for displaying a GIF on the compact framework
+p1138
+aVhttp://msdn
+p1139
+aVmicrosoft
+p1140
+aVcom/en-us/library/aa446483
+p1141
+aVaspx
+p1142
+as(dp1143
+g6
+V23283
+p1144
+stp1145
+a((dp1146
+g2
+(lp1147
+VThat depends :)
+p1148
+aVIf the handle is returned in such a way that you must eventually call a version of ::CloseHandle on them then you should always subclass SafeHandle
+p1149
+aVSafeHandle makes the strongest guarantee possible in the
+p1150
+aVNet Framework that a handle will be freed
+p1151
+aVNot freeing an IntPtr will lead to a resource leak
+p1152
+aVEnough resource leaks will eventually lead to a program crash
+p1153
+aVIf the handle doesn't need to be freed then passing around IntPtr is sufficient
+p1154
+as(dp1155
+g6
+V23283
+p1156
+stp1157
+a((dp1158
+g2
+(lp1159
+VWith the vanilla version of sprintf, there is no way to prevent the data from overwriting the passed in buffer
+p1160
+aVThis is true regardless of wether the memory was manually allocated or allocated on the stack
+p1161
+aVIn order to prevent the buffer from being overwritten you'll need to use one of the more secure versions of sprintf like sprintf_s (windows only)
+p1162
+aVhttp://msdn
+p1163
+aVmicrosoft
+p1164
+aVcom/en-us/library/ybk95axf
+p1165
+aVaspx
+p1166
+as(dp1167
+g6
+V23283
+p1168
+stp1169
+a((dp1170
+g2
+(lp1171
+VThere are, unfortunately, several reasons why you would declare a zero length array at the end of a structure
+p1172
+aVIt essentially gives you the ability to have a variable length structure returned from an API
+p1173
+aVRaymond Chen did an excellent blog post on the subject
+p1174
+aVI suggest you take a look at this post because it likely contains the answer you want
+p1175
+aVNote in his post, it deals with arrays of size 1 instead of 0
+p1176
+aVThis is the case because zero length arrays are a more recent entry into the standards
+p1177
+aVHis post should still apply to your problem
+p1178
+aVhttp://blogs
+p1179
+aVmsdn
+p1180
+aVcom/oldnewthing/archive/2004/08/26/220873
+p1181
+aVaspx
+p1182
+aVEDIT
+p1183
+aVNote: Even though Raymond's post says 0 length arrays are legal in C99 they are in fact still not legal in C99
+p1184
+aVInstead of a 0 length array here you should be using a length 1 array
+p1185
+as(dp1186
+g6
+V23283
+p1187
+stp1188
+a((dp1189
+g2
+(lp1190
+VI've never seen that behavior before and unfortunately it's a vague enough scenario I think you're going to have a hard time finding someone on this board who's encountered the problem
+p1191
+aVIt's likely specific to your application
+p1192
+aVI think there are a few investigations you can do to help you narrow down the problem
+p1193
+aVDetermine whether it's the client or server that is actually stalling
+p1194
+aVIf you have problems determining this, try installing a packet filter and monitor the traffic to see who sent the last data
+p1195
+aVYou likely won't be able to read the binary data but at least you will get a sense of who is lagging behind
+p1196
+aVOnce you figure out whether it's the client or server causing the lag, attempt to debug into the application and get a breakpoint where the hang occurs
+p1197
+aVThis should give you enough details to help track down the problem
+p1198
+aVOr at least ask a more defined question on SO
+p1199
+as(dp1200
+g6
+V23283
+p1201
+stp1202
+a((dp1203
+g2
+(lp1204
+VThis behavior is "By Design
+p1205
+aVWhen embedding a string expression inside an XML literal the value will be escaped to be a legal string value
+p1206
+aVTo get the behavior you are looking for you'll need to be embedding an XElement/XNode within an XML literal
+p1207
+aVTake the following example
+p1208
+aVIt will correctly keep the  tag as an XElement
+p1209
+aVOne way to achieve this is to fake an XElement
+p1210
+aVTo make the text a valid string, simply wrap it on both ends with a normal tag,  for example
+p1211
+aVThis is now a parsable XML fragment
+p1212
+aVOnce you have an XElement, it's easy to get the embedded behavior you are looking for
+p1213
+as(dp1214
+g6
+V23283
+p1215
+stp1216
+a((dp1217
+g2
+(lp1218
+VType inference
+p1219
+aVIt's slowly making it's way into the mainstream languages but it's still not good enough
+p1220
+aVF# is the gold standard here
+p1221
+as(dp1222
+g6
+V23283
+p1223
+stp1224
+a((dp1225
+g2
+(lp1226
+VA good place to look is the IronRuby CodePlex site
+p1227
+aVIt has the full code for the DLR and documentation
+p1228
+aVhttp://www
+p1229
+aVcodeplex
+p1230
+aVcom/IronPython
+p1231
+as(dp1232
+g6
+V23283
+p1233
+stp1234
+a((dp1235
+g2
+(lp1236
+VHave you checked to make sure that the Active Directory change has propagated to TFS
+p1237
+aVI've seen issues before where users information is changed and TFS doesn't pick up the change and gets confused about your user
+p1238
+aVAlso take a look at the following blog post
+p1239
+aVIt details how to sync up TFS with a user name change in Active Directory
+p1240
+aVhttp://blogs
+p1241
+aVmsdn
+p1242
+aVcom/teams_wit_tools/archive/2007/03/15/handling-display-name-changes-in-team-foundation-server
+p1243
+aVaspx
+p1244
+as(dp1245
+g6
+V23283
+p1246
+stp1247
+a((dp1248
+g2
+(lp1249
+VThere is no way to directly use a C++ class in C# code
+p1250
+aVYou can use PInvoke in an indirect fashion to access your type
+p1251
+aVThe basic pattern is that for every member function in class Foo, create an associated non-member function which calls into the member function
+p1252
+aVNow it's a matter of PInvoking these methods into your C# code
+p1253
+aVThe downside is you'll have an awkward IntPtr to pass around but it's a somewhat simple matter to create a C# wrapper class around this pointer to create a more usable model
+p1254
+aVEven if you don't own this code, you can create another DLL which wraps the original DLL and provides a small PInvoke layer
+p1255
+as(dp1256
+g6
+V23283
+p1257
+stp1258
+a((dp1259
+g2
+(lp1260
+VHave you tried using the fusion log tool to determine why the DLL is not loading
+p1261
+aVFusion Log View
+p1262
+as(dp1263
+g6
+V23283
+p1264
+stp1265
+a((dp1266
+g2
+(lp1267
+VYes it will work however it will run as a 32 bit process vs
+p1268
+aVa 64 bit one
+p1269
+aVThe abstraction layer is done at the OS level by introdcuing a subsystem
+p1270
+aVIt is called Wow64 (Windows on Windows 64)
+p1271
+aVThis allows 32 bit processes to run natively on a 64 bit machine
+p1272
+aVIt will only break down if you do low level kernel integration
+p1273
+aVLikely something you're not doing with a
+p1274
+aVNet App
+p1275
+as(dp1276
+g6
+V23283
+p1277
+stp1278
+a((dp1279
+g2
+(lp1280
+VCLR Via C# is a great book for C# for people with experience programming
+p1281
+aVEspecially experience in other managed languages
+p1282
+as(dp1283
+g6
+V23283
+p1284
+stp1285
+a((dp1286
+g2
+(lp1287
+VIs your code only creating handles through CreateFile
+p1288
+aVIf so you can just macro these methods out to versions that do custom implemented leak detection
+p1289
+aVIt's a lot of work but it will get the job done
+p1290
+aVAt the end of your program you'd need to call CheckForLeaks
+p1291
+aVLike I said though, quite a bit of work but it may help with your scenairo
+p1292
+as(dp1293
+g6
+V23283
+p1294
+stp1295
+a((dp1296
+g2
+(lp1297
+VWhere would you expect the exception to happen
+p1298
+aVInside this code there is no reason an exception should be generated
+p1299
+aVHowever illogical it may be to nest a control within a control it is still valid
+p1300
+aVIt won't paint very well and unless the painting/drawing layer is specifically aware of nesting then that could cause a Stack Overflow/Infinite loop
+p1301
+aVBut that wouldn't occur here, but during layout/paint
+p1302
+as(dp1303
+g6
+V23283
+p1304
+stp1305
+a((dp1306
+g2
+(lp1307
+VI don't embed the date because it's redundant
+p1308
+aVIf someone wants to know the date a file was created don't trust the author, trust your source control system
+p1309
+aVIt should be the defintive answer for the date of creation
+p1310
+aVI'm definately not against embedding check in messages though
+p1311
+aVThose are pretty useful
+p1312
+as(dp1313
+g6
+V23283
+p1314
+stp1315
+a((dp1316
+g2
+(lp1317
+VYou need to add this code into your project so that it can be consumed
+p1318
+aVRight click on your App_Code folder and select "Add Existing Item"
+p1319
+aVThis will bring up explorer
+p1320
+aVUse it to select the generated file and it will add it to your project
+p1321
+aVNow you will be able to reference this code from within your page or code behind file
+p1322
+aVIf there isn't an App_Code folder in your project, then right click on the project in solution explorer and select "Add New ASP
+p1323
+aVNet Folder"->App_Code
+p1324
+as(dp1325
+g6
+V23283
+p1326
+stp1327
+a((dp1328
+g2
+(lp1329
+VYes that is correct but it won't allocate on the stack
+p1330
+aVInstead it will allocate on the heap
+p1331
+aVIf you want to allocate on the stack, declare it this way
+p1332
+as(dp1333
+g6
+V23283
+p1334
+stp1335
+a((dp1336
+g2
+(lp1337
+VSoapBox is correct
+p1338
+aVAdditionally, if you ever need to see how a type or function should Marshal in Win32, try using the PInvoke Interop Assistant
+p1339
+aVIt will has built-in generations for most Win32 API's and can do custom generation based off of code snippets
+p1340
+as(dp1341
+g6
+V23283
+p1342
+stp1343
+a((dp1344
+g2
+(lp1345
+VThe exception you listed and the pinvoke signature you put in the question have different names: MyDll
+p1346
+aVdll and ThreadBenchLib
+p1347
+aVdll respectively
+p1348
+aVWas that a typo or the problem
+p1349
+aVIf it's not the problem try opening the DLL in depends
+p1350
+aVIt's possible the DLL load is failing because of an unmet dependency
+p1351
+as(dp1352
+g6
+V23283
+p1353
+stp1354
+a((dp1355
+g2
+(lp1356
+VThere is no way to debug IL directly in the sense of using a debugger (not builtin at least)
+p1357
+aVYou really only have two options here
+p1358
+aVAsk Rob suggested
+p1359
+aVManually type out the IL and ilasm into a DLL/EXE
+p1360
+aVThen run peverify on the resulting DLL to see your error
+p1361
+aVIf you are actually wanting to debug the IL then you're likely stuck with doing it raw assembly
+p1362
+as(dp1363
+g6
+V23283
+p1364
+stp1365
+a((dp1366
+g2
+(lp1367
+VTry
+p1368
+aVSelectMany is a LINQ transformation which essentially says "For Each Item in a collection return the elements of a collection"
+p1369
+aVIt will turn one element into many (hence SelectMany)
+p1370
+aVIt's great for breaking down collections of collections into a flat list
+p1371
+as(dp1372
+g6
+V23283
+p1373
+stp1374
+a((dp1375
+g2
+(lp1376
+VThere is no difference
+p1377
+aVThose signatures are identical as far as VB is concerned
+p1378
+aVOne has less typing though :)
+p1379
+as(dp1380
+g6
+V23283
+p1381
+stp1382
+a((dp1383
+g2
+(lp1384
+VNo
+p1385
+aVThe idea of MarshalByRefObject is that it doesn't every get serialized for remoting purposes
+p1386
+aVInstead the CLR generates what is known as a transparent proxy in this scenario
+p1387
+aVIt's called Transparent because it looks and acts just like ClassA but in reality is not actually ClassA
+p1388
+aVAll calls into an instance of ClassA are marshalled accross the remoting boundaries into the original AppDomain where ClassA was created
+p1389
+aVEDIT: Responding to further clarification
+p1390
+aVWhen passing data to a MarshalByRefObject in this scenario you need to consider what type the data is
+p1391
+aVEssentially derives from MarshalByRefObject or it doesn't
+p1392
+aVIf it does derive from MarshalByRefObject then the parameter will be passed as a proxy
+p1393
+aVIf it doesn't derive from MarshalByRefObject then it will be serialized, passed across the AppDomain boundary as a series of bytes and then deseriazied in the target AppDomain
+p1394
+aVYour scenario listed strings which are not MarshalByRef (usually I refer to these as MarshalByValue but that's purely convention)
+p1395
+aVSo they will be serialized when passed across your remoting boundary
+p1396
+as(dp1397
+g6
+V23283
+p1398
+stp1399
+a((dp1400
+g2
+(lp1401
+VHere's a nice fun LINQ example
+p1402
+as(dp1403
+g6
+V23283
+p1404
+stp1405
+a((dp1406
+g2
+(lp1407
+VAdding to John and Tim's answer
+p1408
+aVUnless you are coding on Win98, there are only two of the 6+ string types you should be using in your application
+p1409
+aVLPWSTR
+p1410
+aVLPCWSTR
+p1411
+aVThe rest are meant to support ANSI platforms or dual compiles
+p1412
+aVThose are not as relevant today as they used to be
+p1413
+as(dp1414
+g6
+V23283
+p1415
+stp1416
+a((dp1417
+g2
+(lp1418
+VYes and no
+p1419
+aVIf your Enum does not have explicit values then it is possible
+p1420
+aVWithout an explicit values, enum values are given numeric values 0-N in order of declaration
+p1421
+aVFor example
+p1422
+aVThis means that indexes just translates into a literal value
+p1423
+aVThis of course does 0 validation at runtime and as soon as you add an explicit value it will break down
+p1424
+aVBut it will work in the default scenario
+p1425
+as(dp1426
+g6
+V23283
+p1427
+stp1428
+a((dp1429
+g2
+(lp1430
+VClick on the title bar, and drag it to the right portion of the screen
+p1431
+aVEventually you'll see a compas like structure popup
+p1432
+aVMake sure you hover over the right area and let go of the mouse button
+p1433
+aVThat will bind it to the right side
+p1434
+as(dp1435
+g6
+V23283
+p1436
+stp1437
+a((dp1438
+g2
+(lp1439
+VYes
+p1440
+aVYou can sign a mixed mode
+p1441
+aVNet assembly
+p1442
+aVIt will still require full trust to run though
+p1443
+as(dp1444
+g6
+V23283
+p1445
+stp1446
+a((dp1447
+g2
+(lp1448
+VIt's possible you're running into a fundamental problem with respect to using CoSetProxyBlanket from managed code
+p1449
+aVUnfortunately, there is no reiable way to interop with this method in managed code due to the way the CLR marshals interfaces
+p1450
+aVHere are a couple of blogs entries that describe this problem
+p1451
+aVhttp://blogs
+p1452
+aVmsdn
+p1453
+aVcom/mbend/archive/2007/04/18/cosetproxyblanket-not-supported-from-managed-code
+p1454
+aVaspx
+p1455
+aVhttp://blogs
+p1456
+aVmsdn
+p1457
+aVcom/jaredpar/archive/2007/04/19/cosetproxyblanket-and-managed-code
+p1458
+aVaspx
+p1459
+as(dp1460
+g6
+V23283
+p1461
+stp1462
+a((dp1463
+g2
+(lp1464
+VIf you are going strictly for compatability then Bryan is correct
+p1465
+aVThis is the best way to maintain your current semantics on top of a Dictionary
+p1466
+aVExpanding on it though
+p1467
+aVThe reason the SyncRoot property was not directly added to the generic dictionary is that it's a dangerous way to do synchronization
+p1468
+aVIt's only slighly better than "lock(this)" which is very dangerous and prone to deadlocks
+p1469
+aVHere are a couple of links that speak to why this is bad
+p1470
+aVhttp://blogs
+p1471
+aVmsdn
+p1472
+aVcom/bclteam/archive/2005/03/15/396399
+p1473
+aVaspx
+p1474
+aVhttp://blogs
+p1475
+aVmsdn
+p1476
+aVcom/ricom/archive/2006/05/01/587750
+p1477
+aVaspx
+p1478
+as(dp1479
+g6
+V23283
+p1480
+stp1481
+a((dp1482
+g2
+(lp1483
+VYou're looking for KeyedCollection
+p1484
+as(dp1485
+g6
+V23283
+p1486
+stp1487
+a((dp1488
+g2
+(lp1489
+VHere's how you can switch over
+p1490
+aVStart task manager
+p1491
+aVSwitch to the users tab
+p1492
+aVThere should be two users listed
+p1493
+aVThe one you logged on with and the original session you are trying to connect to
+p1494
+aVRight click on the one you want to connect to and select "Switch" or "connect"
+p1495
+aVI can't remember the exact one
+p1496
+as(dp1497
+g6
+V23283
+p1498
+stp1499
+a((dp1500
+g2
+(lp1501
+VI think your confusion lies in the type of inaccuracy around floating point
+p1502
+aVMost languages implement the IEEE floating point standard This standard lays out how individual bits within a float/double are used to produce a number
+p1503
+aVTypically a float consists of a four bytes, and a double eight bytes
+p1504
+aVA mathmatical operation between two floating point numbers will have the same value every single time (as specified within the standard)
+p1505
+aVThe inaccuracy comes in the precision
+p1506
+aVConsider an int vs a float
+p1507
+aVBoth typically take up the same number of bytes (4)
+p1508
+aVYet the maximum value each number can store is wildly different
+p1509
+aVint: roughly 2 billion
+p1510
+aVfloat:  3
+p1511
+aV40282347E38 (quite a bit larger)
+p1512
+aVThe difference is in the middle
+p1513
+aVint, can represent every number between 0 and roughly 2 billion
+p1514
+aVFloat however cannot
+p1515
+aVIt can represent 2 billion values between 0 and 3
+p1516
+aV40282347E38
+p1517
+aVBut that leaves a whole range of values that cannot be represented
+p1518
+aVIf a math equation hits one of these values it will have to be rounded out to a representable value and is hence considered "inaccurate"
+p1519
+aVYour definition of inaccurate may vary :)
+p1520
+as(dp1521
+g6
+V23283
+p1522
+stp1523
+a((dp1524
+g2
+(lp1525
+VI almost always write my unit test in the same language that I am developing the application
+p1526
+aVI don't really have a reason for this other than it seems like the most logical idea
+p1527
+aVI can program in a variety of languages but that doesn't meet the person picking up the code after me can
+p1528
+aVI do have one exception to that
+p1529
+aVWhen I code in F#, I often write the unit tests in C#
+p1530
+aVNamely because the IDE doesn't support F# unit tests very well
+p1531
+aVA secondary reason is that Unit Tests often times are not great code
+p1532
+aVIt can require some akward setup from time to time to test corner scenarios
+p1533
+aVIn that situation I often find that F# type safety makes it hard to test that scenario
+p1534
+aVIt's probably just my lack of experience with F# but I find it easier to create these scenarios with C#
+p1535
+as(dp1536
+g6
+V23283
+p1537
+stp1538
+a((dp1539
+g2
+(lp1540
+VYou didn't specify the type being returned from the enumerator
+p1541
+aVbut I'm going to guess based on the names it's RTRatePoint and CurvePoint
+p1542
+aVI would change the code to be the following
+p1543
+aVOne item that may trip you up is that IEnumerator additionally implements IDisposable so CurvePointEnumerator and RTRatePointEnumerator will need to have a Dispose method added
+p1544
+aVLikely though this method can be pretty much empty
+p1545
+aVReason being if you weren't disposing anything before, there's no need to now
+p1546
+as(dp1547
+g6
+V23283
+p1548
+stp1549
+a.
