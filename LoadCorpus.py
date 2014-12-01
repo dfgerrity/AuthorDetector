@@ -7,12 +7,12 @@ import Tokenize
 def loadCorpus():
     corpus = {}
     files = glob.glob("./pickle/*.pickle")
-    print(files)
+    #print(files)
     total=0
     for file in files:
-        print("Loading file:", file)
+        #print("Loading file:", file)
         entries = pickle.load(open(file, "rb"))
-        print("Loaded", len(entries),"entries")
+        #print("Loaded", len(entries),"entries")
         for entry in entries:
             #input(entry)
             total +=1
@@ -62,4 +62,4 @@ def getPerAuthorTraining():
     return training_sets
 
 
-getPerAuthorTraining()
+#getPerAuthorTraining()

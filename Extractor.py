@@ -1,7 +1,9 @@
 import random
+import os
+import datetime
+import pickle
 
-
-def extractAllTagged(taggedSamples, featureExtractors):
+def extractAllTagged(taggedSamples, featureExtractors, save=False):
     '''Expects each taggedSample to be [data, tag] or (data,tag)
        Expects featureExtractors to be list of feature functions
        Automatically sends only the Data part of sample to feature extractors.
@@ -11,10 +13,10 @@ def extractAllTagged(taggedSamples, featureExtractors):
     featureSets = []
     uid = 2
     i=0
-    #print("Running",len(featureExtractors),"Extractor(s) on",  len(taggedSamples), "samples")
+    print("Running",len(featureExtractors),"Extractor(s) on",  len(taggedSamples), "samples")
     for ts in taggedSamples:
         i+=1
-        #print("Extracting features from Sample #", i)
+        print("Extracting features from Sample #", i)
         newFeatureVector = {}
         f=0
         for f in featureExtractors:    
@@ -22,14 +24,20 @@ def extractAllTagged(taggedSamples, featureExtractors):
             features = f(ts[0]) # Expects data to be first element
             if not features.keys().isdisjoint(newFeatureVector.keys()):
                 print("Warning! Two features extractors are claiming the same feature name.")
-                print("Applying automatic disambiguation.") 
+                print("Applying automatic disambiguation. Second extractor:", f) 
                 features = {n+str(uid): v for n,v in features.items()}
                 uid+=1
             newFeatureVector.update(features)
         featureSets.append((newFeatureVector,ts[1]))
+    if save:
+        print("Saving Feature Sets...")
+        if not os.path.isdir("./savedsets"):
+            os.mkdir("./savedsets")
+        pickle.dump(featrueSets,open("./savedsets/"+datetime.datetime.now().time().isoformat()+".pickle"))
+        print("All Features saved to ./savedsets/"+datetime.datetime.now().time().isoformat()+".pickle")
     return featureSets 
 
-def extractAll(samples, featureExtractors):
+def extractAll(samples, featureExtractors, save=False):
     '''Expects each sample to be the data directly accepted by feature extractors
        Expects featureExtractors to be list of feature functions
        Automatically sends only the Data part of sample to feature extractors.
@@ -55,10 +63,16 @@ def extractAll(samples, featureExtractors):
                 uid+=1
             newFeatureVector.update(features)
         featureSets.append(newFeatureVector)
+    if save:
+        print("Saving Feature Sets...")
+        if not os.path.isdir("./savedsets"):
+            os.mkdir("./savedsets")
+        pickle.dump(featrueSets,open("./savedsets/"+datetime.datetime.now().time().isoformat()+".pickle"))
+        print("All Features saved to ./savedsets/"+datetime.datetime.now().time().isoformat()+".pickle")
     return featureSets                
         
 
-def getTestandTraining(taggedSamples, featureExtractors, trainWeight=2, testWeight=1):
+def getTestandTraining(taggedSamples, featureExtractors, trainWeight=2, testWeight=1,save=False):
     '''Expects taggedSamples to be [data, tag] or (data,tag) Returns test,training'''
     featureSets = extractAllTagged(taggedSamples, featureExtractors)
     print("Shuffling featuresets")
@@ -69,12 +83,12 @@ def getTestandTraining(taggedSamples, featureExtractors, trainWeight=2, testWeig
     test, training = featureSets[:cutoff], featureSets[cutoff:]
     return test, training
 
-def getNfolds(taggedSamples, featureExtractors, n=5):
+def getNfolds(taggedSamples, featureExtractors, n=5, save=False):
     '''Expects taggedSamples to be [data, tag] or (data,tag) Returns folds[] '''
     if n < 2:
         #print("Cannot do cross-fold validation on 1 fold. Increasing to 2")
         n = 2
-    featureSets = extractAllTagged(taggedSamples, featureExtractors)
+    featureSets = extractAllTagged(taggedSamples, featureExtractors, save)
     #print("Shuffling featuresets")
     random.shuffle(featureSets)
     unit = int(len(featureSets) / n)

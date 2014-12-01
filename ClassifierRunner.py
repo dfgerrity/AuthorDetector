@@ -34,13 +34,13 @@ def mostCommonTag(training_set, test_set):
 
 
 def naiveBayes(training_set, test_set, MIF=5):
-    #print("Training a new Naive Bayes classifier")
+    print("Training a new Naive Bayes classifier")
     classifier = nltk.NaiveBayesClassifier.train(training_set)
-    #print("Running new Naive Bayes classifier")
+    print("Running new Naive Bayes classifier")
     accuracy = nltk.classify.accuracy(classifier, test_set)
     trueLabels = [l for d, l in test_set]
     predictedLabels = classifier.classify_many([d for d,t in test_set])
-    #print("Accuracy:",accuracy)
+    print("Accuracy:",accuracy)
     classifier.show_most_informative_features(MIF)
     def runTrained(test_set, hasTags=False):
         #print("Running pre-trained Naive Bayes classifier")
@@ -136,18 +136,21 @@ def SVM(training_set, test_set):
     return (runTrained, accuracy, predictedLabels, trueLabels) 
 
 
-def runNfoldCrossValidation(classifier, trainingSamples, featureExtractors, n):
+def runNfoldCrossValidation(classifier, trainingSamples, featureExtractors, n, save=False):
+    print("Running",n,"fold validation...")
     classifiers = []
-    folds = Extractor.getNfolds(trainingSamples, featureExtractors, n)
+    print("Dividing into folds")
+    folds = Extractor.getNfolds(trainingSamples, featureExtractors, n, save)
     for i in range(len(folds)):
          training = []
+         print("Validating with fold", i)
          for j in range(len(folds)):
              if not j == i:
                  training.extend(folds[j])
          classifiers.append(classifier(training, folds[i]))    
     classifiers.sort(key=lambda x: x[1], reverse = True)
     for i in range(n):
-        #print("Accuracy for classifier", i+1, ":", classifiers[i][1])
+        print("Accuracy for classifier", i+1, ":", classifiers[i][1])
         pass
     return classifiers
    
@@ -175,7 +178,7 @@ def predictTagged(classifier, featureExtractors, taggedTestSet):
 
 def runSingleFold(classifier, taggedSamples, featureExtractors, trainWeight=2, testWeight=1):
     print("Compiling training and test sets")
-    test_set, training_set = Extractor.getTestandTraining(taggedSamples, featureExtractors, 2,1)
+    test_set, training_set = Extractor.getTestandTraining(taggedSamples, featureExtractors, 2,1,save=False)
     print("Running Classifier")
     return classifier(training_set, test_set)
     
