@@ -79,7 +79,8 @@ def createArrayOfSentencesAndAuthor():
         pickle.dump(list, output)
         output.close()
        
-       
+    print("averageNumberOfWordsPerAnswer: ", averageNumberOfWordsPerAnswer)
+    print("averageNumberOfSentecesPerAnswer: ", averageNumberOfSentecesPerAnswer)
     
 if __name__ == '__main__':
     createArrayOfSentencesAndAuthor()
