@@ -28,13 +28,15 @@ def extractAllTagged(taggedSamples, featureExtractors, save=False):
                 features = {n+str(uid): v for n,v in features.items()}
                 uid+=1
             newFeatureVector.update(features)
+        #input(newFeatureVector)
         featureSets.append((newFeatureVector,ts[1]))
     if save:
         print("Saving Feature Sets...")
         if not os.path.isdir("./savedsets"):
             os.mkdir("./savedsets")
-        pickle.dump(featrueSets,open("./savedsets/"+datetime.datetime.now().time().isoformat()+".pickle"))
-        print("All Features saved to ./savedsets/"+datetime.datetime.now().time().isoformat()+".pickle")
+        fileName = datetime.datetime.now().time().isoformat().replace(":", "_")        
+        pickle.dump(featureSets,open("./savedsets/"+fileName+".pickle","wb"))
+        print("All Features saved to ./savedsets/"+fileName+".pickle")
     return featureSets 
 
 def extractAll(samples, featureExtractors, save=False):

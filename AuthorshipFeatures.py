@@ -6,7 +6,7 @@ from textblob_aptagger import PerceptronTagger
 
 def typeTokenRatio(lengthFilter=None):
     def feature(text):
-        text = "".join(text)
+        text = " ".join(text)
         tokens = Tokenize.byWord(text)
         if lengthFilter != None:
             tokens = [token for token in tokens if len(token) >= lengthFilter]    
@@ -17,7 +17,7 @@ def typeTokenRatio(lengthFilter=None):
 #for Naive Bayes
 def typeTokenRatioBucketed(lengthFilter=None):
     def feature(text):
-        text = "".join(text)
+        text = " ".join(text)
         tokens = Tokenize.byWord(text)
         if lengthFilter != None:
             tokens = [token for token in tokens if len(token) >= lengthFilter]    
@@ -27,9 +27,8 @@ def typeTokenRatioBucketed(lengthFilter=None):
 #for Naive Bayes
 def vocabSizeBucketed(lengthFilter=None):
     def feature(text):
-        text = "".join(text)
+        text = " ".join(text)
         tokens = Tokenize.byWord(text)
-        text = "".join(text)
         if lengthFilter != None:
             tokens = [token for token in tokens if len(token) >= lengthFilter]    
         types = set(tokens)
@@ -38,7 +37,7 @@ def vocabSizeBucketed(lengthFilter=None):
 
 def vocabSize(lengthFilter=None):
     def feature(text):
-        text = "".join(text)
+        text = " ".join(text)
         tokens = Tokenize.byWord(text)
         if lengthFilter != None:
             tokens = [token for token in tokens if len(token) >= lengthFilter]    
@@ -47,7 +46,7 @@ def vocabSize(lengthFilter=None):
     return feature
 
 def wordLengthDist(text):
-    text = "".join(text)
+    text = " ".join(text)
     words = Tokenize.byWordAlphaOnly(text)
     vector = {}
     total = 0
@@ -66,7 +65,7 @@ def wordLengthDist(text):
     return vector
 
 def avgWordLength(text):
-    text = "".join(text)
+    text = " ".join(text)
     tokens = Tokenize.byWordAlphaOnly(text)
     sum = 0
     count = 0
@@ -79,14 +78,14 @@ def avgWordLength(text):
 
 # Bucketed version
 def avgWordLengthBucketed(text):
-    text = "".join(text)
+    text = " ".join(text)
     numericValue = avgWordLength(text)["AVG word Length"]
     bucketLabel = "Long" if numericValue > 5 else "Medium" if numericValue > 3 else "Short"
     return {"AVG word Length b" : bucketLabel}
 
 def topMCharacterNgrams(m ,n):
     def feature(text):
-        text = "".join(text)
+        text = " ".join(text)
         tokens = Tokenize.byWord(text)
         fd = Ngrams.getNgramFreqDist(text,n)
         topM = sorted([item for item in fd.items()],key=lambda x:x[1], reverse=True)[:m]
@@ -98,7 +97,7 @@ def topMCharacterNgrams(m ,n):
 
 def topMWordNgrams(m ,n, stem=False):
     def feature(text):
-        text = "".join(text)
+        text = " ".join(text)
         tokens = Tokenize.byWord(text)
         words=[]
         if stem:
@@ -114,12 +113,12 @@ def topMWordNgrams(m ,n, stem=False):
     return feature
 
 def textLength(text):
-    text = "".join(text)
+    text = " ".join(text)
     tokens = Tokenize.byWord(text)
     return {"text Length" : len(Tokenize.byWord(text))}
 
 def percentOfLetters(text):
-    text = "".join(text)
+    text = " ".join(text)
     tokens = Tokenize.byWord(text)
     vector = {}
     total = 0
@@ -134,7 +133,7 @@ def percentOfLetters(text):
     return vector
 
 def percentOfUpperLetters(text):
-    text = "".join(text)
+    text = " ".join(text)
     tokens = Tokenize.byWord(text)
     uppers = 0
     total = 0    
@@ -150,7 +149,7 @@ def percentOfUpperLetters(text):
 
 def topMPOSNgrams(m ,n):
     def feature(text):
-        text = "".join(text)
+        text = " ".join(text)
         tokens = Tokenize.byWord(text)
         POStags = [tag for word, tag in TaggingTools.tagPOS(text)]
         fd = Ngrams.getNgramFreqDist(POStags,n)
@@ -162,7 +161,7 @@ def topMPOSNgrams(m ,n):
     return feature
 
 def posDist(text):
-    text = "".join(text)
+    text = " ".join(text)
     tokens = Tokenize.byWord(text)
     POStags = [tag for word, tag in TaggingTools.tagPOS(text)]
     possibleTags = PerceptronTagger().model.classes
