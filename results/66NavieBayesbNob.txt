@@ -1,0 +1,56 @@
+All Features saved to ./savedsets/13_19_26.659569.pickle
+Validating with fold 0
+Training a new Naive Bayes classifier
+Running new Naive Bayes classifier
+Accuracy: 0.16393939393939394
+Most Informative Features
+                     pLq = 1               20860 : 34509  =    120.2 : 1.0
+         AVG word Length = 6               10661 : 118068 =    117.4 : 1.0
+             pos#0 2gram = 'NNP NNP'       70604 : 335858 =     98.9 : 1.0
+                     pLh = 6               69083 : 413501 =     98.1 : 1.0
+       AVG word Length b = 'Long'          10661 : 118068 =     78.1 : 1.0
+Validating with fold 1
+Training a new Naive Bayes classifier
+Running new Naive Bayes classifier
+Accuracy: 0.1665151515151515
+Most Informative Features
+             pos#0 2gram = 'NNP NNP'       70604 : 182668 =     94.2 : 1.0
+                     pLq = 1               20860 : 522444 =     78.9 : 1.0
+       AVG word Length b = 'Long'          10661 : 479863 =     77.6 : 1.0
+               vocabSize = 'LOW'          284240 : 13005  =     73.0 : 1.0
+         AVG word Length = 6               10661 : 479863 =     70.0 : 1.0
+Validating with fold 2
+Training a new Naive Bayes classifier
+Running new Naive Bayes classifier
+Accuracy: 0.16090909090909092
+Most Informative Features
+                     pLq = 1               20860 : 505088 =    134.3 : 1.0
+             pos#0 2gram = 'NNP NNP'       70604 : 816620 =     98.2 : 1.0
+             pos#0 3gram = 'NNP NNP NNP'   70604 : 816620 =     71.6 : 1.0
+                      DT = 15              69083 : 413501 =     68.5 : 1.0
+                      DT = 3              413501 : 13005  =     66.1 : 1.0
+Validating with fold 3
+Training a new Naive Bayes classifier
+Running new Naive Bayes classifier
+Accuracy: 0.16015151515151516
+Most Informative Features
+             pos#0 2gram = 'NNP NNP'       70604 : 816620 =    103.6 : 1.0
+                     pLq = 1               20860 : 505088 =     79.1 : 1.0
+             pos#0 3gram = 'NNP NNP NNP'   70604 : 13005  =     72.8 : 1.0
+                      DT = 15             114403 : 413501 =     70.5 : 1.0
+           char#0 3gramC = '  y o'        413501 : 12711  =     65.3 : 1.0
+Validating with fold 4
+Training a new Naive Bayes classifier
+Running new Naive Bayes classifier
+Accuracy: 0.16196969696969696
+Most Informative Features
+                     pLq = 1               20860 : 505088 =    127.4 : 1.0
+             pos#0 2gram = 'NNP NNP'       70604 : 335858 =    103.1 : 1.0
+                     pLh = 6               69083 : 413501 =     99.4 : 1.0
+                     pLj = 1              157882 : 15168  =     74.6 : 1.0
+         AVG word Length = 6               10661 : 816620 =     70.2 : 1.0
+Accuracy for classifier 1 : 0.1665151515151515
+Accuracy for classifier 2 : 0.16393939393939394
+Accuracy for classifier 3 : 0.16196969696969696
+Accuracy for classifier 4 : 0.16090909090909092
+Accuracy for classifier 5 : 0.16015151515151516
