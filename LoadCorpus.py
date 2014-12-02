@@ -3,6 +3,8 @@ import pickle
 import copy
 import random
 import Tokenize
+import os
+import DataCleanser
 
 def loadCorpus():
     corpus = {}
@@ -11,7 +13,9 @@ def loadCorpus():
     total=0
     for file in files:
         #print("Loading file:", file)
-        entries = pickle.load(open(file, "rb"))
+        f = open(file, "rb")
+        entries = pickle.load(f)
+        f.close()
         #print("Loaded", len(entries),"entries")
         for entry in entries:
             #input(entry)
@@ -23,6 +27,14 @@ def loadCorpus():
 
     print("Constructed corpus with",total,"entries, with an average of", int(total/len(corpus.keys())), "per author.") 
     return corpus
+
+def loadFeatureSets(path):
+    '''Expects path to be pickle file of a list of featureSets: ({name:val...}, label)'''
+    print("Loading feature sets from file:", path)
+    f = open(path, "rb")
+    featureSets = pickle.load(f)
+    f.close()
+    return featureSets
 
 MIN_SAMPLES = 1000
 MIN_SAMPLE_LEN = 5
@@ -63,3 +75,58 @@ def getPerAuthorTraining():
 
 
 #getPerAuthorTraining()
+
+def makeTXTPerNsamples(n):
+    print("Loading Normalized Corpus...")
+    corpus = normalize(loadCorpus())
+    count = 0 
+    if not os.path.isdir("./TXT"):
+        os.mkdir("./TXT")
+    for author in corpus.keys():
+        print("Generating txt files for author", count)
+        count+=1
+        samples = corpus[author]
+        oneFile = []
+        for i in range(len(samples)):
+            oneFile.append(samples[i])
+            if len(oneFile) ==  n:
+                if not os.path.isdir("./TXT/"+author):
+                    os.mkdir("./TXT/"+author)
+                output = open("./TXT/"+author+"/record"+str(i)+".txt", "w")
+                for sample in oneFile:
+                    output.writelines(filter(DataCleanser.onlyascii," ".join(sample[0]["text"])))
+                output.close()
+                oneFile = []
+
+def makeTXTtrainAndtestPerNsamples(n):
+    print("Loading Normalized Corpus...")
+    corpus = normalize(loadCorpus())
+    count = 0 
+    if not os.path.isdir("./TXTtrain"):
+        os.mkdir("./TXTtrain")
+    if not os.path.isdir("./TXTtest"):
+        os.mkdir("./TXTtest")
+    for author in corpus.keys():
+        print("Generating txt files for author", count)
+        count+=1
+        samples = corpus[author]
+        oneFile = []
+        for i in range(len(samples)):
+            oneFile.append(samples[i])
+            if len(oneFile) ==  n:
+                if random.random() > 0.25:
+                    if not os.path.isdir("./TXTtrain/"+author):
+                        os.mkdir("./TXTtrain/"+author)
+                    output = open("./TXTtrain/"+author+"/record"+str(i)+".txt", "w")
+                    for sample in oneFile:
+                        output.writelines(filter(DataCleanser.onlyascii," ".join(sample[0]["text"])))                    
+                else:
+                    if not os.path.isdir("./TXTtest/"+author):
+                        os.mkdir("./TXTtest/"+author)
+                    output = open("./TXTtest/"+author+"/record"+str(i)+".txt", "w")                    
+                    for sample in oneFile:
+                        output.writelines(filter(DataCleanser.onlyascii," ".join(sample[0]["text"])))
+                output.close()
+                oneFile = []
+
+#makeTXTtrainAndtestPerNsamples(1)

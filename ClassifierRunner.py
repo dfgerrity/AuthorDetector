@@ -6,17 +6,17 @@ from sklearn.svm import LinearSVC
 from nltk.classify.scikitlearn import SklearnClassifier
 
 def mostCommonTag(training_set, test_set):
-    #print("Training a new Most Common Tag baseline classifier")
+    print("Training a new Most Common Tag baseline classifier")
     tags = [tag for data, tag in training_set]
     fd = sorted([entry for entry in FreqDist(tags).items()], key=lambda x: x[1], reverse = True)
     mct = fd[0][0]
     def classify(samples):
         return [mct for s in samples]
-    #print("Running new Most Common Tag baseline Bayes classifier")
+    print("Running new Most Common Tag baseline Bayes classifier")
     accuracy = len([1 for data,tag in test_set if tag == mct])/len(test_set)
     trueLabels = [l for d, l in test_set]
     predictedLabels = classify([d for d,t in test_set])
-    #print("Accuracy:",accuracy)
+    print("Accuracy:",accuracy)
     def runTrained(test_set, hasTags=False):
         #print("Running pre-trained Most Common Tag baseline classifier")
         if hasTags:
@@ -59,7 +59,9 @@ def naiveBayes(training_set, test_set, MIF=5):
 
 #GIS is the algorithm, we could try IIS, MEGAM and TADM
 def maxEnt(training_set, test_set, MIF=5):
+    print("Training new Max Ent classifier")
     classifier = nltk.classify.MaxentClassifier.train(training_set,"GIS", trace=0, max_iter=1000)
+    print("Running new Max Ent classifier")
     print(nltk.classify.accuracy(classifier, test_set))
     classifier.show_most_informative_features(5)
     #print("Running new Max Ent classifier")
@@ -84,10 +86,11 @@ def maxEnt(training_set, test_set, MIF=5):
     return (runTrained, accuracy, predictedLabels, trueLabels)
 
 def decisionTree(training_set, test_set, MIF=5):
+    print("Training new Decision Tree classifier")
     classifier = nltk.classify.DecisionTreeClassifier.train(training_set, entropy_cutoff=0, support_cutoff=0)
+    print("Running new Decision Tree classifier")
     print(nltk.classify.accuracy(classifier, test_set))
-#     classifier.show_most_informative_features(5)
-    #print("Running new Decision Tree classifier")
+#     classifier.show_most_informative_features(5)    
     accuracy = nltk.classify.accuracy(classifier, test_set)
     trueLabels = [l for d, l in test_set]
     predictedLabels = classifier.classify_many([d for d,t in test_set])
@@ -141,6 +144,24 @@ def runNfoldCrossValidation(classifier, trainingSamples, featureExtractors, n, s
     classifiers = []
     print("Dividing into folds")
     folds = Extractor.getNfolds(trainingSamples, featureExtractors, n, save)
+    for i in range(len(folds)):
+         training = []
+         print("Validating with fold", i)
+         for j in range(len(folds)):
+             if not j == i:
+                 training.extend(folds[j])
+         classifiers.append(classifier(training, folds[i]))    
+    classifiers.sort(key=lambda x: x[1], reverse = True)
+    for i in range(n):
+        print("Accuracy for classifier", i+1, ":", classifiers[i][1])
+        pass
+    return classifiers
+
+def runPreExtractedNfoldCrossValidation(classifier, featureSets, n):
+    print("Running",n,"fold validation...")
+    classifiers = []
+    print("Dividing into folds")
+    folds = Extractor.getPreExtractedNfolds(featureSets, n)
     for i in range(len(folds)):
          training = []
          print("Validating with fold", i)

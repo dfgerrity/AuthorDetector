@@ -100,6 +100,16 @@ def getNfolds(taggedSamples, featureExtractors, n=5, save=False):
         folds.append(featureSets[unit*i:unit*(i+1)])
     folds.append(featureSets[unit*(n-1):])
     return folds
+
+def getPreExtractedNfolds(featureSets, n=5):
+    random.shuffle(featureSets)
+    unit = int(len(featureSets) / n)
+    #print("Divided into", n, "folds")
+    folds = []
+    for i in range(n-1):
+        folds.append(featureSets[unit*i:unit*(i+1)])
+    folds.append(featureSets[unit*(n-1):])
+    return folds
  
 def unitTests():   
     folds = getNfolds([(1,1), (2,2),(3,3),(4,4),(5,5),(6,6),(7,7),(8,8),(9,9),(10,10)], [lambda x:{"f":x}], 1)

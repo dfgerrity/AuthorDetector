@@ -33,5 +33,36 @@ def IDExperimentQuantized():
 
     ClassifierRunner.runNfoldCrossValidation(ClassifierRunner.naiveBayes,tagged_samples,featureExtractors,5,True)
 
-IDExperimentQuantized()
+def IDExperimentQuantizedPre():
+    fs = LoadCorpus.loadFeatureSets(".\\savedsets\\16Users03_32_59.369006.pickle")
+    bucketed = []
+    realValues = []
+    print("Separating into bucketed and real-valued feature-vectors")
+    for set in fs:
+        bSet = {}
+        rSet = {}
+        for key in set[0].keys():
+            if (key == "type/tokenb" or 
+                key == "vocabSizeb" or
+                key == "type/tokenb" or
+                key == "AVG word Length b"):
+                bSet[key] = set[0][key]
+            elif (key == "type/token" or 
+                key == "vocabSize" or
+                key == "type/token" or
+                key == "AVG word Length"):
+                rSet[key] = set[0][key]
+            else:
+                bSet[key] = set[0][key]
+                rSet[key] = set[0][key]
+        bucketed.append((bSet,set[1]))
+        realValues.append((rSet,set[1]))
+    print("Using",len(bucketed[0][0].keys()),"feature vectors")
+
+    ClassifierRunner.runPreExtractedNfoldCrossValidation(ClassifierRunner.decisionTree ,bucketed,5)
+    ClassifierRunner.runPreExtractedNfoldCrossValidation(ClassifierRunner.naiveBayes ,bucketed,5)
+    ClassifierRunner.runPreExtractedNfoldCrossValidation(ClassifierRunner.SVM ,realValues,5)
+    ClassifierRunner.runPreExtractedNfoldCrossValidation(ClassifierRunner.maxEnt,realValues,5)
+
+IDExperimentQuantizedPre()
 
