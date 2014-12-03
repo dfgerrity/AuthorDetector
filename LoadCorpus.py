@@ -36,6 +36,14 @@ def loadFeatureSets(path):
     f.close()
     return featureSets
 
+def loadNgramsSets(path):
+    '''Expects path to be pickle file of a dict of ngram probabilites: {name:val...}'''
+    print("Loading ngram sets from file:", path)
+    f = open(path, "rb")
+    ngrams = pickle.load(f)
+    f.close()
+    return ngrams
+
 MIN_SAMPLES = 1000
 MIN_SAMPLE_LEN = 5
 
@@ -97,6 +105,20 @@ def makeTXTPerNsamples(n):
                     output.writelines(filter(DataCleanser.onlyascii," ".join(sample[0]["text"])))
                 output.close()
                 oneFile = []
+
+def getTaggedSamples(samplesPerTag=1000):
+    print("Loading Normalized Corpus...")
+    corpus = normalize(loadCorpus())
+
+    print("Collapsing corpus into one big list")
+    everything = []
+    for author in corpus.keys():
+        start = random.randint(0,len(corpus[author]) - samplesPerTag)
+        everything.extend(corpus[author][start:start+samplesPerTag])
+
+    print("Converting to (data, label) format")
+    tagged_samples = [(e[0]["text"],e[1]["author"]) for e in everything]
+    return tagged_samples
 
 def makeTXTtrainAndtestPerNsamples(n):
     print("Loading Normalized Corpus...")

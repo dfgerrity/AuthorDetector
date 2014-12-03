@@ -95,6 +95,22 @@ def topMCharacterNgrams(m ,n):
         return vector
     return feature
 
+def topMCharacterNgramsPDF(m ,n):
+    def feature(text):
+        text = " ".join(text)
+        tokens = Tokenize.byWord(text)
+        fd = Ngrams.getNgramFreqDist(text,n)
+        topM = sorted([item for item in fd.items()],key=lambda x:x[1],reverse=True)[:m]
+        #print(topM)
+        total = 0
+        for p in topM:
+            total += p[1]
+        PDF = []
+        for p in topM:
+            PDF.append((p[0],p[1]/total))
+        return dict(PDF[:m])
+    return feature
+
 def topMWordNgrams(m ,n, stem=False):
     def feature(text):
         text = " ".join(text)
