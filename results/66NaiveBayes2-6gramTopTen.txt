@@ -1,0 +1,56 @@
+All Features saved to ./savedsets/11_54_58.463279.pickle
+Validating with fold 0
+Training a new Naive Bayes classifier
+Running new Naive Bayes classifier
+Accuracy: 0.055
+Most Informative Features
+                   S Q L = 1               27535 : 596781 =    136.2 : 1.0
+                   Q L   = 1               27535 : 522444 =    134.5 : 1.0
+                 S Q L   = 1               27535 : 522444 =    134.5 : 1.0
+                   S Q L = 2               20860 : 1968   =     82.4 : 1.0
+                 S Q L   = 2               20860 : 179910 =     81.7 : 1.0
+Validating with fold 1
+Training a new Naive Bayes classifier
+Running new Naive Bayes classifier
+Accuracy: 0.054924242424242424
+Most Informative Features
+                   S Q L = 1               27535 : 6309   =    134.2 : 1.0
+                   Q L   = 1               27535 : 505088 =    133.0 : 1.0
+                 S Q L   = 1               27535 : 505088 =    133.0 : 1.0
+                 S Q L   = 2               20860 : 284240 =     88.4 : 1.0
+                   Q L   = 2               20860 : 284240 =     87.7 : 1.0
+Validating with fold 2
+Training a new Naive Bayes classifier
+Running new Naive Bayes classifier
+Accuracy: 0.054242424242424245
+Most Informative Features
+                   S Q L = 1               27535 : 596781 =    133.9 : 1.0
+                   Q L   = 1               27535 : 12711  =    131.1 : 1.0
+                 S Q L   = 1               27535 : 12711  =    131.1 : 1.0
+                 S Q L   = 2               20860 : 103167 =     89.2 : 1.0
+                   Q L   = 2               20860 : 103167 =     89.2 : 1.0
+Validating with fold 3
+Training a new Naive Bayes classifier
+Running new Naive Bayes classifier
+Accuracy: 0.05674242424242424
+Most Informative Features
+                   S Q L = 1              114403 : 6309   =    131.5 : 1.0
+                   Q L   = 1               27535 : 367273 =    126.3 : 1.0
+                 S Q L   = 1               27535 : 367273 =    126.3 : 1.0
+                 S Q L   = 2               20860 : 100297 =     80.7 : 1.0
+                   Q L   = 2               20860 : 100297 =     80.0 : 1.0
+Validating with fold 4
+Training a new Naive Bayes classifier
+Running new Naive Bayes classifier
+Accuracy: 0.05606060606060606
+Most Informative Features
+                   Q L   = 1               27535 : 166749 =    132.6 : 1.0
+                 S Q L   = 1               27535 : 166749 =    132.6 : 1.0
+                   S Q L = 1               27535 : 166749 =    132.6 : 1.0
+                 S Q L   = 2               20860 : 12711  =     88.9 : 1.0
+                   Q L   = 2               20860 : 12711  =     88.2 : 1.0
+Accuracy for classifier 1 : 0.05674242424242424
+Accuracy for classifier 2 : 0.05606060606060606
+Accuracy for classifier 3 : 0.055
+Accuracy for classifier 4 : 0.054924242424242424
+Accuracy for classifier 5 : 0.054242424242424245
