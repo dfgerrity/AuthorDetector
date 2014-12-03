@@ -36,7 +36,7 @@ def loadFeatureSets(path):
     f.close()
     return featureSets
 
-def loadNgramsSets(path):
+def loadNgramSets(path):
     '''Expects path to be pickle file of a dict of ngram probabilites: {name:val...}'''
     print("Loading ngram sets from file:", path)
     f = open(path, "rb")
@@ -120,30 +120,34 @@ def getTaggedSamples(samplesPerTag=1000):
     tagged_samples = [(e[0]["text"],e[1]["author"]) for e in everything]
     return tagged_samples
 
-def makeTXTtrainAndtestPerNsamples(n):
+def makeMTXTtrainAndtestPerNsamples(m,n):
     print("Loading Normalized Corpus...")
     corpus = normalize(loadCorpus())
     count = 0 
-    if not os.path.isdir("./TXTtrain"):
-        os.mkdir("./TXTtrain")
-    if not os.path.isdir("./TXTtest"):
-        os.mkdir("./TXTtest")
+    if not os.path.isdir("./TXT"+str(m)+"_"+str(n)+"train"):
+        os.mkdir("./TXT"+str(m)+"_"+str(n)+"train")
+    if not os.path.isdir("./TXT"+str(m)+"_"+str(n)+"test"):
+        os.mkdir("./TXT"+str(m)+"_"+str(n)+"test")
     for author in corpus.keys():
         print("Generating txt files for author", count)
         count+=1
+        trainfiles = 0
         samples = corpus[author]
         oneFile = []
         for i in range(len(samples)):
             oneFile.append(samples[i])
+            if trainfiles == m:
+                break
             if len(oneFile) ==  n:
                 if random.random() > 0.25:
-                    if not os.path.isdir("./TXTtrain/"+author):
-                        os.mkdir("./TXTtrain/"+author)
-                    output = open("./TXTtrain/"+author+"/record"+str(i)+".txt", "w")
+                    if not os.path.isdir("./TXT"+str(m)+"_"+str(n)+"train/"+author):
+                        os.mkdir("./TXT"+str(m)+"_"+str(n)+"train/"+author)
+                    output = open("./TXT"+str(m)+"_"+str(n)+"train/"+author+"/record"+str(i)+".txt", "w")
                     for sample in oneFile:
-                        output.writelines(filter(DataCleanser.onlyascii," ".join(sample[0]["text"])))                    
+                        output.writelines(filter(DataCleanser.onlyascii," ".join(sample[0]["text"]))) 
+                    trainfiles +=1                   
                 else:
-                    if not os.path.isdir("./TXTtest/"+author):
+                    if not os.path.isdir("./TXT"+str(m)+"_"+str(n)+"test/"+author):
                         os.mkdir("./TXTtest/"+author)
                     output = open("./TXTtest/"+author+"/record"+str(i)+".txt", "w")                    
                     for sample in oneFile:
@@ -151,4 +155,4 @@ def makeTXTtrainAndtestPerNsamples(n):
                 output.close()
                 oneFile = []
 
-#makeTXTtrainAndtestPerNsamples(1)
+makeMTXTtrainAndtestPerNsamples(100,1)

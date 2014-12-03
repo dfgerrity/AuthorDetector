@@ -43,17 +43,31 @@ def pickleTopGrams():
         #input(gram[0])
         fileName = datetime.datetime.now().time().isoformat().replace(":", "_")        
         pickle.dump(gram[0],open("./savedGrams/"+gram[1]+fileName+".pickle","wb"))
-        print("All Features saved to ./savedGrams/"+gram[1]+fileName+".pickle")
+        print("All Ngrams saved to ./savedGrams/"+gram[1]+fileName+".pickle")
 
 def IDExperimentQuantizedNgrams():
     files = glob.glob("./savedGrams/*.pickle")
+    grams = []
     for f in files:
-        fs = LoadCorpus.loadFeatureSets(f)
-        topM = sorted([item for item in fs.items()],key=lambda x:x[1],reverse=True)[:10]
-        input(topM)
+        fs = LoadCorpus.loadNgramSets(f)
+        top = sorted([item for item in fs.items()],key=lambda x:x[1],reverse=True)
+        #input([gram for gram, f in top[:10]])
+        grams.append([gram for gram, f in top[:10]])
+
+    featureExtractors = []
+    featureExtractors.append(AuthorshipFeatures.targetedNGram(2,grams[0]))
+    featureExtractors.append(AuthorshipFeatures.targetedNGram(3,grams[1]))
+    featureExtractors.append(AuthorshipFeatures.targetedNGram(4,grams[2]))
+    featureExtractors.append(AuthorshipFeatures.targetedNGram(5,grams[3]))
+    featureExtractors.append(AuthorshipFeatures.targetedNGram(6,grams[4]))
+
+    tagged_samples = LoadCorpus.getTaggedSamples(1000)
+
+    ClassifierRunner.runNfoldCrossValidation(ClassifierRunner.naiveBayes,tagged_samples,featureExtractors,5,True)
+        
 
 def IDExperimentQuantized():
-    tagged_samples = getTaggedSamples(1000)
+    tagged_samples = LoadCorpus.getTaggedSamples(1000)
 
     featureExtractors = []
     featureExtractors.append(AuthorshipFeatures.avgWordLength)

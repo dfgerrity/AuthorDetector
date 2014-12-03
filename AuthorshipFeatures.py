@@ -111,6 +111,19 @@ def topMCharacterNgramsPDF(m ,n):
         return dict(PDF[:m])
     return feature
 
+def targetedNGram(n,grams):
+    def feature(text):
+        text = " ".join(text)
+        fd = Ngrams.getNgramFreqDist(text,n)
+        vector = {}
+        for g in grams:
+            if g in fd.keys():
+                vector[g] = fd[g]
+            else:
+                vector[g] =  0
+        return vector
+    return feature
+
 def topMWordNgrams(m ,n, stem=False):
     def feature(text):
         text = " ".join(text)
