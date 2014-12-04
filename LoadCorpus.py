@@ -4,7 +4,7 @@ import copy
 import random
 import Tokenize
 import os
-import DataCleanser
+#import DataCleanser
 
 def loadCorpus():
     corpus = {}
@@ -102,7 +102,8 @@ def makeTXTPerNsamples(n):
                     os.mkdir("./TXT/"+author)
                 output = open("./TXT/"+author+"/record"+str(i)+".txt", "w")
                 for sample in oneFile:
-                    output.writelines(filter(DataCleanser.onlyascii," ".join(sample[0]["text"])))
+                   # output.writelines(filter(DataCleanser.onlyascii," ".join(sample[0]["text"])))
+                   pass
                 output.close()
                 oneFile = []
 
@@ -120,15 +121,19 @@ def getTaggedSamples(samplesPerTag=1000):
     tagged_samples = [(e[0]["text"],e[1]["author"]) for e in everything]
     return tagged_samples
 
-def makeMTXTtrainAndtestPerNsamples(m,n):
+def makeMTXTtrainAndtestPerNsamplesForLAuthors(L,m,n):
     print("Loading Normalized Corpus...")
     corpus = normalize(loadCorpus())
     count = 0 
-    if not os.path.isdir("./TXT"+str(m)+"_"+str(n)+"train"):
-        os.mkdir("./TXT"+str(m)+"_"+str(n)+"train")
-    if not os.path.isdir("./TXT"+str(m)+"_"+str(n)+"test"):
-        os.mkdir("./TXT"+str(m)+"_"+str(n)+"test")
+    if not os.path.isdir("./TXT"+str(L)+str(m)+"_"+str(n)+"train"):
+        os.mkdir("./TXT"+str(L)+str(m)+"_"+str(n)+"train")
+    if not os.path.isdir("./TXT"+str(L)+str(m)+"_"+str(n)+"test"):
+        os.mkdir("./TXT"+str(L)+str(m)+"_"+str(n)+"test")
+    authCount=0
     for author in corpus.keys():
+        if authCount == L:
+            break
+        authCount+=1
         print("Generating txt files for author", count)
         count+=1
         trainfiles = 0
@@ -139,20 +144,22 @@ def makeMTXTtrainAndtestPerNsamples(m,n):
             if trainfiles == m:
                 break
             if len(oneFile) ==  n:
-                if random.random() > 0.25:
-                    if not os.path.isdir("./TXT"+str(m)+"_"+str(n)+"train/"+author):
-                        os.mkdir("./TXT"+str(m)+"_"+str(n)+"train/"+author)
-                    output = open("./TXT"+str(m)+"_"+str(n)+"train/"+author+"/record"+str(i)+".txt", "w")
+                if True:#random.random() > 0.25: do not need test files
+                    if not os.path.isdir("./TXT"+str(L)+str(m)+"_"+str(n)+"train/"+author):
+                        os.mkdir("./TXT"+str(L)+str(m)+"_"+str(n)+"train/"+author)
+                    output = open("./TXT"+str(L)+str(m)+"_"+str(n)+"train/"+author+"/record"+str(i)+".txt", "w")
                     for sample in oneFile:
-                        output.writelines(filter(DataCleanser.onlyascii," ".join(sample[0]["text"]))) 
+                        #output.writelines(filter(DataCleanser.onlyascii," ".join(sample[0]["text"]))) 
+                        pass
                     trainfiles +=1                   
                 else:
-                    if not os.path.isdir("./TXT"+str(m)+"_"+str(n)+"test/"+author):
-                        os.mkdir("./TXTtest/"+author)
-                    output = open("./TXTtest/"+author+"/record"+str(i)+".txt", "w")                    
+                    if not os.path.isdir("./TXT"+str(L)+str(m)+"_"+str(n)+"test/"+author):
+                        os.mkdir("./TXT"+str(L)+str(m)+"_"+str(n)+"test/"+author)
+                    output = open("./TXT"+str(L)+str(m)+"_"+str(n)+"test/"+author+"/record"+str(i)+".txt", "w")                    
                     for sample in oneFile:
-                        output.writelines(filter(DataCleanser.onlyascii," ".join(sample[0]["text"])))
+                        #output.writelines(filter(DataCleanser.onlyascii," ".join(sample[0]["text"])))
+                        pass
                 output.close()
                 oneFile = []
 
-makeMTXTtrainAndtestPerNsamples(100,1)
+#makeMTXTtrainAndtestPerNsamplesForLAuthors(66,1000,1)
