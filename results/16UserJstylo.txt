@@ -1,0 +1,131 @@
+============================ JStylo Analysis Output ============================
+Started analysis on 2014-12-03, 19:27:36
+Running 10-folds cross validation on training corpus
+
+Training corpus:
+> 100297 (751 documents)
+> 1144035 (737 documents)
+> 115145 (745 documents)
+> 12950 (762 documents)
+> 15168 (756 documents)
+> 1583 (755 documents)
+> 17034 (747 documents)
+> 187606 (747 documents)
+> 203907 (746 documents)
+> 218196 (730 documents)
+> 28169 (731 documents)
+> 284240 (750 documents)
+> 367273 (748 documents)
+> 413501 (756 documents)
+> 70604 (728 documents)
+> 95810 (742 documents)
+
+Feature set: 9 feature-set:
+> Unique Words Count
+> Complexity
+> Sentence Count
+> Average Sentence Length
+> Average Syllables in Word
+> Gunning-Fog Readability Index
+> Character Space
+> Letter Space
+> Flesch Reading Ease Score
+
+Analyzers used:
+> edu.drexel.psal.jstylo.analyzers.WekaAnalyzer     	-C 1.0 -L 0.001 -P 1.0E-12 -N 0 -V -1 -W 1 -K weka.classifiers.functions.supportVector.PolyKernel -C 250007 -E 1.0 
+
+================================================================================
+
+2014-12-03, 19:27:37 Extracting features from training corpus (using sparse representation)...
+2014-12-03, 19:28:05 done!
+
+Calculating InfoGain on the training set's features
+===================================================
+Features InfoGain score (non-zero only):
+----------------------------------------
+> Unique-Words-Count{-}              0.150345
+> Letter-Space{-}                    0.136532
+> Character-Space{-}                 0.136394
+> Flesch-Reading-Ease-Score{-}       0.135610
+> Average-Sentence-Length{-}         0.134709
+> Gunning-Fog-Readability-Index{-}   0.134682
+> Complexity{-}                      0.085150
+> Average-Syllables-in-Word{-}       0.078415
+
+Feature-type breakdown:
+-----------------------
+> Unique-Words-Count              0.150345 (15.16%)
+> Letter-Space                    0.136532 (13.77%)
+> Character-Space                 0.136394 (13.75%)
+> Flesch-Reading-Ease-Score       0.135610 (13.67%)
+> Average-Sentence-Length         0.134709 (13.58%)
+> Gunning-Fog-Readability-Index   0.134682 (13.58%)
+> Complexity                      0.085150 (8.59%)
+> Average-Syllables-in-Word       0.078415 (7.91%)
+> Sentence-Count                  0.000000 (0.00%)
+
+done!
+
+2014-12-03, 19:28:06 Starting K-folds cross-validation on training corpus phase...
+
+================================================================================
+
+Running analysis with classifier 1 out of 1:
+> Classifier: weka.classifiers.functions.SMO
+> Options:    -C 1.0 -L 0.001 -P 1.0E-12 -N 0 -V -1 -W 1 -K weka.classifiers.functions.supportVector.PolyKernel -C 250007 -E 1.0 
+
+2014-12-03, 19:28:06 Starting cross validation...
+2014-12-03, 19:28:15 done!
+
+=== Summary ===
+
+Correctly Classified Instances        1757               14.73   %
+Incorrectly Classified Instances     10171               85.27   %
+Kappa statistic                          0.0901
+Mean absolute error                      0.1147
+Root mean squared error                  0.2398
+Relative absolute error                 97.8368 %
+Root relative squared error             99.0715 %
+Total Number of Instances            11928     
+
+=== Detailed Accuracy By Class ===
+
+               TP Rate   FP Rate   Precision   Recall  F-Measure   ROC Area  Class
+                 0.126     0.074      0.103     0.126     0.113      0.62     100297
+                 0.126     0.074      0.101     0.126     0.112      0.638    1144035
+                 0.012     0.005      0.143     0.012     0.022      0.542    115145
+                 0.054     0.025      0.13      0.054     0.076      0.621    12950
+                 0.348     0.078      0.231     0.348     0.278      0.735    15168
+                 0.379     0.187      0.12      0.379     0.183      0.686    1583
+                 0.058     0.032      0.108     0.058     0.075      0.64     17034
+                 0.348     0.141      0.142     0.348     0.201      0.682    187606
+                 0.09      0.05       0.108     0.09      0.098      0.647    203907
+                 0.001     0          0.333     0.001     0.003      0.624    218196
+                 0.044     0.02       0.125     0.044     0.065      0.66     28169
+                 0.263     0.112      0.136     0.263     0.179      0.684    284240
+                 0.025     0.014      0.107     0.025     0.041      0.637    367273
+                 0.263     0.071      0.201     0.263     0.228      0.716    413501
+                 0.034     0.005      0.301     0.034     0.062      0.697    70604
+                 0.172     0.022      0.34      0.172     0.228      0.736    95810
+Weighted Avg.    0.147     0.057      0.17      0.147     0.123      0.66 
+
+=== Confusion Matrix ===
+
+   a   b   c   d   e   f   g   h   i   j   k   l   m   n   o   p   <-- classified as
+  95  55   7  18  59 215  11  50  42   0  11  78  11  91   4   4 |   a = 100297
+  60  93   1  24  50 207  12  66  58   0  18  93   9  32   4  10 |   b = 1144035
+  78  71   9  18  77 171  20 113  31   0  24  59   7  37   0  30 |   c = 115145
+  94  63   8  41  98 101  40  78  21   0  16  69  15 101   6  11 |   d = 12950
+  79  61   9  34 263  78  29  63  21   0  20  22   4  31   1  41 |   e = 15168
+  60  83   1   9   9 286   4  68  45   0  16 112   7  53   0   2 |   f = 1583
+  44  49   3  25 127  64  43 179  29   0  11  73  13  48   3  36 |   g = 17034
+  23  53   7  14  34  85  41 260  46   0  25  91  21  18   1  28 |   h = 187606
+  38  52   1  11  13 191  16 116  67   0   9 165  20  41   3   3 |   i = 203907
+  83  80   0  18  50 192   8  65  55   1  16 100   9  43   3   7 |   j = 218196
+  31  86   3  24  38 118  35 205  46   1  32  76  14  10   0  12 |   k = 28169
+  47  47   1   7  14 219  10  76  55   0  12 197  10  49   4   2 |   l = 284240
+  35  41   1   8  11 198  18 155  49   0  16 140  19  47   4   6 |   m = 367273
+  77  18   5  22  74 133  19  78  18   0   6  73   8 199  18   8 |   n = 413501
+  51  22   2  21 108  75  29 109  18   0   6  64   3 148  25  47 |   o = 70604
+  30  46   5  22 113  43  65 156  20   1  18  38   8  40   7 127 |   p = 95810
+
