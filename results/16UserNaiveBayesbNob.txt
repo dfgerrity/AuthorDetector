@@ -1,0 +1,56 @@
+All Features saved to ./savedsets/22_42_01.331658.pickle
+Validating with fold 0
+Training a new Naive Bayes classifier
+Running new Naive Bayes classifier
+Accuracy: 0.1434375
+Most Informative Features
+                   S Q L = 1               13302 : 596781 =     67.3 : 1.0
+                   Q L   = 2               13302 : 13249  =     43.7 : 1.0
+                 S Q L   = 2               13302 : 13249  =     43.7 : 1.0
+                   S Q L = 2               13302 : 13249  =     43.0 : 1.0
+                 S Q L   = 1               13302 : 522444 =     39.4 : 1.0
+Validating with fold 1
+Training a new Naive Bayes classifier
+Running new Naive Bayes classifier
+Accuracy: 0.145
+Most Informative Features
+                   S Q L = 1               13302 : 23283  =     66.7 : 1.0
+                 S Q L   = 1               13302 : 522444 =     41.1 : 1.0
+                   Q L   = 1               13302 : 522444 =     41.1 : 1.0
+                   Q L   = 2               13302 : 522444 =     39.5 : 1.0
+                 S Q L   = 2               13302 : 522444 =     39.5 : 1.0
+Validating with fold 2
+Training a new Naive Bayes classifier
+Running new Naive Bayes classifier
+Accuracy: 0.1415625
+Most Informative Features
+                   S Q L = 1               13302 : 23283  =     55.7 : 1.0
+                 S Q L   = 1               13302 : 522444 =     54.4 : 1.0
+                   Q L   = 1               13302 : 522444 =     54.4 : 1.0
+                   Q L   = 2               13302 : 23283  =     45.6 : 1.0
+                 S Q L   = 2               13302 : 23283  =     45.6 : 1.0
+Validating with fold 3
+Training a new Naive Bayes classifier
+Running new Naive Bayes classifier
+Accuracy: 0.1375
+Most Informative Features
+                   S Q L = 1               13302 : 596781 =     65.6 : 1.0
+                 S Q L   = 1               13302 : 522444 =     64.3 : 1.0
+                   Q L   = 1               13302 : 522444 =     64.3 : 1.0
+                   Q L   = 2               13302 : 23283  =     42.2 : 1.0
+                 S Q L   = 2               13302 : 23283  =     42.2 : 1.0
+Validating with fold 4
+Training a new Naive Bayes classifier
+Running new Naive Bayes classifier
+Accuracy: 0.136875
+Most Informative Features
+                   S Q L = 1               13302 : 596781 =     67.8 : 1.0
+                   Q L   = 2               13302 : 596781 =     44.0 : 1.0
+                 S Q L   = 2               13302 : 596781 =     44.0 : 1.0
+                   S Q L = 2               13302 : 596781 =     43.3 : 1.0
+               c o d e   = 2              816620 : 479863 =     41.6 : 1.0
+Accuracy for classifier 1 : 0.145
+Accuracy for classifier 2 : 0.1434375
+Accuracy for classifier 3 : 0.1415625
+Accuracy for classifier 4 : 0.1375
+Accuracy for classifier 5 : 0.136875
